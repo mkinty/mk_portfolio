@@ -1,0 +1,14 @@
+{% load static %}
+{% block navbar %}
+<div class="logo">
+  <a href="{% url 'home:home-page' %}">
+    <img src="{% static 'img/logo.png' %}" alt="Logo">
+  </a>
+</div>
+<div class="menu right">
+  <a class="item active" href="{% url 'home:home-page' %}">Accueil</a>
+  <a class="item" href="#">Profil</a>
+  <a class="item" href="#">Projets</a>
+  <a class="item" href="">Me contacter</a>
+</div>
+{% endblock navbar %}

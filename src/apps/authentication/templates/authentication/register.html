@@ -1,0 +1,46 @@
+{% load static %}
+<div class="register" id="medium">
+  <div class="register-header">
+    Créer un compte
+  </div>
+  <div class="register-content">
+    <form hx-post="{{ request.path }}"
+          hx-target="#dialog"
+          enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+
+      <div class="field">
+        <label>Prénom</label>
+        <input type="text" name="first_name" placeholder="Votre prénom" value="{{data.first_name}}" required>
+      </div>
+      <div class="field">
+        <label>Nom</label>
+        <input type="text" name="last_name" placeholder="Votre nom" value="{{data.last_name}}" required>
+      </div>
+      <div class="field">
+        <label>Adresse email</label>
+        <input type="email" name="email" placeholder="Votre email" value="{{data.email}}" required>
+      </div>
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" name="password" placeholder="Votre mot de passe" value="" required>
+      </div>
+      <div class="field">
+        <label>Confirmer le mot de passe</label>
+        <input type="password" name="password2" placeholder="Confirmer votre mot de passe" value="" required>
+      </div>
+      <div class="register-link">
+        Vous avez déjà compte ? <a hx-get="{% url 'auth:login' %}"
+                                   hx-target="#dialog"
+                                   class="btn link">Connectez-vous</a>
+      </div>
+      <div class="btns actions">
+        <div class="secondary btn" id="cancel"
+        >Annuler
+        </div>
+        <button class="primary btn" type="submit">S'inscrire</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+<!-- TITLE -->
+{% block title %}
+Page d'accueil
+{% endblock title %}
+<!-- CONTENT -->
+{% block content %}
+<div class="user-profile">
+    {% include 'includes/messages.html' %}
+    <div class="skills">
+        <div class="user-name">Bonjour, ici {{ mk.first_name|lower|capfirst }} {{ mk.last_name|upper }}</div>
+        <div class="user-title"> {{ mk.profile.title }}</div>
+        <div class="user-position">{{ mk.profile.position }}</div>
+        <div class="user-bio">{{ mk.profile.bio }}</div>
+        <div class="btns">
+            <a href="#" class="btn primary">En savoir plus</a>
+        </div>
+    </div>
+    <div class="avatar">
+        <img src="{{ mk.avatar.url }}" alt="profile">
+    </div>
+</div>
+{% endblock content%}

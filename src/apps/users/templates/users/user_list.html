@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+<!-- LOAD -->
+{% load i18n %}
+{% load static %}
+<!-- TITLE -->
+{% block title %}
+Liste des membres
+{% endblock title %}
+<!-- CONTENT -->
+{% block content %}
+<body>
+{% for user in users %}
+<h1>{{ user.email }}</h1>
+{% endfor %}
+</body>
+{% endblock content %}

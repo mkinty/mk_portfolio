@@ -1,0 +1,28 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Environment files
+.env
+.env.*
+
+# Media files
+media/
+
+# Static files
+staticfiles/
+
+# Logs
+logs/
+
+# config
+src/config/settings/dev.py
+
+

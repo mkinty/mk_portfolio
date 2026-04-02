@@ -1,0 +1,39 @@
+{% load static %}
+<div class="register" id="medium">
+  <div class="register-header">
+    Se connecter
+  </div>
+  <div class="register-content">
+    <form hx-post="{{ request.path }}"
+          hx-target="#dialog"
+          enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+
+      <div class="field">
+        <label>Adresse email</label>
+        <input type="email" name="email" placeholder="Email" value="{{data.email}}" required>
+      </div>
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" name="password" placeholder="Mot de passe" value="" required>
+      </div>
+      <div class="register-link">
+        Vous n'avez pas encore de compte ? <a hx-get="{% url 'auth:register' %}"
+                                              hx-target="#dialog"
+                                              class="btn link">Créer un compte</a>
+      </div>
+      <div class="register-link">
+        Mot de passe oublié ? <a hx-get="{% url 'auth:password_reset' %}"
+                                              hx-target="#dialog"
+                                              class="btn link">Réinitialiser</a>
+      </div>
+      <div class="btns actions">
+        <div class="secondary btn" id="cancel"
+        >Annuler
+        </div>
+        <button class="primary btn" type="submit">Se connecter</button>
+      </div>
+    </form>
+  </div>
+</div>
