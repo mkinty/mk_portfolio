@@ -3,7 +3,7 @@ from typing import List, Optional
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
-from apps.authentication.services.activation import send_user_activation_email
+from apps.authentication.services.activation_services import send_user_activation_email
 from apps.users.models import User
 from apps.users.selectors.user_selectors import user_exists_by_email
 from apps.users.services.user_services import create_user_account

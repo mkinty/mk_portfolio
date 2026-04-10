@@ -1,0 +1,456 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Page d'accueil
+{% endblock title %}
+
+{% block content %}
+<div class="user-dc">
+  <div class="user-profile dc">
+    <div class="user-profile-container">
+      {% include 'includes/messages.html' %}
+      <div class="skills">
+        <div class="user-profile-header">
+          <div class="text">
+            <div class="user-name">
+              Bonjour, ici {{ userprofile.user.first_name|lower|capfirst }} {{ userprofile.user.last_name|upper }}
+            </div>
+            <div class="user-title">{{ mkprofile.profile.title }}
+              Analytics Engigneer | Data Analyst | Développeur Python
+            </div>
+            <div class="user-position">{{ mkprofile.profile.position }}
+              Consultant en Data Analytics et Ingénierie de la Donnée
+            </div>
+          </div>
+          <div class="avatar circle">{{ mk.avatar.url }}
+            <img src="{% static 'img/circleprofile.png' %}" alt="profile">
+          </div>
+        </div>
+        <div class="user-bio">{{ mkprofile.profile.bio }}
+          <p>
+            Fort de 5 ans d'expérience, je me positionne à la croisée du développement logiciel et de l'ingénierie de la
+            donnée. Ma double formation de niveau Master 2 en Mathématiques Appliquées et Informatique m'a forgé un
+            esprit
+            analytique rigoureux, que je traduis aujourd'hui en architectures de données robustes et en modèles
+            analytiques
+            précis.
+          </p>
+          <p>
+            Ma valeur ajoutée ? Maîtriser toute la chaîne de valeur de la donnée. Je ne me contente pas d'analyser
+            l'existant, je conçois des API avec Python (Django/FastAPI) pour collecter l'information, je structure et
+            fiabilise les flux au sein de Data Warehouses (Snowflake) grâce à DBT, et je restitue des insights
+            actionnables
+            via des tableaux de bord interactifs (Power BI, Tableau et Metabase).
+          </p>
+          <p>
+            Mon objectif quotidien : automatiser les processus complexes pour transformer vos données brutes en un
+            véritable
+            levier de décision, tout en garantissant une réduction drastique des temps de traitement.
+          </p>
+        </div>
+      </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="btns icons">
+      <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+      <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+    </div>
+    <button class="btn secondary">
+      Ajouter un résumé
+      <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+    </button>
+    {% endif %}
+  </div>
+  <div class="dc-container">
+    <div class="dc-title">
+      Expériences
+    </div>
+    <div class="dc-content">
+      <div class="dc-content-body">
+        <div class="dc-content-title">
+          Cabinet Le Frene, expertise et conseils
+        </div>
+        <div class="dc-content-subtitle">
+          Data Analyst & Développeur Python | Avril 2022 – Présent | Paris
+        </div>
+        <div class="dc-content-desc">
+          <p>
+            Dans cette mission, j'interviens de manière transversale sur les volets applicatifs et data, alliant
+            développement backend et ingénierie de la donnée pour optimiser les opérations de relogement.
+          </p>
+          <ul>
+            <li>
+              Développement Backend & API : Conception et développement d'une plateforme métier sur-mesure
+              (Python/Django). Création d'API REST robustes pour garantir une communication fluide entre les systèmes.
+            </li>
+            <li>
+              Architecture & Analytics Engineering : Structuration de bases PostgreSQL et automatisation de pipelines
+              via Snowflake et dbt. Intégration des standards DevOps (Git, Docker) pour sécuriser les flux.
+            </li>
+            <li>
+              Business Intelligence & Dataviz : Traduction des données en tableaux de bord interactifs (Power BI,
+              Tableau) pour un pilotage stratégique en temps réel.
+            </li>
+          </ul>
+          <p>
+            Impact : Réduction de 30% du temps de traitement des demandes.
+          </p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btns icons">
+          <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+          <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        </div>
+        {% endif %}
+      </div>
+      <div class="dc-content-body">
+        <div class="dc-content-title">
+          SICOGE, conseils et formation
+        </div>
+        <div class="dc-content-subtitle">
+          Data Analyst & Développeur Python | Février 2020 – Avril 2022 | Paris
+        </div>
+        <div class="dc-content-desc">
+          <p>
+            Au sein de SICOGE, mon rôle s'est concentré sur la fiabilisation de l'information et l'automatisation des
+            processus d'analyse.
+          </p>
+          <ul>
+            <li>
+              Ingénierie & Automatisation : J'ai conçu des pipelines de données fiables capables de gérer la collecte,
+              la transformation complexe et le chargement des données. J'ai utilisé Python pour automatiser ces flux,
+              garantissant une mise à jour continue des bases.
+            </li>
+            <li>
+              Qualité de la donnée (Data Quality) : J'ai implémenté des processus stricts de nettoyage, de
+              standardisation et de vérification des données. Mon objectif était de m'assurer que chaque donnée
+              interrogée par les métiers soit 100% fiable et accessible.
+            </li>
+            <li>
+              Analyse & Reporting : J'ai généré des rapports analytiques précis permettant un suivi rigoureux de
+              l'activité.
+            </li>
+            <li>
+              Développement Backend : J'ai conçu et développé une application robuste et évolutive, en utilisant
+              des technologies modernes pour garantir une performance optimale et une expérience utilisateur
+              satisfaisante.
+            </li>
+          </ul>
+          <p>
+            Impact : Réduction de 40 % des temps de traitement des données, libérant ainsi du temps pour l'analyse à
+            forte valeur ajoutée et augmentant drastiquement la précision analytique.
+          </p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btns icons">
+          <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+          <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        </div>
+        {% endif %}
+      </div>
+      <div class="dc-content-body">
+        <div class="dc-content-title">
+          Expériences Pédagogiques (Jedha & Acadomia)
+        </div>
+        <div class="dc-content-subtitle">
+          Assistant Formateur Data Science & Professeur de Mathématiques | 2019 – 2020
+        </div>
+        <div class="dc-content-desc">
+          <p>
+            Ces expériences fondatrices prouvent ma capacité à vulgariser des concepts techniques et mathématiques
+            complexes. Chez Jedha Bootcamp, j'ai accompagné des étudiants sur des projets Python, Machine Learning et
+            Dataviz, avec un taux de complétion et de succès de 90%. Chez Acadomia, mon accompagnement personnalisé a
+            permis d'augmenter les performances de mes élèves de plus de 25%. Cette pédagogie est aujourd'hui un atout
+            majeur lorsque je dois expliquer des résultats de données complexes à des équipes métiers non-techniques.
+          </p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btns icons">
+          <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+          <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        </div>
+        {% endif %}
+      </div>
+      {% if user.is_authenticated %}
+      <button class="btn secondary">
+        Ajouter une expérience
+        <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+      </button>
+      {% endif %}
+    </div>
+  </div>
+  <div class="dc-container">
+    <div class="dc-title">
+      Compétences
+    </div>
+    <div class="dc-content">
+      <div class="dc-content-body">
+        <div class="dc-content-title">
+          Compétences Techniques
+        </div>
+        <div class="dc-content-desc">
+          <p>
+            Mes compétences s'articulent autour d'une stack technique moderne (Modern Data Stack) et du développement
+            logiciel :
+          </p>
+          <ul>
+            <li>
+              Analytics Engineering & Data Warehouse : Maîtrise de Snowflake et de dbt (création de modèles, gestion des
+              snapshots, écriture de macros). Je structure la donnée brute pour la rendre prête à l'analyse, en
+              appliquant
+              les standards de l'ingénierie logicielle (tests, CI/CD).
+            </li>
+            <li>
+              Développement Backend & API : Expert en Python. Développement d'applications et d'API REST performantes
+              avec
+              Django et FastAPI.
+            </li>
+            <li>
+              Bases de données & Requêtage : Excellente maîtrise de SQL. Modélisation et administration sur PostgreSQL
+              et
+              MySQL.
+            </li>
+            <li>
+              Orchestration & Data Engineering : Création et gestion de flux de données automatisés avec Apache Airflow.
+              Contrôle qualité et documentation technique approfondie.
+            </li>
+            <li>
+              Data Analysis & Visualisation : Conception de dashboards métiers interactifs et actionnables via Power BI,
+              Tableau et Metabase.
+            </li>
+            <li>
+              DevOps, Cloud & Outils de versioning : Déploiement et gestion d'environnements avec Docker. Versioning
+              maîtrisé avec Git. Expérience sur les environnements Cloud (AWS, GCP, Microsoft Azure).
+            </li>
+          </ul>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btns icons">
+          <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+          <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        </div>
+        {% endif %}
+      </div>
+      <div class="dc-content-body">
+        <div class="dc-content-title">
+          Compétences Transversales
+        </div>
+        <div class="dc-content-desc">
+          <p>
+            Problem-Solving & Rigueur Mathématique : Je mets à profit mon socle en mathématiques appliquées pour
+            concevoir des architectures de données basées sur un raisonnement analytique solide et éprouvé.
+          </p>
+          <p>
+            Vulgarisation & Pédagogie : Capacité à faire le pont entre les équipes techniques (développeurs) et les
+            équipes métiers (décideurs) en traduisant des données complexes en stratégies compréhensibles.
+          </p>
+          <p>
+            Efficacité : Focus constant sur l'automatisation pour réduire le temps nécessaire pour obtenir une
+            information utile.
+          </p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btns icons">
+          <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+          <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        </div>
+        {% endif %}
+      </div>
+      {% if user.is_authenticated %}
+      <button class="btn secondary">
+        Ajouter une compétence
+        <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+      </button>
+      {% endif %}
+    </div>
+  </div>
+  <div class="dc-container">
+    <div class="dc-title">
+      Éducation
+    </div>
+    <div class="dc-content">
+      <div class="dc-content-body">
+        <div class="dc-content-title">
+          Parcours Académique
+        </div>
+        <div class="dc-content-desc">
+          <p>
+            Mon parcours est marqué par une évolution stratégique : des mathématiques pures et de la modélisation
+            financière vers l'ingénierie de la donnée et le développement moderne.
+          </p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btns icons">
+          <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+          <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        </div>
+        {% endif %}
+      </div>
+      <div class="dc-content-body">
+        <div class="dc-content-title">
+          Formation en Analytics Engineer
+        </div>
+        <div class="dc-content-subtitle">
+          Ada Study | 2025
+        </div>
+        <div class="dc-content-desc">
+          <p>
+            Perfectionnement sur les pratiques modernes de la data (Modern Data Stack), la modélisation avancée en
+            entrepôt de données et l'utilisation de dbt.
+          </p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btns icons">
+          <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+          <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        </div>
+        {% endif %}
+      </div>
+      <div class="dc-content-body">
+        <div class="dc-content-title">
+          Diplôme Professionnel : Concepteur Développeur en Science des Données
+        </div>
+        <div class="dc-content-subtitle">
+          Jedha Bootcamp, Paris | 2019 - 2020
+        </div>
+        <div class="dc-content-desc">
+          <p>
+            Formation intensive et pratique ayant solidifié mes compétences en développement Python, et Machine Learning
+            de bout en bout.
+          </p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btns icons">
+          <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+          <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        </div>
+        {% endif %}
+      </div>
+      <div class="dc-content-body">
+        <div class="dc-content-title">
+          Master 2 – Ingénierie Mathématique en Finance et Logistique
+        </div>
+        <div class="dc-content-subtitle">
+          Université Le Havre Normandie | 2017 - 2018
+        </div>
+        <div class="dc-content-desc">
+          <p>
+            Acquisition d'une expertise forte en modélisation mathématique, optimisation, statistiques et résolution de
+            problèmes complexes appliqués à des secteurs exigeants.
+          </p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btns icons">
+          <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+          <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        </div>
+        {% endif %}
+      </div>
+      <div class="dc-content-body">
+        <div class="dc-content-title">
+          Master 2 – Mathématiques et Informatique des Systèmes Complexes et Distribués
+        </div>
+        <div class="dc-content-subtitle">
+          Université Le Havre Normandie | 2016 - 2017
+        </div>
+        <div class="dc-content-desc">
+          <p>
+            Étude approfondie de l'algorithmique, de l'informatique distribuée et des systèmes complexes, jetant les
+            bases de mes compétences actuelles en architecture de données et de systèmes.
+          </p>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="btns icons">
+          <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+          <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        </div>
+        {% endif %}
+      </div>
+      {% if user.is_authenticated %}
+      <button class="btn secondary">
+        Ajouter un parcours
+        <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+      </button>
+      {% endif %}
+    </div>
+  </div>
+  <div class="dc-container">
+    <div class="dc-title">
+      Technologies
+    </div>
+    <div class="dc-content">
+      <div class="dc-content-body">
+        <div class="dc-content-cards">
+          <div class="dc-content-card">
+            <div class="btn primary no-cursor">
+              Python
+            </div>
+            {% if user.is_authenticated %}
+            <div class="btns icons">
+              <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+              <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+            </div>
+            {% endif %}
+          </div>
+          <div class="dc-content-card">
+            <div class="btn primary no-cursor">
+              SQL
+            </div>
+            {% if user.is_authenticated %}
+            <div class="btns icons">
+              <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+              <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% if user.is_authenticated %}
+      <button class="btn secondary">
+        Ajouter une techno
+        <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+      </button>
+      {% endif %}
+    </div>
+  </div>
+  <div class="dc-container">
+    <div class="dc-title">
+      Certificats
+    </div>
+    <div class="dc-content">
+      <div class="dc-content-body">
+        <div class="dc-content-cards">
+          <div class="dc-content-card">
+            <div class="btn primary linked">
+              AWS
+            </div>
+            {% if user.is_authenticated %}
+            <div class="btns icons">
+              <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+              <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+            </div>
+            {% endif %}
+          </div>
+          <div class="dc-content-card">
+            <div class="btn primary linked">
+              Microsoft
+            </div>
+            {% if user.is_authenticated %}
+            <div class="btns icons">
+              <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+              <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% if user.is_authenticated %}
+      <button class="btn secondary">
+        Ajouter une certification
+        <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+      </button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content%}

@@ -5,11 +5,11 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views import View
 
-from apps.authentication.services.authentication import authenticate_user
-from apps.authentication.services.password_reset import send_password_reset_email
-from apps.authentication.services.registration import validate_registration_data, register_user
-from apps.users.selectors.user import get_user_by_email, get_user_from_token
-from apps.users.services.user import activate_user_account, set_user_password
+from apps.authentication.services.authentication_services import authenticate_user
+from apps.authentication.services.password_reset_services import send_password_reset_email
+from apps.authentication.services.registration_services import validate_registration_data, register_user
+from apps.users.selectors.user_selectors import get_user_from_token, get_user_by_email
+from apps.users.services.user_services import activate_user_account, set_user_password
 from apps.utils.services.http_responses import HTTPResponseHXRedirect
 
 
@@ -58,13 +58,7 @@ class RegistrationView(View):
         if errors:
             for error in errors:
                 messages.error(request, error)
-
-            return render(
-                request,
-                self.template_name,
-                {"data": data},
-                status=400
-            )
+            return render(request, self.template_name, {"data": data})
 
         domain = f"{'https' if request.is_secure() else 'http'}://{request.get_host()}"
         register_user(first_name, last_name, email, password, domain)
@@ -104,7 +98,7 @@ class ActivateAccountView(View):
 
         if not user:
             messages.error(request, "Lien d'activation invalide ou expiré")
-            return render(request, self.template_name, status=400)
+            return render(request, self.template_name)
 
         activate_user_account(user)
         messages.success(request, "Votre compte a été activé avec succès !")
@@ -145,7 +139,7 @@ class PasswordResetRequestView(View):
 
         if not user:
             messages.error(request, "Aucun compte trouvé avec cet email")
-            return render(request, self.template_name, status=400)
+            return render(request, self.template_name)
 
         domain = f"{'https' if request.is_secure() else 'http'}://{request.get_host()}"
         send_password_reset_email(user, domain)
@@ -188,7 +182,7 @@ class PasswordResetConfirmView(View):
         user = get_user_from_token(uidb64, token)
         if not user:
             messages.error(request, "Lien de réinitialisation invalide ou expiré")
-            return render(request, self.template_name, status=400)
+            return render(request, self.template_name)
         return render(request, self.template_name, {"uidb64": uidb64, "token": token})
 
     def post(self, request, uidb64: str, token: str):
@@ -199,15 +193,15 @@ class PasswordResetConfirmView(View):
         user = get_user_from_token(uidb64, token)
         if not user:
             messages.error(request, "Lien de réinitialisation invalide ou expiré")
-            return render(request, self.template_name, status=400)
+            return render(request, self.template_name)
 
         if password != password2:
             messages.error(request, "Les mots de passe ne correspondent pas")
-            return render(request, self.template_name, {"uidb64": uidb64, "token": token}, status=400)
+            return render(request, self.template_name, {"uidb64": uidb64, "token": token})
 
         if len(password) < 6:
             messages.error(request, "Le mot de passe doit comporter au moins 6 caractères")
-            return render(request, self.template_name, {"uidb64": uidb64, "token": token}, status=400)
+            return render(request, self.template_name, {"uidb64": uidb64, "token": token})
 
         set_user_password(user, password)
         messages.success(request, "Votre mot de passe a été réinitialisé avec succès")
@@ -259,11 +253,11 @@ class LoginView(View):
         user = authenticate_user(email, password)
         if not user:
             messages.error(request, "Email ou mot de passe incorrect")
-            return render(request, self.template_name, status=400)
+            return render(request, self.template_name)
 
         if not user.is_active:
             messages.error(request, "Votre compte n'est pas encore activé")
-            return render(request, self.template_name, status=403)
+            return render(request, self.template_name)
 
         login(request, user)
         messages.success(request, "Connexion réussie")

@@ -44,10 +44,13 @@ INSTALLED_APPS = [
     # CKEditor
     'django_ckeditor_5',
     # Apps
-    'apps.users.apps.UsersConfig',
+    'apps.users.apps.UsersConfig',  # Users app avec AUTH_USER_MODEL
     'apps.authentication',
     'apps.notifications',
     'apps.home',
+    'apps.userprofile.apps.UserprofileConfig',  # User profile app avec signals
+    'apps.projects',
+    'apps.tracking',
 ]
 
 MIDDLEWARE = [
@@ -129,8 +132,6 @@ SPECTACULAR_SETTINGS = {
     "VERSION": "1.0.0",
 }
 
-
 # Config HTTPS derrière un proxy
 # Indique à Django que le header X-Forwarded-Proto est utilisé pour HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-

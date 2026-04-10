@@ -40,6 +40,9 @@ urlpatterns = [
     path("", include("apps.home.web.urls", namespace="home")),
     path("users/", include("apps.users.web.urls", namespace="users")),
     path("auth/", include("apps.authentication.web.urls", namespace="auth")),
+    path("userprofile/", include("apps.userprofile.web.urls", namespace="userprofile")),
+    path("projects/", include("apps.projects.web.urls", namespace="projects")),
+    path("tracking/", include("apps.tracking.web.urls", namespace="tracking")),
 ]
 
 # Servir les fichiers media et statiques seulement en développement

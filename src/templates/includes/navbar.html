@@ -6,9 +6,8 @@
   </a>
 </div>
 <div class="menu right">
-  <a class="item active" href="{% url 'home:home-page' %}">Accueil</a>
-  <a class="item" href="#">Profil</a>
-  <a class="item" href="#">Projets</a>
-  <a class="item" href="">Me contacter</a>
+  <a class="item {% if request.path == mk.navbar_url %} active {% endif %}" href="{% url 'home:home-page' %}">Accueil</a>
+  <a class="item {% if request.path == projects.navbar_url %} active {% endif %}" href="{% url 'projects:projects-list' %}">Projets</a>
+  <a class="item {% if request.path == contact.navbar_url %} active {% endif %}" href="{% url 'home:contact-page' %}">Me contacter</a>
 </div>
 {% endblock navbar %}

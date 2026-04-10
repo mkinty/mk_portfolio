@@ -1,4 +1,4 @@
-{% load static %}
+{% include 'includes/messages.html' %}
 <div class="register" id="medium">
   <div class="register-header">
     Se connecter
@@ -6,6 +6,7 @@
   <div class="register-content">
     <form hx-post="{{ request.path }}"
           hx-target="#dialog"
+          hx-swap="innerHTML"
           enctype="multipart/form-data"
     >
       {% csrf_token %}
@@ -25,13 +26,11 @@
       </div>
       <div class="register-link">
         Mot de passe oublié ? <a hx-get="{% url 'auth:password_reset' %}"
-                                              hx-target="#dialog"
-                                              class="btn link">Réinitialiser</a>
+                                 hx-target="#dialog"
+                                 class="btn link">Réinitialiser</a>
       </div>
       <div class="btns actions">
-        <div class="secondary btn" id="cancel"
-        >Annuler
-        </div>
+        <button class="secondary btn" id="cancel" type="button">Annuler</button>
         <button class="primary btn" type="submit">Se connecter</button>
       </div>
     </form>

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Page d'accueil
+{% endblock title %}
+
+{% block content %}
+<div class="contact">
+  <div class="author">
+    <div class="author-picture circle">{{ contact.profile.avatar}}
+      <img src="{% static 'img/circleprofile.png' %}" alt="profile">
+    </div>
+    <div class="author-detail">
+      <div class="author-name">
+        {{ contact.first_name|lower|capfirst }} {{ contact.last_name|upper }}
+      </div>
+      <div class="author-title">{{ contact.profile.title }}
+        Analytics Engigneer | Data Analyst | Développeur Python
+      </div>
+      <div class="author-position">{{ contact.profile.position }}
+        Consultant en Data Analytics et Ingénierie de la Donnée
+      </div>
+    </div>
+  </div>
+  <div class="contact-content">
+    <div class="register">
+      <div class="register-header">
+        Me contacter
+      </div>
+      <div class="register-content">
+        <form hx-post="{{ request.path }}"
+              hx-target="#dialog"
+              hx-swap="innerHTML"
+              enctype="multipart/form-data"
+        >
+          {% csrf_token %}
+          <div class="field">
+            <label>Prénom</label>
+            <input type="text" name="first_name" placeholder="Votre prénom" value="{{data.first_name}}" required>
+          </div>
+          <div class="field">
+            <label>Nom</label>
+            <input type="text" name="last_name" placeholder="Votre nom" value="{{data.last_name}}" required>
+          </div>
+          <div class="field">
+            <label>Adresse email</label>
+            <input type="email" name="email" placeholder="Votre email" value="{{data.email}}" required>
+          </div>
+          <div class="field">
+            <label>Message</label>
+            <textarea name="message" id="" cols="30" rows="3" placeholder="Votre mot de passe"></textarea>
+          </div>
+          <div class="btns actions">
+            <button class="secondary btn" id="cancel" type="button">Annuler</button>
+            <button class="primary btn" type="submit">Valider</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content%}

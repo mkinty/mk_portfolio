@@ -3,7 +3,7 @@ from typing import Optional
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 
-from apps.authentication.services.token import generate_reset_token
+from apps.authentication.services.token_services import generate_reset_token
 from apps.notifications.services.email_service import send_activation_email
 from apps.users.models import User
 

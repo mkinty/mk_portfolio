@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Page d'accueil
+{% endblock title %}
+
+{% block content %}
+<div class="content-header">
+  <div class="search-container">
+    <div class="search-content">
+      <img class="btn-icon" src="{% static 'icons/search.png' %}" alt="edit-btn">
+      <input type="text" placeholder="Rechercher un projet...">
+    </div>
+    <button class="btn secondary">
+      Ajouter une candidature
+      <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+    </button>
+  </div>
+  <div class="counter-btn">12 projets trouvés</div>
+</div>
+<div class="table-content">
+  <div class="row table-header">
+    <div class="col">Post</div>
+    <div class="col">Entreprise</div>
+    <div class="col medium">Offre</div>
+    <div class="col medium">CV</div>
+    <div class="col medium">Motivation</div>
+    <div class="col medium">Date</div>
+    <div class="col medium">État</div>
+    <div class="col medium">Actions</div>
+  </div>
+  <div class="table-body">
+    <div class="row">
+      <div class="col">Developpeur python</div>
+      <div class="col">Alten</div>
+      <div class="col medium">
+        <img class="btn-icon" src="{% static 'icons/link.png' %}" alt="edit-btn">
+        <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
+      </div>
+      <div class="col medium">
+        <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
+      </div>
+      <div class="col medium">
+        <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
+      </div>
+      <div class="col medium">15/05/2026</div>
+      <div class="col medium">
+        En cours
+        <img class="icon" src="{% static 'icons/polygon.png' %}" alt="edit-btn">
+      </div>
+      <div class="col medium">
+        <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+        <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="edit-btn">
+      </div>
+    </div>
+    <div class="nav">
+      <div class="nav-title">
+        <div class="row">
+          <div class="col">Intitule</div>
+          <div class="col">Date</div>
+          <div class="col">État</div>
+          <div class="col">Actions</div>
+        </div>
+      </div>
+      <div class="nav-menu">
+        <div class="row">
+          <div class="col">Première entretien</div>
+          <div class="col">17/04/2026</div>
+          <div class="col">En cours</div>
+          <div class="col"><img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
+        <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="edit-btn"></div>
+        </div>
+      </div>
+    </div>
+    <button class="btn secondary">
+        Ajouter un élément
+        <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+      </button>
+  </div>
+  <button class="btn secondary">
+    Ajouter une candidature
+    <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+  </button>
+</div>
+{% endblock content%}

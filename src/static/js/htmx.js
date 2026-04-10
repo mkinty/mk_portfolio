@@ -54,3 +54,4 @@ modal.addEventListener("click", (e) => {
         dialog.innerHTML = "";
     }
 });
+

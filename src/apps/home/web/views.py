@@ -1,9 +1,8 @@
-
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import View
 
-from apps.authentication.services.authentication import authenticate_user
-from apps.users.selectors.user import get_user_by_email, get_all_users
+from apps.users.selectors.user_selectors import get_user_by_email
 
 
 class HomePageView(View):
@@ -12,7 +11,22 @@ class HomePageView(View):
 
     def get(self, request):
         mk = get_user_by_email("kintymoustapha@gmail.com")
+        mk.navbar_url = reverse_lazy('home:home-page')
         context = {
-            "mk": mk
+            "mk": mk,
+        }
+        return render(request, self.template_name, context)
+
+
+
+class ContactPageView(View):
+    template_name = "home/contact_page.html"
+
+
+    def get(self, request):
+        contact = get_user_by_email("kintymoustapha@gmail.com")
+        contact.navbar_url = reverse_lazy('home:contact-page')
+        context = {
+            "contact": contact,
         }
         return render(request, self.template_name, context)

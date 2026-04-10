@@ -16,12 +16,12 @@
   <div class="description social">
     <a class="item linked" href="https://www.linkedin.com/in/moustapha-kinty-8288b0153/" target="_blank">
       <div class="icon">
-        <img src="{% static 'img/linkedin.png' %}" alt="LinkedIn">
+        <img src="{% static 'icons/linkedin-icon.png' %}" alt="LinkedIn">
       </div>
     </a>
     <a class="item linked" href="https://github.com/mkinty" target="_blank">
       <div class="icon">
-        <img src="{% static 'img/github.png' %}" alt="Github">
+        <img src="{% static 'icons/github-icon.png' %}" alt="Github">
       </div>
     </a>
   </div>
@@ -29,9 +29,9 @@
 <div class="card ">
   <div class="label">Infos</div>
   <div class="description">
-    <a class="item linked" href="{% url 'home:home-page' %}">Me contacter</a>
+    <a class="item linked" href="{% url 'home:contact-page' %}">Me contacter</a>
     {% if user.is_authenticated %}
-    <a class="item linked" href="">Mes candidatures</a>
+    <a class="item linked" href="{% url 'tracking:applications-tracking' %}">Mes candidatures</a>
     {% endif %}
   </div>
 </div>

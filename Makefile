@@ -64,6 +64,25 @@ dev:
 	@echo "Démarrage du serveur Django..."
 	$(MANAGE) runserver
 
+
+# Lancer les tests pour l'application users
+test-users:
+	$(MANAGE) test apps.users
+
+# Tests Django pour toutes les apps
+tests:
+	PYTHONPATH=src DJANGO_SETTINGS_MODULE=config.settings.dev $(MANAGE) test apps.users
+
+# Tests pytest pour toutes les apps
+pytest:
+	PYTHONPATH=src DJANGO_SETTINGS_MODULE=config.settings.dev uv run pytest src/apps
+
+# Coverage pour toutes les apps
+coverage:
+	PYTHONPATH=src DJANGO_SETTINGS_MODULE=config.settings.dev uv run coverage run --source=src/apps -m pytest src/apps
+	PYTHONPATH=src DJANGO_SETTINGS_MODULE=config.settings.dev uv run coverage report -m
+	PYTHONPATH=src DJANGO_SETTINGS_MODULE=config.settings.dev uv run coverage html
+
 # Nettoyer fichiers compilés Python
 clean:
 	find . -name "*.pyc" -delete

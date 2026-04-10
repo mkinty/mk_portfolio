@@ -1,4 +1,4 @@
-{% load static %}
+{% include 'includes/messages.html' %}
 <div class="register" id="medium">
   <div class="register-header">
     Créer un compte
@@ -6,6 +6,7 @@
   <div class="register-content">
     <form hx-post="{{ request.path }}"
           hx-target="#dialog"
+          hx-swap="innerHTML"
           enctype="multipart/form-data"
     >
       {% csrf_token %}
@@ -36,9 +37,7 @@
                                    class="btn link">Connectez-vous</a>
       </div>
       <div class="btns actions">
-        <div class="secondary btn" id="cancel"
-        >Annuler
-        </div>
+        <button class="secondary btn" id="cancel" type="button">Annuler</button>
         <button class="primary btn" type="submit">S'inscrire</button>
       </div>
     </form>
