@@ -1,57 +1,108 @@
 const modal = document.getElementById("modal");
 const dialog = document.getElementById("dialog");
 
-// Quand HTMX injecte du contenu dans le modal
+/* =========================================================
+   CKEDITOR 5 INIT (HTMX SAFE)
+========================================================= */
+function initCKEditor5() {
+    document.querySelectorAll(".django_ckeditor_5").forEach((el) => {
+
+        if (el.dataset.ckeditorReady) return;
+
+        el.dataset.ckeditorReady = "true";
+
+        // Avoid duplicate module loading
+        setTimeout(() => {
+            document.dispatchEvent(new Event("DOMContentLoaded"));
+        }, 0);
+    });
+}
+
+/* =========================================================
+   HTMX MODAL HANDLER
+========================================================= */
 htmx.on("htmx:afterSwap", (e) => {
-    if (e.detail.target.id === "dialog") {
-        modal.classList.remove("hidden");
 
-        // Gestion du bouton Annuler
-        const cancel = e.detail.target.querySelector('#cancel');
-        cancel.addEventListener('click', () => {
-            modal.classList.add("hidden");
-            dialog.innerHTML = "";
-            console.log("Modal hidden");
-        });
+    if (e.detail.target.id !== "dialog") return;
 
-        // Gestion du modal
-        const firstChildId = e.detail.target.firstElementChild?.id;
-        dialog.classList.remove("small", "medium", "large");
-        if (firstChildId) dialog.classList.add(firstChildId);
+    //  IMPORTANT FIX: avoid reopening modal after submit empty response
+    if (!e.detail.target.innerHTML.trim()) return;
 
-        // Initialiser Quill sur les champs présents
-        const container = e.detail.target.querySelector('#quill-container');
-        const textarea = e.detail.target.querySelector('textarea[name="quill-description"]');
-        if (container && textarea && !container._quillInstance) {
-            const quill = new Quill(container, {
-                theme: 'snow',
-                modules: {
-                    syntax: true,
-                    toolbar: [
-                        [{ 'header': [1,2,3,false] }],
-                        ['bold','italic','underline','strike'],
-                        ['link','image','code-block'],
-                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                        [{ 'align': [] }],
-                        ['clean']
-                    ]
-                }
-            });
-            quill.root.innerHTML = textarea.value;
-            textarea.form.addEventListener('submit', () => {
-                textarea.value = quill.root.innerHTML;
-            });
-            container._quillInstance = quill;
-        }
+    openModal();
 
-    }
+    setTimeout(() => {
+        initCKEditor5();
+    }, 10);
+
+    setupModalUI(e.detail.target);
 });
 
-// Fermer le modal si on clique en dehors du dialogue
+/* =========================================================
+   OPEN / CLOSE MODAL
+========================================================= */
+function openModal() {
+    modal.classList.remove("hidden");
+}
+
+function closeModal() {
+    modal.classList.add("hidden");
+    dialog.innerHTML = "";
+    resetCKEditorState();
+}
+
+/* =========================================================
+   MODAL UI SETUP
+========================================================= */
+function setupModalUI(container) {
+
+    const cancel = container.querySelector("#cancel");
+
+    if (cancel && !cancel.dataset.bound) {
+        cancel.dataset.bound = "true";
+        cancel.addEventListener("click", closeModal);
+    }
+
+    const firstChildId = container.firstElementChild?.id;
+
+    dialog.classList.remove("small", "medium", "large");
+
+    if (firstChildId) {
+        dialog.classList.add(firstChildId);
+    }
+}
+
+/* =========================================================
+   RESET CKEDITOR STATE
+========================================================= */
+function resetCKEditorState() {
+    document.querySelectorAll(".django_ckeditor_5").forEach((el) => {
+        el.dataset.ckeditorReady = "";
+    });
+}
+
+/* =========================================================
+   BACKDROP CLOSE
+========================================================= */
 modal.addEventListener("click", (e) => {
     if (e.target === modal) {
-        modal.classList.add("hidden");
-        dialog.innerHTML = "";
+        closeModal();
     }
 });
 
+/* =========================================================
+   CLOSE MODAL AFTER FORM SUBMIT (HTMX EVENT)
+========================================================= */
+htmx.on("formSubmittedEvent", function () {
+    closeModal();
+});
+
+
+/* Highlight code blocks after HTMX swaps */
+document.body.addEventListener("htmx:afterSettle", function (e) {
+    if (!window.Prism) return;
+
+    const target = e.detail.target;
+
+    // highlight uniquement dans le contenu injecté
+    Prism.highlightAllUnder(target);
+});

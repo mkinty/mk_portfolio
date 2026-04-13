@@ -6,13 +6,15 @@
   --fm: 'Inter', sans-serif;
 
   /*-- Neutral Colors --*/
+  --Black: #1e1e1e;
+  --Divider: #E0E0E0;
   --Dark: #263238;
-  --L_Grey_Blue: #304258;
   --D_grey: #4D4D4D;
   --Grey: #717171;
-  --L_Grey: #89939E;
   --Grey_Blue: #ABBED1;
-  --Divider: #E0E0E0;
+  --L_Grey: #89939E;
+  --L_Grey_Blue: #304258;
+  --Light: #f8f8f2;
   --Silver: #F5F7FA;
   --White_stroke: #ABBED1;
   --White: #FFFFFF;
@@ -154,6 +156,10 @@ select {
 .btn-icon {
   width: 2rem;
   height: 2rem;
+  cursor: pointer;
+}
+.btn-icon:hover {
+  opacity: 0.8;
 }
 .icon img {
   width: 100%;
@@ -356,11 +362,9 @@ select {
   width: 100%;
   height: 100vh;
   background: rgba(0,0,0,0.5);
-
   display: flex;
   justify-content: center;
   align-items: flex-start; /* <-- au lieu de center */
-
   padding: 2rem 0; /* espace haut/bas */
   overflow-y: auto; /* scroll global */
 }
@@ -382,7 +386,7 @@ select {
 .modal-dialog.large{
   max-width: 90rem;
 }
-.hidden {
+.modal-overlay.hidden {
   display: none;
 }
 /*-- Header --*/
@@ -396,8 +400,8 @@ select {
   padding: 1rem 10rem;
 }
 .logo {
-  width: 50px;
-  height: 50px;
+  width: 5rem;
+  height: 5rem;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -501,7 +505,7 @@ select {
   border: 1.5px solid var(--Grey);
 }
 /*-- User Profile --*/
-.user-dc {
+.dc {
   display: flex;
   flex-direction: column;
   gap: 10rem;
@@ -515,7 +519,8 @@ select {
   background: var(--Silver);
   margin-bottom: 16rem;
 }
-.user-profile.dc{
+.user-profile.dc {
+  gap: 2rem;
   padding: 0;
   margin: 0;
   background: transparent;
@@ -526,6 +531,7 @@ select {
   align-items: start;
   justify-content: start;
   gap: 4rem;
+  margin-bottom: 2rem;
 }
 .user-profile-header {
   display: flex;
@@ -535,7 +541,8 @@ select {
   gap: 2rem;
   border-top: 0.1rem solid var(--Dark);
   border-bottom: 0.1rem solid var(--Dark);
-  padding: 1.5rem 0;
+  padding: 0.5rem 0;
+  margin-bottom: 2rem;
 }
 .skills {
   flex: 1;
@@ -552,6 +559,7 @@ select {
   font-size: 2.8rem;
   font-weight: 700;
   color: var(--Primary);
+  margin-bottom: 0.5rem;
 }
 .user-position {
   font-size: 1.8rem;
@@ -561,26 +569,23 @@ select {
 .user-bio {
   margin: 1rem 0;
 }
-.user-bio p {
-  margin: 1rem 0;
-}
 .avatar {
-  max-width: 17rem;
+  max-width: 20rem;
   height: auto;
   overflow: hidden;
 }
 .avatar.circle {
+  max-width: 15rem;
+  max-height: 15rem; /* moitié de 17rem */
   border-radius: 50%;
-  max-height: 17rem;
 }
 .avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.avatar.circle img{
-  border-radius: 50%;
-  max-height: 17rem;
+.avatar.circle img {
+  object-position: top; /* IMPORTANT : garde le haut de l’image */
 }
 .btns.userprofile {
   margin: 0;
@@ -949,6 +954,10 @@ select {
   border-radius: 0.2rem;
   border: 1.5px solid var(--Grey);
 }
+.field.profile-photo input{
+  width: 100%;
+  padding: 0.5rem 0.8rem;
+}
 .field input::placeholder,
 .field textarea::placeholder {
   color: var(--Grey);
@@ -961,16 +970,37 @@ select {
 .field.profil input{
   padding: 0.8rem;
 }
-.ql-toolbar.ql-snow{
+.field a {
+  width: auto;
+}
+.field input[type="checkbox"]{
+  max-width: 2rem;
+}
+.field label[for="avatar-clear_id"] {
+  cursor: pointer;
+}
+/*-- CK Editor --*/
+.ck-body-wrapper {
+  display: none;
+}
+.field .ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content {
   border: 1.5px solid var(--Grey);
+  border-bottom: none;
   border-top-left-radius: 0.2rem;
   border-top-right-radius: 0.2rem;
 }
-.ql-container.ql-snow{
+.field .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
   border: 1.5px solid var(--Grey);
   border-bottom-left-radius: 0.2rem;
   border-bottom-right-radius: 0.2rem;
   min-height: 10rem;
+}
+.field .ck.ck-editor__editable.ck-focused {
+  border: none;
+}
+.field .ck.ck-editor__editable.ck-focused:not(.ck-editor__nested-editable) {
+  outline: none;
+  border: 1.5px solid var(--Primary);
 }
 .register-link {
   display: flex;
@@ -980,6 +1010,19 @@ select {
   font-size: 1.2rem;
   width: 100%;
   margin-top: 0.8rem;
+}
+pre[class*="language-"],
+.field .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) pre[class*="language-"] {
+    background: var(--Black) !important;
+    color: var(--Light) !important;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+code[class*="language-"],
+.field .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) code[class*="language-"] {
+    color: var(--Light) !important;
+    font-family: "Fira Code", Consolas, monospace;
 }
 /*-- Footer --*/
 .footer {

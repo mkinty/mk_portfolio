@@ -27,6 +27,9 @@ from drf_spectacular.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # CKEditor 5
+    path('ckeditor5/', include('django_ckeditor_5.urls')),
+
     # API
     path("api/users/", include("apps.users.api.urls")),
     # path("api/auth/", include("apps.authentication.api.urls")),

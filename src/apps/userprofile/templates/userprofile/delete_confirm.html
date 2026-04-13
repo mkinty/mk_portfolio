@@ -1,0 +1,20 @@
+{% include 'includes/messages.html' %}
+<div class="register" id="small">
+  <div class="register-header">
+    {{ title }}
+  </div>
+  <div class="register-content">
+    <form hx-post="{{ request.path }}"
+          hx-target="#dialog"
+          hx-swap="innerHTML"
+          enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <div class="field">Vous êtes supprimer ce profil! Cette action est irréversible.</div>
+      <div class="btns actions">
+        <button class="secondary btn" id="cancel" type="button">Annuler</button>
+        <button class="primary btn" type="submit">Confirmer</button>
+      </div>
+    </form>
+  </div>
+</div>

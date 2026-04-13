@@ -1,0 +1,37 @@
+{% include 'includes/messages.html' %}
+<div class="register" id="large">
+  <div class="register-header">
+    {{ title }}
+  </div>
+  <div class="register-content">
+    <form hx-post="{{ request.path }}"
+          hx-target="#dialog"
+          hx-swap="innerHTML"
+          enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      {{ form.media }}
+
+      <div class="field">
+        <label>Titre</label>
+        {{ form.title }}
+      </div>
+      <div class="field">
+        <label>Position</label>
+        {{ form.position }}
+      </div>
+      <div class="field profile-photo">
+        <label>Photo profile</label>
+        {{ form.avatar }}
+      </div>
+      <div class="field">
+        <label>Résumé</label>
+        {{form.bio }}
+      </div>
+      <div class="btns actions">
+        <button class="secondary btn" id="cancel" type="button">Annuler</button>
+        <button class="primary btn" type="submit">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>

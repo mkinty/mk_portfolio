@@ -23,7 +23,7 @@ class UserProfile(models.Model):
     title = models.CharField(max_length=100, blank=True)
     position = models.CharField(max_length=100, blank=True)
     avatar = models.ImageField(upload_to="avatars/", blank=True)
-    bio = CKEditor5Field("Content", config_name="extends")
+    bio = CKEditor5Field("Content", config_name="extends", blank=True)
 
     def __str__(self):
         """

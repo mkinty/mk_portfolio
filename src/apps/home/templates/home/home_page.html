@@ -10,42 +10,26 @@ Page d'accueil
     {% include 'includes/messages.html' %}
     <div class="skills">
       <div class="user-name">
-        Bonjour, ici {{ mk.first_name|lower|capfirst }} {{ mk.last_name|upper }}
+        Bonjour, ici {{ user_obj.first_name|lower|capfirst }} {{ user_obj.last_name|upper }}
       </div>
-      <div class="user-title">{{ mk.profile.title }}
-        Analytics Engigneer | Data Analyst | Développeur Python
+      <div class="user-title">
+        {{ user_obj.profile.title }}
       </div>
-      <div class="user-position">{{ mk.profile.position }}
-        Consultant en Data Analytics et Ingénierie de la Donnée
+      <div class="user-position">
+        {{ user_obj.profile.position }}
       </div>
-      <div class="user-bio">{{ mk.profile.bio }}
-        <p>
-          Fort de 5 ans d'expérience, je me positionne à la croisée du développement logiciel et de l'ingénierie de la
-          donnée. Ma double formation de niveau Master 2 en Mathématiques Appliquées et Informatique m'a forgé un esprit
-          analytique rigoureux, que je traduis aujourd'hui en architectures de données robustes et en modèles
-          analytiques
-          précis.
-        </p>
-        <p>
-          Ma valeur ajoutée ? Maîtriser toute la chaîne de valeur de la donnée. Je ne me contente pas d'analyser
-          l'existant, je conçois des API avec Python (Django/FastAPI) pour collecter l'information, je structure et
-          fiabilise les flux au sein de Data Warehouses (Snowflake) grâce à DBT, et je restitue des insights
-          actionnables
-          via des tableaux de bord interactifs (Power BI, Tableau et Metabase).
-        </p>
-        <p>
-          Mon objectif quotidien : automatiser les processus complexes pour transformer vos données brutes en un
-          véritable
-          levier de décision, tout en garantissant une réduction drastique des temps de traitement.
-        </p>
+      <div class="user-bio">
+        {{ user_obj.profile.bio|safe }}
       </div>
     </div>
-    <div class="avatar">{{ mk.profile.avatar }}
-      <img src="{% static 'img/profile.jpg' %}" alt="profile">
+    <div class="avatar">
+      {% if user_obj.profile and user_obj.profile.avatar  %}
+      <img src="{{ user_obj.profile.avatar.url }}" alt="Avatar"/>
+      {% endif %}
     </div>
   </div>
   <div class="btns userprofile">
-    <a href="{% url 'userprofile:profile' mk.profile.id %}" class="btn primary">En savoir plus</a>
+    <a href="{% url 'userprofile:index' user_obj.id %}" class="btn primary">En savoir plus</a>
   </div>
 </div>
 <div class="projects">

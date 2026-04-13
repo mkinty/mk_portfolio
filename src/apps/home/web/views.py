@@ -10,10 +10,10 @@ class HomePageView(View):
 
 
     def get(self, request):
-        mk = get_user_by_email("kintymoustapha@gmail.com")
-        mk.navbar_url = reverse_lazy('home:home-page')
+        user_obj = get_user_by_email("kintymoustapha@gmail.com")
+        user_obj.navbar_url = reverse_lazy('home:home-page')
         context = {
-            "mk": mk,
+            "user_obj": user_obj,
         }
         return render(request, self.template_name, context)
 

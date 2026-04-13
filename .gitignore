@@ -24,6 +24,7 @@ logs/
 
 # config
 src/config/settings/dev.py
+src/config/settings/prod.py
 
 # IDE
 .idea

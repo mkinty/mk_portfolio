@@ -135,3 +135,41 @@ SPECTACULAR_SETTINGS = {
 # Config HTTPS derrière un proxy
 # Indique à Django que le header X-Forwarded-Proto est utilisé pour HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+# CKEditor 5 configuration
+# CKEditor 5 configuration
+CKEDITOR_5_CONFIGS = {
+    "default": {
+        "toolbar": [
+            "heading",
+            "|",
+            "bold",
+            "italic",
+            "link",
+            "bulletedList",
+            "numberedList",
+            "blockQuote",
+            "|",
+            "codeBlock",
+            "imageUpload",
+            "undo",
+            "redo",
+        ],
+        "codeBlock": {
+            "languages": [
+                {"language": "plaintext", "label": "Plain text"},
+                {"language": "python", "label": "Python"},
+                {"language": "javascript", "label": "JavaScript"},
+                {"language": "html", "label": "HTML"},
+                {"language": "css", "label": "CSS"},
+                {"language": "bash", "label": "Bash"},
+                {"language": "json", "label": "JSON"},
+                {"language": "sql", "label": "SQL"},
+                {"language": "php", "label": "PHP"},
+                {"language": "java", "label": "Java"},
+                {"language": "csharp", "label": "C#"},
+            ],
+        },
+    }
+}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+Page profile
+{% endblock title %}
+
+{% block content %}
+<div class="dc"
+     hx-get="{% url 'userprofile:detail' user_obj.id %}"
+     hx-trigger="load, formSubmittedEvent from:body"
+     hx-target="this"
+     hx-swap="innerHTML">
+</div>
+{% endblock content %}
