@@ -1,69 +1,85 @@
 import pytest
-from apps.userprofile.forms import UserProfileForm
-from apps.userprofile.services.userprofile_services import (
-    get_userprofile_add_form,
-    create_userprofile,
-    get_userprofile_update_form,
-    update_userprofile,
-    delete_user_profile,
-)
+
+from apps.userprofile.models import UserProfile
+from apps.userprofile.services.userprofile_services import UserProfileService
 
 
 @pytest.mark.django_db
-def test_get_userprofile_add_form(user):
+class TestUserProfileService:
     """
-    Test that get_userprofile_add_form returns a UserProfileForm and the associated user.
+    Test suite for UserProfileService class.
     """
-    form, returned_user = get_userprofile_add_form(user.id)
 
-    assert isinstance(form, UserProfileForm)
-    assert returned_user == user
+    def test_get_add_form(self, user):
+        """
+        Test retrieving empty form and user.
+        """
+        form, returned_user = UserProfileService.get_add_form(user.id)
 
+        assert returned_user == user
+        assert form is not None
 
-@pytest.mark.django_db
-def test_create_userprofile_success(user):
-    """ Test that create_userprofile creates a new user profile successfully """
-    user.profile.delete()
+    def test_create_userprofile_success(self, user):
+        """
+        Test successful creation of a user profile.
+        """
+        user.profile.delete()
 
-    data = {
-        'bio': "Test bio"
-    }
+        data = {
+            "title": "Developer",
+            "position": "Backend Engineer",
+            "bio": "Some bio text",
+        }
 
-    success, form, userprofile = create_userprofile(user, data, {})
+        success, form, profile = UserProfileService.create(
+            user=user,
+            data=data,
+            files=None
+        )
 
-    assert success is True
-    assert form is not None
-    assert userprofile.user == user
+        assert success is True
+        assert profile is not None
+        assert isinstance(profile, UserProfile)
+        assert profile.user == user
+        assert profile.title == "Developer"
 
+    def test_get_update_form(self, user_profile):
+        """
+        Test retrieving update form for existing profile.
+        """
+        form, profile = UserProfileService.get_update_form(user_profile.id)
 
-@pytest.mark.django_db
-def test_get_userprofile_update_form(user_profile):
-    """ Test that get_userprofile_update_form returns a UserProfileForm and the associated user profile """
-    form, userprofile = get_userprofile_update_form(user_profile.id)
+        assert profile == user_profile
+        assert form.instance == user_profile
 
-    assert form.instance == user_profile
-    assert userprofile == user_profile
+    def test_update_userprofile_success(self, user_profile):
+        """
+        Test successful update of user profile.
+        """
+        data = {
+            "title": "Updated Title",
+            "position": "Updated Position",
+            "bio": "Updated bio",
+        }
 
+        success, form, updated_profile = UserProfileService.update(
+            userprofile_id=user_profile.id,
+            data=data,
+            files=None
+        )
 
-@pytest.mark.django_db
-def test_update_userprofile_success(user_profile):
-    """ Test that update_userprofile updates the user profile successfully """
-    data = {
-        'bio': "Updated bio"
-    }
+        updated_profile.refresh_from_db()
 
-    success, form, userprofile = update_userprofile(user_profile.id, data, {})
+        assert success is True
+        assert updated_profile.title == "Updated Title"
+        assert updated_profile.position == "Updated Position"
 
-    assert success is True
-    assert form is not None
-    assert userprofile.bio == "Updated bio"
+    def test_delete_userprofile(self, user_profile):
+        """
+        Test deletion of user profile.
+        """
+        profile_id = user_profile.id
 
+        UserProfileService.delete(user_profile)
 
-@pytest.mark.django_db
-def test_delete_user_profile(user_profile):
-    """ Test that delete_user_profile deletes the user profile """
-    delete_user_profile(user_profile)
-
-    from apps.userprofile.models import UserProfile
-
-    assert not UserProfile.objects.filter(id=user_profile.id).exists()
+        assert UserProfile.objects.filter(id=profile_id).exists() is False

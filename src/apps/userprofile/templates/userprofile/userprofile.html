@@ -29,12 +29,12 @@
   {% if user.is_authenticated %}
   <div class="btns icons">
     <img class="btn-icon"
-         hx-get="{% url 'userprofile:update-profile' userprofile_id=userprofile.id %}"
+         hx-get="{% url 'userprofile:update' userprofile_id=userprofile.id %}"
          hx-target="#dialog"
          src="{% static 'icons/edit.png' %}"
          alt="edit-btn">
     <img class="btn-icon"
-         hx-get="{% url 'userprofile:delete-profile' userprofile_id=userprofile.id %}"
+         hx-get="{% url 'userprofile:delete' userprofile_id=userprofile.id %}"
          hx-target="#dialog"
          src="{% static 'icons/trash.png' %}"
          alt="delete-btn">
@@ -46,6 +46,37 @@
     Expériences
   </div>
   <div class="dc-content">
+    {% for experience in experiences %}
+    <div class="dc-content-body">
+      <div class="dc-content-title">
+        {{ experience.title }}
+      </div>
+      <div class="dc-content-subtitle">
+        {{ experience.company }} |
+        {{ experience.start_date }} –
+        {% if experience.is_current %} Présent {% else %}
+        {{ experience.end_date }} {% endif %} |
+        {{ experience.location }}
+      </div>
+      <div class="dc-content-desc">
+        {{ experience.description|safe }}
+      </div>
+      {% if user.is_authenticated %}
+      <div class="btns icons">
+        <img class="btn-icon"
+             hx-get="{% url 'experiences:update' experience_id=experience.id %}"
+             hx-target="#dialog"
+             src="{% static 'icons/edit.png' %}"
+             alt="edit-btn">
+        <img class="btn-icon"
+             hx-get="{% url 'experiences:delete' experience_id=experience.id %}"
+             hx-target="#dialog"
+             src="{% static 'icons/trash.png' %}"
+             alt="delete-btn">
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
     <div class="dc-content-body">
       <div class="dc-content-title">
         Cabinet Le Frene, expertise et conseils
@@ -152,7 +183,9 @@
       {% endif %}
     </div>
     {% if user.is_authenticated %}
-    <button class="btn secondary">
+    <button class="btn cancel primary"
+            hx-get="{% url 'experiences:add' user_id=user_obj.id %}"
+            hx-target="#dialog">
       Ajouter une expérience
       <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
     </button>
@@ -237,7 +270,7 @@
       {% endif %}
     </div>
     {% if user.is_authenticated %}
-    <button class="btn secondary">
+    <button class="btn cancel primary">
       Ajouter une compétence
       <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
     </button>
@@ -347,7 +380,7 @@
       {% endif %}
     </div>
     {% if user.is_authenticated %}
-    <button class="btn secondary">
+    <button class="btn cancel primary">
       Ajouter un parcours
       <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
     </button>
@@ -386,7 +419,7 @@
       </div>
     </div>
     {% if user.is_authenticated %}
-    <button class="btn secondary">
+    <button class="btn cancel primary">
       Ajouter une techno
       <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
     </button>
@@ -425,7 +458,7 @@
       </div>
     </div>
     {% if user.is_authenticated %}
-    <button class="btn secondary">
+    <button class="btn cancel primary">
       Ajouter une certification
       <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
     </button>

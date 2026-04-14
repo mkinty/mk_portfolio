@@ -34,7 +34,27 @@ class UserProfileForm(ModelForm):
         """
 
         model = UserProfile
-        fields = ['title', 'position', 'avatar', 'bio']
+        fields = (
+            "title",
+            "position",
+            "avatar",
+            "bio"
+        )
+
         widgets = {
             "bio": CKEditor5Widget(config_name="default"),
+        }
+
+        labels = {
+            "title": "Titre professionnel",
+            "position": "Poste actuel",
+            "avatar": "Photo de profil",
+            "bio": "Biographie",
+        }
+
+        help_texts = {
+            "title": "Ex : Développeur Full Stack",
+            "position": "Votre fonction actuelle",
+            "avatar": "Image affichée sur votre profil",
+            "bio": "Présentez-vous en quelques lignes",
         }

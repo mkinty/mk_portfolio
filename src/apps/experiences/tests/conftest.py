@@ -1,6 +1,7 @@
 import pytest
+from datetime import date
 
-from apps.userprofile.models import UserProfile
+from apps.experiences.models import Experience
 from apps.users.models import User
 
 
@@ -21,15 +22,17 @@ def user(db):
 
 
 @pytest.fixture
-def user_profile(user):
+def experience(user):
     """
-    Return the UserProfile associated with the test user.
-
-    Args:
-        user (User): The test user fixture.
+    Create and return a test experience instance.
 
     Returns:
-        UserProfile: The associated user profile instance.
+        Experience: A saved experience instance.
     """
-    # Created by the post_save signal
-    return UserProfile.objects.get(user=user)
+    return Experience.objects.create(
+        user=user,
+        title="Test Experience",
+        company="Test Company",
+        start_date=date(2023, 1, 1),
+        description="Test Description",
+    )

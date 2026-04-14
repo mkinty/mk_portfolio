@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'apps.userprofile.apps.UserprofileConfig',  # User profile app avec signals
     'apps.projects',
     'apps.tracking',
+    'apps.experiences',
 ]
 
 MIDDLEWARE = [

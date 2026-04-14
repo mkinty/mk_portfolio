@@ -13,20 +13,32 @@
       {{ form.media }}
 
       <div class="field">
-        <label>Titre</label>
+        <label>Intitulé du poste</label>
         {{ form.title }}
       </div>
       <div class="field">
-        <label>Position</label>
-        {{ form.position }}
-      </div>
-      <div class="field profile-photo">
-        <label>Photo profile</label>
-        {{ form.avatar }}
+        <label>Entreprise</label>
+        {{ form.company }}
       </div>
       <div class="field">
-        <label>Résumé</label>
-        {{form.bio }}
+        <label>Lieu</label>
+        {{ form.location }}
+      </div>
+      <div class="field">
+        <label>Date de début</label>
+        {{ form.start_date }}
+      </div>
+      <div class="field">
+        <label>Date de fin</label>
+        {{ form.end_date }}
+      </div>
+      <div class="field checkbox">
+        <label>Poste actuel</label>
+        {{ form.is_current }}
+      </div>
+      <div class="field">
+        <label>Description</label>
+        {{form.description }}
       </div>
       <div class="btns actions">
         <button class="btn cancel primary" id="cancel" type="button">Annuler</button>

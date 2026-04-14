@@ -12,9 +12,9 @@ def get_userprofile_by_id(userprofile_id: int) -> Optional[UserProfile]:
         userprofile_id (int): ID of the userprofile.
 
     Returns:
-        UserProfile | None: The userprofile instance if found, otherwise None.
+        UserProfile: The userprofile instance if found, otherwise None.
     """
-    return UserProfile.objects.filter(id=userprofile_id).first()
+    return UserProfile.objects.filter(pk=userprofile_id).first()
 
 
 def get_userprofile_by_user(user: Optional[User]) -> Optional[UserProfile]:
@@ -25,6 +25,6 @@ def get_userprofile_by_user(user: Optional[User]) -> Optional[UserProfile]:
         user (Optional[User]): The user instance.
 
     Returns:
-        UserProfile | None: The userprofile instance if found, otherwise None.
+        UserProfile: The userprofile instance if found, otherwise None.
     """
     return UserProfile.objects.filter(user=user).first()

@@ -2,7 +2,7 @@
 <div class="user-profile dc">
   {% include 'includes/messages.html' %}
   {% if user.is_authenticated %}
-  <button class="btn secondary"
+  <button class="btn cancel primary"
           hx-get="{% url 'userprofile:add-profile' user_id=user_obj.id %}"
           hx-target="#dialog">
     Ajouter le profil

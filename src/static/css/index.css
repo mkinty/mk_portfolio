@@ -110,6 +110,8 @@ select {
   border: none;
   border-radius: 0.2rem;
   transition: all 0.5s ease;
+}
+.btn:hover {
   transition: all 0.5s ease;
 }
 .btn.no-cursor {
@@ -117,6 +119,44 @@ select {
 }
 .btn.linked {
   text-decoration: underline;
+}
+.btn.valid {
+  color: var(--White);
+}
+.btn.cancel {
+  background-color: var(--White);
+}
+.btn.valid.primary {
+  background-color: var(--Primary);
+  border: 1px solid var(--Primary);
+}
+.btn.valid.primary:hover {
+  background-color: var(--S1);
+  border: 1px solid var(--S1);
+}
+.btn.cancel.primary {
+  color: var(--Primary);
+  border: 1px solid var(--Primary);
+}
+.btn.cancel.primary:hover {
+  color: var(--S1);
+  border: 1px solid var(--S1);
+}
+.btn.valid.delete {
+  background-color: var(--Trash);
+  border: 1px solid var(--Trash);
+}
+.btn.valid.delete:hover {
+  background-color: var(--Error);
+  border: 1px solid var(--Error);
+}
+.btn.cancel.delete {
+  color: var(--Trash);
+  border: 1px solid var(--Trash);
+}
+.btn.cancel.delele:hover {
+  color: var(--Error);
+  border: 1px solid var(--Error);
 }
 .link {
   color: var(--Primary);
@@ -126,27 +166,6 @@ select {
 .link:hover {
   text-decoration: underline;
   color: var(--S1);
-  transition: all 0.5s ease;
-}
-.btn.primary {
-  background-color: var(--Primary);
-  border: 1px solid var(--Primary);
-  color: var(--White);
-}
-.btn.primary:hover {
-  background-color: var(--S1);
-  color: var(--White);
-  transition: all 0.5s ease;
-}
-.btn.secondary {
-  background-color: var(--White);
-  border: 1px solid var(--Primary);
-  color: var(--Primary);
-}
-.btn.secondary:hover {
-  color: var(--S1);
-  border: 1px solid var(--S1);
-  transition: all 0.5s ease;
 }
 .icon {
   width: 2.5rem;
@@ -936,6 +955,12 @@ select {
   flex-direction: column;
   padding: 0.5rem 0;
   width: 100%;
+}
+.field.checkbox{
+  flex-direction: row;
+  align-items: center;
+  gap: 4rem;
+  margin: 0.5rem 0;
 }
 .field label {
   color: var(--D_Grey);
