@@ -47,6 +47,7 @@ urlpatterns = [
     path("projects/", include("apps.projects.web.urls", namespace="projects")),
     path("tracking/", include("apps.tracking.web.urls", namespace="tracking")),
     path("experiences/", include("apps.experiences.web.urls", namespace="experiences")),
+    path("skills/", include("apps.skills.web.urls", namespace="skills")),
 ]
 
 # Servir les fichiers media et statiques seulement en développement
