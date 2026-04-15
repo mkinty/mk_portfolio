@@ -77,6 +77,10 @@ tests:
 pytest:
 	PYTHONPATH=src DJANGO_SETTINGS_MODULE=config.settings.dev uv run pytest src/apps
 
+# Tests pytest pour une app spécifique
+pytest-app:
+	PYTHONPATH=src DJANGO_SETTINGS_MODULE=config.settings.dev uv run pytest src/apps/$(APP)
+
 # Coverage pour toutes les apps
 coverage:
 	PYTHONPATH=src DJANGO_SETTINGS_MODULE=config.settings.dev uv run coverage run --source=src/apps -m pytest src/apps

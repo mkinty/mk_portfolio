@@ -620,7 +620,7 @@ select {
   justify-content: start;
   gap: 4rem;
 }
-.dc-title {
+.dc-category {
   font-size: 3.2rem;
   font-weight: 700;
   min-width: 25rem;
@@ -636,16 +636,22 @@ select {
   padding-top: 2.5rem;
   border-top: 0.1rem solid var(--Grey);
 }
-.dc-content-title {
+.dc-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 1rem;
+}
+.dc-title .title {
   font-size: 2.4rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--Dark);
 }
-.dc-content-subtitle {
+.dc-title .subtitle {
   font-size: 1.8rem;
   font-weight: 600;
   color: var(--D_Grey);
-  padding: 0.5rem 0;
 }
 .dc-content-desc {
   padding-top: 2rem;
