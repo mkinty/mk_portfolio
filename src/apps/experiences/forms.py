@@ -1,11 +1,10 @@
 from django import forms
-from django.forms import ModelForm
 from django_ckeditor_5.widgets import CKEditor5Widget
 
 from apps.experiences.models import Experience
 
 
-class ExperienceForm(ModelForm):
+class ExperienceForm(forms.ModelForm):
     """
     Form for creating and updating an Experience instance.
 
