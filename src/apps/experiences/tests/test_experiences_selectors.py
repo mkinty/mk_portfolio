@@ -5,7 +5,7 @@ from apps.experiences.selectors.experiences_selectors import get_experience_by_i
 
 
 @pytest.mark.django_db
-class TestGetExperienceById:
+class TestExperienceSelectors:
     """
     Test suite for get_experience_by_id selector.
     """
@@ -42,7 +42,7 @@ class TestGetExperienceById:
         """
         Should return a list of all experiences.
         """
-        result = get_all_experiences()
+        result = get_all_experiences(experience.user)
 
         assert len(result) == 1
         assert result[0].id == experience.id

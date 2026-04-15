@@ -1,4 +1,14 @@
+import pytest
+
+from apps.skills.models import Skills
+
+
+@pytest.mark.django_db
 class TestSkillModel:
+    """
+    Test suite for the Skill model.
+    """
+
     def test_skill_fixture(self, skill):
         """
         Test that the skill fixture is working correctly.
@@ -25,7 +35,6 @@ class TestSkillModel:
         """
         Test that a new skill can be created.
         """
-        from apps.skills.models import Skills
         skill = Skills.objects.create(
             user=user,
             name="New Skill",

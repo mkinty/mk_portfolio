@@ -16,11 +16,11 @@ def get_experience_by_id(experience_id: int) -> Optional[Experience]:
     return Experience.objects.filter(pk=experience_id).first()
 
 
-def get_all_experiences() -> list[Experience]:
+def get_all_experiences(user) -> list[Experience]:
     """
-    Retrieve all experiences.
+    Retrieve all experiences for a user
 
     Returns:
         list[Experience]: A list of all experience instances.
     """
-    return Experience.objects.all()
+    return user.experiences.all()
