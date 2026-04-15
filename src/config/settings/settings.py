@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'apps.tracking',
     'apps.experiences',
     'apps.skills',
-    'apps.education'
+    'apps.education',
+    'apps.technologies',
 ]
 
 MIDDLEWARE = [
