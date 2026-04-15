@@ -14,7 +14,7 @@ class TestExperienceService:
         """
         Test retrieving an empty experience form with user.
         """
-        form, returned_user = ExperienceService.get_add_form(user.id)
+        form, returned_user = ExperienceService.get_add_form(user.pk)
 
         assert returned_user == user
         assert form is not None
@@ -117,6 +117,6 @@ class TestExperienceService:
         """
         exp_id = experience.id
 
-        ExperienceService.delete(experience)
+        ExperienceService.delete(experience.id)
 
         assert Experience.objects.filter(id=exp_id).exists() is False

@@ -109,11 +109,13 @@ class ExperienceService:
         return True, form, experience
 
     @staticmethod
-    def delete(experience: Experience) -> None:
+    def delete(experience_id: Experience) -> None:
         """
         Delete an Experience instance.
 
         Args:
-            experience (Experience): instance to delete.
+            experience_id (Experience): instance to delete.
         """
+        experience = get_experience_by_id(experience_id)
         experience.delete()
+        return True

@@ -111,9 +111,8 @@ class ExperienceDeleteView(View):
 
     def post(self, request, experience_id):
         """Delete experience."""
-        experience = get_experience_by_id(experience_id)
 
-        ExperienceService.delete(experience)
+        ExperienceService.delete(experience_id)
 
         messages.success(request, "Expérience supprimée.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
