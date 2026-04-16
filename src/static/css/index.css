@@ -989,11 +989,6 @@ select {
   width: 100%;
   padding: 0.5rem 0.8rem;
 }
-.field input::placeholder,
-.field textarea::placeholder {
-  color: var(--Grey);
-  opacity: 0.5;
-}
 .field input:focus,
 .field textarea:focus {
   border: 1.5px solid var(--Primary);
@@ -1041,6 +1036,13 @@ select {
   font-size: 1.2rem;
   width: 100%;
   margin-top: 0.8rem;
+}
+input::placeholder,
+textarea::placeholder,
+.ck-editor-container input::placeholder,
+.ck-editor-container textarea::placeholder {
+  color: var(--Grey) !important;
+  opacity: 0.5 !important;
 }
 pre[class*="language-"],
 .field .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) pre[class*="language-"] {

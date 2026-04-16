@@ -45,7 +45,11 @@ class UserProfileForm(forms.ModelForm):
         )
 
         widgets = {
-            "bio": CKEditor5Widget(config_name="extends"),
+            "title": forms.TextInput(attrs={"placeholder": "Ex: Développeur Full Stack"}),
+            "position": forms.TextInput(attrs={"placeholder": "Ex: Ingénieur Logiciel"}),
+            "location": forms.TextInput(attrs={"placeholder": "Ex: Paris, France"}),
+            "phone": forms.TextInput(attrs={"placeholder": "Ex: +33 6 12 34 56 78"}),
+            "bio": CKEditor5Widget(config_name="extends", attrs={"placeholder": "Présentation personnelle, décrivez-vous en quelques mots."}),
             "birth_date": forms.DateInput(attrs={"type": "date"}),
         }
 
@@ -56,7 +60,7 @@ class UserProfileForm(forms.ModelForm):
             "location": "Lieu de localisation",
             "phone": "Numéro de téléphone",
             "avatar": "Photo de profil",
-            "bio": "Biographie",
+            "bio": "Présentation personnelle, décrivez-vous en quelques mots.",
         }
 
         help_texts = {

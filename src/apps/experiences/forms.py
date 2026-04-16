@@ -34,7 +34,10 @@ class ExperienceForm(forms.ModelForm):
         )
 
         widgets = {
-            "description": CKEditor5Widget(config_name="extends"),
+            "title": forms.TextInput(attrs={"placeholder": "Ex: Développeur Full-Stack"}),
+            "company": forms.TextInput(attrs={"placeholder": "Ex: Tech Solutions Inc."}),
+            "location": forms.TextInput(attrs={"placeholder": "Ex: Paris, France"}),
+            "description": CKEditor5Widget(config_name="extends", attrs={"placeholder": "Description détaillée des responsabilités et réalisations (optionnelle)."}),
             "start_date": forms.DateInput(attrs={"type": "date"}),
             "end_date": forms.DateInput(attrs={"type": "date"}),
             "is_current": forms.CheckboxInput(),

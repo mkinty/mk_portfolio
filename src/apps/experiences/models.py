@@ -1,6 +1,7 @@
-from django.conf import settings
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+
+from config.settings import settings
 
 
 class Experience(models.Model):
