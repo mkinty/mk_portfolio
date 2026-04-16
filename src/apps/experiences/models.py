@@ -44,7 +44,7 @@ class Experience(models.Model):
     )
     description = CKEditor5Field(
         "Content",
-        config_name="extends",
+        config_name="default",
         blank=True,
         help_text="Detailed description of responsibilities and achievements."
     )

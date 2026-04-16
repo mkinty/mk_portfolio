@@ -26,7 +26,7 @@ class Skills(models.Model):
 
     description = CKEditor5Field(
         "Content",
-        config_name="extends",
+        config_name="default",
         blank=True,
         help_text="Optional detailed description of the skill."
     )

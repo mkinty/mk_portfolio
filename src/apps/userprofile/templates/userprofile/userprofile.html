@@ -84,11 +84,10 @@
     </div>
     {% endfor %}
     {% if user.is_authenticated %}
-    <button class="btn cancel primary"
+    <button class="btn valid primary"
             hx-get="{% url 'experiences:add' user_id=user_obj.id %}"
             hx-target="#dialog">
       Ajouter une expérience
-      <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
     </button>
     {% endif %}
   </div>
@@ -98,82 +97,35 @@
     Compétences
   </div>
   <div class="dc-content">
+    {% for skill in skills %}
     <div class="dc-content-body">
-      <div class="dc-title">
-        Compétences Techniques
+      <div class="dc-title title">
+        {{ skill.name}}
       </div>
       <div class="dc-content-desc">
-        <p>
-          Mes compétences s'articulent autour d'une stack technique moderne (Modern Data Stack) et du développement
-          logiciel :
-        </p>
-        <ul>
-          <li>
-            Analytics Engineering & Data Warehouse : Maîtrise de Snowflake et de dbt (création de modèles, gestion des
-            snapshots, écriture de macros). Je structure la donnée brute pour la rendre prête à l'analyse, en
-            appliquant
-            les standards de l'ingénierie logicielle (tests, CI/CD).
-          </li>
-          <li>
-            Développement Backend & API : Expert en Python. Développement d'applications et d'API REST performantes
-            avec
-            Django et FastAPI.
-          </li>
-          <li>
-            Bases de données & Requêtage : Excellente maîtrise de SQL. Modélisation et administration sur PostgreSQL
-            et
-            MySQL.
-          </li>
-          <li>
-            Orchestration & Data Engineering : Création et gestion de flux de données automatisés avec Apache Airflow.
-            Contrôle qualité et documentation technique approfondie.
-          </li>
-          <li>
-            Data Analysis & Visualisation : Conception de dashboards métiers interactifs et actionnables via Power BI,
-            Tableau et Metabase.
-          </li>
-          <li>
-            DevOps, Cloud & Outils de versioning : Déploiement et gestion d'environnements avec Docker. Versioning
-            maîtrisé avec Git. Expérience sur les environnements Cloud (AWS, GCP, Microsoft Azure).
-          </li>
-        </ul>
+        {{ skill.description|safe }}
       </div>
       {% if user.is_authenticated %}
       <div class="btns icons">
-        <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
-        <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+        <img class="btn-icon"
+             hx-get="{% url 'skills:update' skill_id=skill.id %}"
+             hx-target="#dialog"
+             src="{% static 'icons/edit.png' %}"
+             alt="edit-btn">
+        <img class="btn-icon"
+             hx-get="{% url 'skills:delete' skill_id=skill.id %}"
+             hx-target="#dialog"
+             src="{% static 'icons/trash.png' %}"
+             alt="delete-btn">
       </div>
       {% endif %}
     </div>
-    <div class="dc-content-body">
-      <div class="dc-title">
-        Compétences Transversales
-      </div>
-      <div class="dc-content-desc">
-        <p>
-          Problem-Solving & Rigueur Mathématique : Je mets à profit mon socle en mathématiques appliquées pour
-          concevoir des architectures de données basées sur un raisonnement analytique solide et éprouvé.
-        </p>
-        <p>
-          Vulgarisation & Pédagogie : Capacité à faire le pont entre les équipes techniques (développeurs) et les
-          équipes métiers (décideurs) en traduisant des données complexes en stratégies compréhensibles.
-        </p>
-        <p>
-          Efficacité : Focus constant sur l'automatisation pour réduire le temps nécessaire pour obtenir une
-          information utile.
-        </p>
-      </div>
-      {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
-        <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
-      </div>
-      {% endif %}
-    </div>
+    {% endfor %}
     {% if user.is_authenticated %}
-    <button class="btn cancel primary">
-      Ajouter une compétence
-      <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+    <button class="btn valid primary"
+            hx-get="{% url 'skills:add' user_id=user_obj.id %}"
+            hx-target="#dialog">
+      Ajouter une catégorie de compétences
     </button>
     {% endif %}
   </div>

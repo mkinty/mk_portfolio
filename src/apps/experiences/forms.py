@@ -34,7 +34,7 @@ class ExperienceForm(forms.ModelForm):
         )
 
         widgets = {
-            "description": CKEditor5Widget(config_name="default"),
+            "description": CKEditor5Widget(config_name="extends"),
             "start_date": forms.DateInput(attrs={"type": "date"}),
             "end_date": forms.DateInput(attrs={"type": "date"}),
             "is_current": forms.CheckboxInput(),

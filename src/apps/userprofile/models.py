@@ -38,7 +38,7 @@ class UserProfile(models.Model):
     )
     bio = CKEditor5Field(
         "Content",
-        config_name="extends",
+        config_name="default",
         blank=True,
         help_text="Detailed biography or description of the user."
     )

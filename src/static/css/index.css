@@ -107,7 +107,6 @@ select {
   padding: 0.8rem 1.5rem;
   font-weight: 600;
   cursor: pointer;
-  border: none;
   border-radius: 0.2rem;
   transition: all 0.5s ease;
 }
@@ -179,6 +178,17 @@ select {
 }
 .btn-icon:hover {
   opacity: 0.8;
+}
+.close-bnt {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 0 1rem;
+  margin: 0;
+}
+.close-bnt .btn-icon {
+  width: 2.5rem;
+  height: 2.5rem;
 }
 .icon img {
   width: 100%;
@@ -643,6 +653,7 @@ select {
   justify-content: start;
   gap: 1rem;
 }
+.dc-title.title,
 .dc-title .title {
   font-size: 2.4rem;
   font-weight: 600;
@@ -906,7 +917,6 @@ select {
   align-items: center;
   height: 100%;
   width: 100%;
-  padding: 1rem;
   gap: 1rem;
 }
 .register.dark{

@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 
 from apps.experiences.selectors.experiences_selectors import get_all_experiences
+from apps.skills.selectors.skills_selectors import SkillsSelectors
 from apps.userprofile.services.userprofile_services import UserProfileService
 from apps.users.selectors.user_selectors import get_user_by_id
 from apps.userprofile.selectors.userprofile_selectors import (
@@ -61,7 +62,9 @@ class UserProfileView(View):
         """Handle GET request to display a user profile."""
         user_obj = get_user_by_id(user_id)
         userprofile = get_userprofile_by_user(user_obj)
-        experiences = get_all_experiences()
+        experiences = get_all_experiences(user_obj)
+        skills = SkillsSelectors.get_all_skills(user_obj)
+
         if not userprofile:
             messages.info(request, "Profil utilisateur non trouvé ou non configuré.")
             return render(request, "userprofile/userprofile_not_found.html", {"user_obj": user_obj})
@@ -69,7 +72,8 @@ class UserProfileView(View):
         context = {
             "user_obj": user_obj,
             "userprofile": userprofile,
-            "experiences": experiences
+            "experiences": experiences,
+            "skills": skills
         }
 
         return render(request, self.template_name, context)

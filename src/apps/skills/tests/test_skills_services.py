@@ -1,5 +1,4 @@
 import pytest
-from django.contrib.messages import success
 
 from apps.skills.services.skills_servives import SkillsService
 from apps.skills.tests.conftest import skill

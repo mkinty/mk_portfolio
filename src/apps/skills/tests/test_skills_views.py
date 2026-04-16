@@ -2,10 +2,11 @@ import pytest
 from django.urls import reverse
 
 from apps.experiences.models import Experience
+from apps.skills.models import Skills
 
 
 @pytest.mark.django_db
-class TestExperienceViews:
+class TestSkillsViews:
     """
     Test suite for Experience views.
 
@@ -24,19 +25,19 @@ class TestExperienceViews:
     """
 
     # =========================================================
-    # CREATE (ADD EXPERIENCE)
+    # CREATE (ADD SKILL)
     # =========================================================
 
     def test_add_get(self, client, user):
         """
-        Ensure the add experience form is correctly rendered.
+        Ensure the add skill form is correctly rendered.
 
         Steps:
             1. Call GET add view
             2. Verify HTTP 200 response
             3. Verify form and user context exist
         """
-        url = reverse("experiences:add", kwargs={"user_id": user.id})
+        url = reverse("skills:add", kwargs={"user_id": user.id})
         response = client.get(url)
 
         assert response.status_code == 200
@@ -45,94 +46,93 @@ class TestExperienceViews:
 
     def test_add_post_success(self, client, user):
         """
-        Ensure an experience is created successfully.
+        Ensure a skill is created successfully.
 
         Steps:
             1. Submit valid POST data
             2. Verify HTMX success response
             3. Verify object is created in database
         """
-        url = reverse("experiences:add", kwargs={"user_id": user.id})
+        url = reverse("skills:add", kwargs={"user_id": user.id})
 
         data = {
-            "title": "Dev",
-            "company": "Company",
-            "start_date": "2023-01-01",
+            "name": "Technical skills",
+            "description": "Technical skills description",
         }
 
         response = client.post(url, data)
 
         assert response.status_code == 200
         assert response.headers["HX-Trigger"] == "formSubmittedEvent"
-        assert Experience.objects.filter(user=user).exists()
+        assert Skills.objects.filter(user=user).exists()
 
     def test_add_post_failure(self, client, user):
         """
-        Ensure invalid data does not create an experience.
+        Ensure invalid data does not create a skill.
 
         Steps:
             1. Submit invalid POST data
             2. Verify form is returned with errors
             3. Verify no object is created
         """
-        url = reverse("experiences:add", kwargs={"user_id": user.id})
+        url = reverse("skills:add", kwargs={"user_id": user.id})
 
         data = {
-            "title": "",  # invalid field
+            "name": "",  # invalid field
         }
 
         response = client.post(url, data)
 
         assert response.status_code == 200
         assert "form" in response.context
-        assert Experience.objects.filter(user=user).count() == 0
+        assert Skills.objects.filter(user=user).count() == 0
 
     # =========================================================
-    # UPDATE EXPERIENCE
+    # UPDATE SKILL
     # =========================================================
 
-    def test_update_get(self, client, experience):
+    def test_update_get(self, client, skill):
         """
         Ensure update form is rendered with existing data.
 
         Steps:
             1. Call GET update view
             2. Verify HTTP 200 response
-            3. Verify experience is in context
+            3. Verify skill is in context
         """
-        url = reverse("experiences:update", kwargs={"experience_id": experience.id})
+        url = reverse("skills:update", kwargs={"skill_id": skill.id})
         response = client.get(url)
 
         assert response.status_code == 200
         assert "form" in response.context
-        assert response.context["experience"] == experience
+        assert response.context["skill"] == skill
 
-    def test_update_post_success(self, client, experience):
+    def test_update_post_success(self, client, skill):
         """
-        Ensure an experience is successfully updated.
+        Ensure a skill is successfully updated.
 
         Steps:
             1. Submit valid update data
             2. Verify HTMX success response
             3. Verify database is updated
         """
-        url = reverse("experiences:update", kwargs={"experience_id": experience.id})
+        url = reverse("skills:update", kwargs={"skill_id": skill.id})
+
 
         data = {
-            "title": "Updated title",
-            "company": experience.company,
-            "start_date": "2023-01-01",
+            "name": "Updated Technical skills",
+            "description": "Updated Technical skills description",
         }
 
         response = client.post(url, data)
 
-        experience.refresh_from_db()
+        skill.refresh_from_db()
 
         assert response.status_code == 200
         assert response.headers["HX-Trigger"] == "formSubmittedEvent"
-        assert experience.title == "Updated title"
+        assert skill.name == "Updated Technical skills"
 
-    def test_update_post_failure(self, client, experience):
+    def test_update_post_failure(self, client, skill):
         """
         Ensure invalid update data does not modify object.
 
@@ -140,10 +140,10 @@ class TestExperienceViews:
             1. Submit invalid data
             2. Verify form errors are returned
         """
-        url = reverse("experiences:update", kwargs={"experience_id": experience.id})
+        url = reverse("skills:update", kwargs={"skill_id": skill.id})
 
         data = {
-            "title": "",  # invalid
+            "name": "",  # invalid
         }
 
         response = client.post(url, data)
@@ -152,10 +152,10 @@ class TestExperienceViews:
         assert "form" in response.context
 
     # =========================================================
-    # DELETE EXPERIENCE
+    # DELETE SKILL
     # =========================================================
 
-    def test_delete_get(self, client, experience):
+    def test_delete_get(self, client, skill):
         """
         Ensure delete confirmation page is displayed.
 
@@ -164,25 +164,25 @@ class TestExperienceViews:
             2. Verify HTTP 200 response
             3. Verify experience is in context
         """
-        url = reverse("experiences:delete", kwargs={"experience_id": experience.id})
+        url = reverse("skills:delete", kwargs={"skill_id": skill.id})
         response = client.get(url)
 
         assert response.status_code == 200
-        assert "experience" in response.context
+        assert "skill" in response.context
 
-    def test_delete_post(self, client, experience):
+    def test_delete_post(self, client, skill):
         """
-        Ensure experience is deleted successfully.
+        Ensure skill is deleted successfully.
 
         Steps:
             1. Call POST delete view
             2. Verify HTMX success response
             3. Verify object is removed from database
         """
-        url = reverse("experiences:delete", kwargs={"experience_id": experience.id})
+        url = reverse("skills:delete", kwargs={"skill_id": skill.id})
 
         response = client.post(url)
 
         assert response.status_code == 200
         assert response.headers["HX-Trigger"] == "formSubmittedEvent"
-        assert not Experience.objects.filter(id=experience.id).exists()
+        assert not Skills.objects.filter(id=skill.id).exists()

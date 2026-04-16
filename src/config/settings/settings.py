@@ -141,8 +141,6 @@ SPECTACULAR_SETTINGS = {
 # Indique à Django que le header X-Forwarded-Proto est utilisé pour HTTPS
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
-# CKEditor 5 configuration
 # CKEditor 5 configuration
 CKEDITOR_5_CONFIGS = {
     "default": {
@@ -176,5 +174,43 @@ CKEDITOR_5_CONFIGS = {
                 {"language": "csharp", "label": "C#"},
             ],
         },
-    }
+    },
+
+    "extends": {
+        "toolbar": [
+            "heading",
+            "|",
+            "bold",
+            "italic",
+            "underline",
+            "link",
+            "bulletedList",
+            "numberedList",
+            "|",
+            "blockQuote",
+            "codeBlock",
+            "imageUpload",
+            "insertTable",
+            "mediaEmbed",
+            "undo",
+            "redo",
+        ],
+        "mediaEmbed": {
+            "previewsInData": True
+        },
+    },
 }
+
+# Configuration du stockage pour CKEditor 5
+CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+
+# Types de fichiers autorisés pour l'upload
+CKEDITOR_5_UPLOAD_FILE_TYPES = [
+    "jpeg",
+    "jpg",
+    "png",
+    "gif",
+    "mp4",
+    "webm",
+    "ogg"
+]

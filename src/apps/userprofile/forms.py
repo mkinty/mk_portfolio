@@ -42,7 +42,7 @@ class UserProfileForm(ModelForm):
         )
 
         widgets = {
-            "bio": CKEditor5Widget(config_name="default"),
+            "bio": CKEditor5Widget(config_name="extends"),
         }
 
         labels = {

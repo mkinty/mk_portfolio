@@ -56,10 +56,16 @@ function closeModal() {
 function setupModalUI(container) {
 
     const cancel = container.querySelector("#cancel");
+    const close = container.querySelector("#close-btn");
 
     if (cancel && !cancel.dataset.bound) {
         cancel.dataset.bound = "true";
         cancel.addEventListener("click", closeModal);
+    }
+
+    if (close && !close.dataset.bound) {
+        close.dataset.bound = "true";
+        close.addEventListener("click", closeModal);
     }
 
     const firstChildId = container.firstElementChild?.id;
@@ -85,7 +91,8 @@ function resetCKEditorState() {
 ========================================================= */
 modal.addEventListener("click", (e) => {
     if (e.target === modal) {
-        closeModal();
+//        closeModal();
+      console.log("Backdrop clicked");
     }
 });
 
