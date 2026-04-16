@@ -1,10 +1,10 @@
-from django.forms import ModelForm
+from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 
 from apps.userprofile.models import UserProfile
 
 
-class UserProfileForm(ModelForm):
+class UserProfileForm(forms.ModelForm):
     """
     Form for creating and updating a UserProfile instance.
 
@@ -37,24 +37,28 @@ class UserProfileForm(ModelForm):
         fields = (
             "title",
             "position",
+            "birth_date",
+            "location",
+            "phone",
             "avatar",
             "bio"
         )
 
         widgets = {
             "bio": CKEditor5Widget(config_name="extends"),
+            "birth_date": forms.DateInput(attrs={"type": "date"}),
         }
 
         labels = {
             "title": "Titre professionnel",
             "position": "Poste actuel",
+            "birth_date": "Date de naissance",
+            "location": "Lieu de localisation",
+            "phone": "Numéro de téléphone",
             "avatar": "Photo de profil",
             "bio": "Biographie",
         }
 
         help_texts = {
             "title": "Ex : Développeur Full Stack",
-            "position": "Votre fonction actuelle",
-            "avatar": "Image affichée sur votre profil",
-            "bio": "Présentez-vous en quelques lignes",
         }

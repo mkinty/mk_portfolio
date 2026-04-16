@@ -4,9 +4,9 @@
 <div class="register" id="large">
   <div class="close-bnt">
     <img class="btn-icon"
-              id="close-btn"
-             src="{% static 'icons/close.png' %}"
-             alt="close-btn">
+         id="close-btn"
+         src="{% static 'icons/close.png' %}"
+         alt="close-btn">
   </div>
   <div class="register-header">
     {{ title }}
@@ -27,6 +27,18 @@
       <div class="field">
         <label>Position</label>
         {{ form.position }}
+      </div>
+      <div class="field">
+        <label>Date de naissance</label>
+        {{ form.birth_date }}
+      </div>
+      <div class="field">
+        <label>Lieu de localisation</label>
+        {{ form.location }}
+      </div>
+      <div class="field">
+        <label>Numéro de téléphone</label>
+        {{ form.phone }}
       </div>
       <div class="field profile-photo">
         <label>Photo profile</label>

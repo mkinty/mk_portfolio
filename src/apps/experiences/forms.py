@@ -43,7 +43,7 @@ class ExperienceForm(forms.ModelForm):
         labels = {
             "title": "Intitulé du poste",
             "company": "Entreprise",
-            "location": "Lieu",
+            "location": "Lieu de localisation",
             "start_date": "Date de début",
             "end_date": "Date de fin",
             "is_current": "Poste actuel",

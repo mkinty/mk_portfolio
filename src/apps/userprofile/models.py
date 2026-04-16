@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
@@ -31,6 +32,21 @@ class UserProfile(models.Model):
         blank=True,
         help_text="Current position or role held by the user."
     )
+    birth_date = models.DateField(
+        blank=True,
+        null=True,
+        help_text="Birth date of the user."
+    )
+    location = models.CharField(
+        max_length=150,
+        blank=True,
+        help_text="Location of the user."
+    )
+    phone = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text="Phone number of the user."
+    )
     avatar = models.ImageField(
         upload_to="avatars/",
         blank=True,
@@ -42,6 +58,21 @@ class UserProfile(models.Model):
         blank=True,
         help_text="Detailed biography or description of the user."
     )
+
+    @property
+    def age(self):
+        if not self.birth_date:
+            return None
+
+        today = date.today()
+        return (
+                today.year
+                - self.birth_date.year
+                - (
+                        (today.month, today.day)
+                        < (self.birth_date.month, self.birth_date.day)
+                )
+        )
 
     def __str__(self):
         """

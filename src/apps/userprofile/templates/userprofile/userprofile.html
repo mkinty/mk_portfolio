@@ -1,12 +1,12 @@
 {% load static %}
-<div class="user-profile dc">
+<div class="user-profile">
   <div class="user-profile-container">
     {% include 'includes/messages.html' %}
     <div class="skills">
       <div class="user-profile-header">
         <div class="text">
           <div class="user-name">
-            Bonjour, ici {{ user_obj.first_name|lower|capfirst }} {{ user_obj.last_name|upper }}
+            {{ user_obj.first_name|lower|capfirst }} {{ user_obj.last_name|upper }}
           </div>
           <div class="user-title">
             {{ userprofile.title }}
@@ -14,6 +14,9 @@
           <div class="user-position">
             {{ userprofile.position }}
           </div>
+          <small>
+            {{ userprofile.location }} | {{ user_obj.email }} | {{ userprofile.phone }} | {{ userprofile.age }} ans
+          </small>
         </div>
         <div class="avatar circle">
           {% if userprofile.avatar %}
@@ -60,9 +63,9 @@
         <div class="subtitle">
           {{ experience.company }}
         </div>
-         <div>
-           —  {{ experience.location }}
-         </div>
+        <div>
+          — {{ experience.location }}
+        </div>
       </div>
       <div class="dc-content-desc">
         {{ experience.description|safe }}
@@ -233,7 +236,7 @@
       {% endif %}
     </div>
     {% if user.is_authenticated %}
-    <button class="btn cancel primary">
+    <button class="btn valid primary">
       Ajouter un parcours
       <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
     </button>
@@ -248,7 +251,7 @@
     <div class="dc-content-body">
       <div class="dc-content-cards">
         <div class="dc-content-card">
-          <div class="btn primary no-cursor">
+          <div class="btn valid primary no-cursor">
             Python
           </div>
           {% if user.is_authenticated %}
@@ -259,7 +262,7 @@
           {% endif %}
         </div>
         <div class="dc-content-card">
-          <div class="btn primary no-cursor">
+          <div class="btn valid primary no-cursor">
             SQL
           </div>
           {% if user.is_authenticated %}
@@ -272,7 +275,7 @@
       </div>
     </div>
     {% if user.is_authenticated %}
-    <button class="btn cancel primary">
+    <button class="btn valid primary">
       Ajouter une techno
       <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
     </button>
@@ -287,7 +290,7 @@
     <div class="dc-content-body">
       <div class="dc-content-cards">
         <div class="dc-content-card">
-          <div class="btn primary linked">
+          <div class="btn valid primary linked">
             AWS
           </div>
           {% if user.is_authenticated %}
@@ -298,7 +301,7 @@
           {% endif %}
         </div>
         <div class="dc-content-card">
-          <div class="btn primary linked">
+          <div class="btn valid primary linked">
             Microsoft
           </div>
           {% if user.is_authenticated %}
@@ -311,10 +314,11 @@
       </div>
     </div>
     {% if user.is_authenticated %}
-    <button class="btn cancel primary">
+    <button class="btn valid primary">
       Ajouter une certification
       <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
     </button>
     {% endif %}
   </div>
 </div>
+
