@@ -17,9 +17,7 @@ class TestEducationSelectors:
         """
         Test retrieving a single education section by id.
         """
-        section = EducationSectionSelectors.get_education_section(
-            education_section.id
-        )
+        section = EducationSectionSelectors.get_education_section_by_id(education_section.id)
 
         assert section is not None
         assert section == education_section
@@ -28,7 +26,7 @@ class TestEducationSelectors:
         """
         Test retrieving a non-existing education section.
         """
-        section = EducationSectionSelectors.get_education_section(999)
+        section = EducationSectionSelectors.get_education_section_by_id(999)
 
         assert section is None
 
@@ -45,7 +43,7 @@ class TestEducationSelectors:
         """
         Test retrieving a single education entry by id.
         """
-        education = EducationSelectors.get_education(education_entry.id)
+        education = EducationSelectors.get_education_by_id(education_entry.id)
 
         assert education is not None
         assert education == education_entry
@@ -54,7 +52,7 @@ class TestEducationSelectors:
         """
         Test retrieving a non-existing education entry.
         """
-        education = EducationSelectors.get_education(999)
+        education = EducationSelectors.get_education_by_id(999)
 
         assert education is None
 

@@ -7,7 +7,7 @@ class EducationSectionSelectors:
     """
 
     @staticmethod
-    def get_education_section(education_section_id):
+    def get_education_section_by_id(education_section_id):
         """Retrieve an education selection by its unique identier"""
         return EducationSection.objects.filter(pk=education_section_id).first()
 
@@ -23,7 +23,7 @@ class EducationSelectors:
     """
 
     @staticmethod
-    def get_education(education_id):
+    def get_education_by_id(education_id):
         """Retrieve an education by its unique identier"""
         return Education.objects.filter(pk=education_id).first()
 
