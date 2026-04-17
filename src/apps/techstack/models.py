@@ -29,7 +29,7 @@ class TechStackCategory(models.Model):
     )
 
     class Meta:
-        ordering = ["order", "name"]
+        ordering = ["order"]
         unique_together = ("user", "name")
 
     def __str__(self):

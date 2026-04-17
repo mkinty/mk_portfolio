@@ -21,12 +21,21 @@
       {{ form.media }}
 
       <div class="field">
-        <label>Nom</label>
-        {{ form.name }}
+        <label>Catégorie</label>
+        <div class="field-content">
+          {{ form.category }}
+          <div class="btn valid primary"
+               hx-get="{% url 'techstack:add-category' user_id=user_obj.id %}"
+               hx-target="#dialog">
+            <img class="btn-icon"
+                 src="{% static 'icons/add-white.png' %}"
+                 alt="add-btn">
+          </div>
+        </div>
       </div>
       <div class="field">
-        <label>Description</label>
-        {{form.description }}
+        <label>Nom</label>
+        {{ form.name }}
       </div>
       <div class="btns actions">
         <button class="btn cancel primary" id="cancel" type="button">Annuler</button>

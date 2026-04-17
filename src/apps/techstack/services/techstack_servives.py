@@ -1,7 +1,3 @@
-from apps.education.selectors.education_selectors import (
-    EducationSectionSelectors,
-    EducationSelectors
-)
 from apps.techstack.forms import TechStackCategoryForm, TechStackForm
 from apps.techstack.selectors.techstack_selectors import TechStackCategorySelectors, TechStackSelectors
 from apps.users.selectors.user_selectors import get_user_by_id
@@ -31,39 +27,39 @@ class TechStackCategoryServices:
         if not form.is_valid():
             return False, form, None
 
-        category = form.save(commit=False)
-        category.user = user
-        category.save()
-        return True, form, category
+        tech_category = form.save(commit=False)
+        tech_category.user = user
+        tech_category.save()
+        return True, form, tech_category
 
     @staticmethod
-    def get_update_form(category_id):
+    def get_update_form(tech_category_id):
         """
         Get the form for updating an existing tech stack category.
         """
-        category = TechStackCategorySelectors.get_techstack_category_by_id(category_id)
-        form = TechStackCategoryForm(instance=category)
-        return form, category
+        tech_category = TechStackCategorySelectors.get_techstack_category_by_id(tech_category_id)
+        form = TechStackCategoryForm(instance=tech_category)
+        return form, tech_category
 
     @staticmethod
-    def update(category_id, data, files):
+    def update(tech_category_id, data, files):
         """
         Update an existing tech stack category.
         """
-        category = TechStackCategorySelectors.get_techstack_category_by_id(category_id)
-        form = TechStackCategoryForm(data, files, instance=category)
+        tech_category = TechStackCategorySelectors.get_techstack_category_by_id(tech_category_id)
+        form = TechStackCategoryForm(data, files, instance=tech_category)
         if not form.is_valid():
-            return False, form, category
+            return False, form, tech_category
         form.save()
-        return True, form, category
+        return True, form, tech_category
 
     @staticmethod
-    def delete(category_id):
+    def delete(tech_category_id):
         """
         Delete an existing tech stack category.
         """
-        category = TechStackCategorySelectors.get_techstack_category_by_id(category_id)
-        category.delete()
+        tech_category = TechStackCategorySelectors.get_techstack_category_by_id(tech_category_id)
+        tech_category.delete()
         return True
 
 
@@ -91,37 +87,37 @@ class TechStackServices:
         if not form.is_valid():
             return False, form, None
 
-        techstack = form.save(commit=False)
-        techstack.user = user
-        techstack.save()
-        return True, form, techstack
+        tech_stack = form.save(commit=False)
+        tech_stack.user = user
+        tech_stack.save()
+        return True, form, tech_stack
 
     @staticmethod
-    def get_update_form(techstack_id):
+    def get_update_form(tech_stack_id):
         """
         Get the form for updating an existing tech stack.
         """
-        techstack = TechStackSelectors.get_tech_stack_by_id(techstack_id)
-        form = TechStackForm(instance=techstack)
-        return form, techstack
+        tech_stack = TechStackSelectors.get_tech_stack_by_id(tech_stack_id)
+        form = TechStackForm(instance=tech_stack)
+        return form, tech_stack
 
     @staticmethod
-    def update(techstack_id, data, files):
+    def update(tech_stack_id, data, files):
         """
         Update an existing tech stack.
         """
-        techstack = TechStackSelectors.get_tech_stack_by_id(techstack_id)
-        form = TechStackForm(data, files, instance=techstack)
+        tech_stack = TechStackSelectors.get_tech_stack_by_id(tech_stack_id)
+        form = TechStackForm(data, files, instance=tech_stack)
         if not form.is_valid():
-            return False, form, techstack
+            return False, form, tech_stack
         form.save()
-        return True, form, techstack
+        return True, form, tech_stack
 
     @staticmethod
-    def delete(techstack_id):
+    def delete(tech_stack_id):
         """
         Delete an existing tech stack.
         """
-        techstack = TechStackSelectors.get_tech_stack_by_id(techstack_id)
-        techstack.delete()
+        tech_stack = TechStackSelectors.get_tech_stack_by_id(tech_stack_id)
+        tech_stack.delete()
         return True

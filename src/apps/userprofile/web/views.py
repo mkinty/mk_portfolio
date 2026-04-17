@@ -7,6 +7,7 @@ from django.views import View
 from apps.education.selectors.education_selectors import EducationSectionSelectors, EducationSelectors
 from apps.experiences.selectors.experiences_selectors import get_all_experiences
 from apps.skills.selectors.skills_selectors import SkillsSelectors
+from apps.techstack.selectors.techstack_selectors import TechStackCategorySelectors
 from apps.userprofile.services.userprofile_services import UserProfileService
 from apps.users.selectors.user_selectors import get_user_by_id
 from apps.userprofile.selectors.userprofile_selectors import (
@@ -65,6 +66,7 @@ class UserProfileView(View):
         experiences = get_all_experiences(user_obj)
         skills = SkillsSelectors.get_all_skills(user_obj)
         education_sections = EducationSectionSelectors.get_all_education_sections(user_obj)
+        tech_stack_categories = TechStackCategorySelectors.get_all_tech_stack_categories(user_obj)
 
         if not userprofile:
             messages.info(request, "Profil utilisateur non trouvé ou non configuré.")
@@ -75,7 +77,8 @@ class UserProfileView(View):
             "userprofile": userprofile,
             "experiences": experiences,
             "skills": skills,
-            "education_sections": education_sections
+            "education_sections": education_sections,
+            "tech_stack_categories": tech_stack_categories
         }
 
         return render(request, self.template_name, context)

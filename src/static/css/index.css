@@ -79,18 +79,6 @@ a {
 button {
   font-size: 1.6rem;
 }
-select {
-  width: 100%;
-  font-size: 1.6rem;
-  font-weight: 500;
-  color: var(--Dark);
-  padding: 1rem;
-  border-radius: 0.2rem;
-  border: none;
-  outline: none;
-  border-top-right-radius: 0.2rem;
-  border-bottom-right-radius: 0.2rem;
-}
 .btns {
   display: flex;
   flex-direction: row;
@@ -675,15 +663,54 @@ select {
 }
 .dc-content-cards {
   display: flex;
-  flex-direction: row;
-  gap: 4rem;
+  flex-direction: column;
+  gap: 2rem;
+}
+.dc-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--Silver);
+  gap: 1.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+.dc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.3rem;
+  border-bottom: 0.1rem solid var(--Grey);
 }
 .dc-content-card {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.tech-container {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  gap: 0;
+  width: auto;
+  gap: 2rem;
+  padding:0.5rem;
+  border: 0.1rem solid var(--Grey);
+  border-radius: 0.5rem;
+}
+.tech-container .btns,
+.tech-container .btn {
+  padding: 0;
+  margin: 0;
+}
+.tech-category {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--Dark);
+}
+.tech {
+  font-weight: 600;
 }
 .dc-content-card .btns {
   gap: 1rem;
@@ -925,6 +952,7 @@ select {
   gap: 2rem;
 }
 .field {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
@@ -954,13 +982,53 @@ select {
   border-radius: 0.2rem;
   border: 1.5px solid var(--Grey);
 }
-.field.profile-photo input{
-  width: 100%;
-  padding: 0.5rem 0.8rem;
-}
 .field input:focus,
 .field textarea:focus {
   border: 1.5px solid var(--Primary);
+}
+.field select {
+  flex: 1;
+}
+.field select,
+::picker(select) {
+  appearance: base-select;
+}
+.field select {
+  padding: 1rem;
+  background: var(--White);
+  border: 1.5px solid var(--Grey);
+  border-radius: 0.2rem;
+  transition: 0.4s;
+}
+.field select:hover,
+.field select:focus {
+  border: 1.5px solid var(--Primary);
+}
+select::picker-icon {
+  color: var(--Grey);
+  transition: 0.4s rotate;
+}
+select:open::picker-icon {
+  rotate: 180deg;
+}
+::picker(select) {
+  border: none;
+}
+.field select option{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+  font-size: 1.6rem;
+  padding: 1rem;
+  color: var(--Grey);
+  background: var(--Silver);
+  border-bottom: 0.1rem solid var(--Divider);
+  transition: 0.4s;
+}
+.field.profile-photo input{
+  width: 100%;
+  padding: 0.5rem 0.8rem;
 }
 .field.profil input{
   padding: 0.8rem;
@@ -973,6 +1041,20 @@ select {
 }
 .field label[for="avatar-clear_id"] {
   cursor: pointer;
+}
+.field-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.field-content .btn {
+  width: auto;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.field-content .btn-icon {
+  width: 3rem;
+  height: 3rem;
 }
 /*-- CK Editor --*/
 .ck-body-wrapper {
