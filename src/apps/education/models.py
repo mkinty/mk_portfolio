@@ -75,6 +75,12 @@ class Education(models.Model):
         help_text="Domaine d'étude (ex: Informatique, Mathématiques)."
     )
 
+    location = models.CharField(
+        max_length=150,
+        blank=True,
+        help_text="Localisation de l'établissement (ex: Paris, France)."
+    )
+
     start_date = models.DateField(
         help_text="Date de début de la formation."
     )
@@ -91,6 +97,9 @@ class Education(models.Model):
         blank=True,
         help_text="Description optionnelle (résultats, projets, mentions, etc.)."
     )
+
+    class Meta:
+        ordering = ["-start_date"]
 
     def __str__(self):
         """

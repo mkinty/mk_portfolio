@@ -138,109 +138,76 @@
     Éducation
   </div>
   <div class="dc-content">
-    <div class="dc-content-body">
-      <div class="dc-title">
-        Parcours Académique
-      </div>
-      <div class="dc-content-desc">
-        <p>
-          Mon parcours est marqué par une évolution stratégique : des mathématiques pures et de la modélisation
-          financière vers l'ingénierie de la donnée et le développement moderne.
-        </p>
-      </div>
-      {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
-        <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
-      </div>
-      {% endif %}
-    </div>
-    <div class="dc-content-body">
-      <div class="dc-title">
-        Formation en Analytics Engineer
-      </div>
-      <div class="dc-title">
-        Ada Study | 2025
-      </div>
-      <div class="dc-content-desc">
-        <p>
-          Perfectionnement sur les pratiques modernes de la data (Modern Data Stack), la modélisation avancée en
-          entrepôt de données et l'utilisation de dbt.
-        </p>
-      </div>
-      {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
-        <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
-      </div>
-      {% endif %}
-    </div>
-    <div class="dc-content-body">
-      <div class="dc-title">
-        Diplôme Professionnel : Concepteur Développeur en Science des Données
-      </div>
-      <div class="dc-title">
-        Jedha Bootcamp, Paris | 2019 - 2020
-      </div>
-      <div class="dc-content-desc">
-        <p>
-          Formation intensive et pratique ayant solidifié mes compétences en développement Python, et Machine Learning
-          de bout en bout.
-        </p>
-      </div>
-      {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
-        <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
-      </div>
-      {% endif %}
-    </div>
-    <div class="dc-content-body">
-      <div class="dc-title">
-        Master 2 – Ingénierie Mathématique en Finance et Logistique
-      </div>
-      <div class="dc-title">
-        Université Le Havre Normandie | 2017 - 2018
-      </div>
-      <div class="dc-content-desc">
-        <p>
-          Acquisition d'une expertise forte en modélisation mathématique, optimisation, statistiques et résolution de
-          problèmes complexes appliqués à des secteurs exigeants.
-        </p>
-      </div>
-      {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
-        <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
-      </div>
-      {% endif %}
-    </div>
-    <div class="dc-content-body">
-      <div class="dc-title">
-        Master 2 – Mathématiques et Informatique des Systèmes Complexes et Distribués
-      </div>
-      <div class="dc-title">
-        Université Le Havre Normandie | 2016 - 2017
-      </div>
-      <div class="dc-content-desc">
-        <p>
-          Étude approfondie de l'algorithmique, de l'informatique distribuée et des systèmes complexes, jetant les
-          bases de mes compétences actuelles en architecture de données et de systèmes.
-        </p>
-      </div>
-      {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
-        <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
-      </div>
-      {% endif %}
-    </div>
-    {% if user.is_authenticated %}
-    <button class="btn valid primary">
-      Ajouter un parcours
-      <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
+    {% if not education_sections and user.is_authenticated %}
+    <button class="btn valid primary"
+            hx-get="{% url 'education:add-section' user_id=user_obj.id %}"
+            hx-target="#dialog">
+      Ajouter une section d'éducation
     </button>
     {% endif %}
+    {% for section in education_sections %}
+    <div class="dc-content-body">
+      <div class="dc-title title">
+        {{ section.name }}
+      </div>
+      <div class="dc-content-desc">
+        {{ section.description|safe }}
+      </div>
+      {% if user.is_authenticated %}
+      <div class="btns icons">
+        <img class="btn-icon"
+             hx-get="{% url 'education:update-section' education_section_id=section.id %}"
+             hx-target="#dialog"
+             src="{% static 'icons/edit.png' %}"
+             alt="edit-btn">
+        <img class="btn-icon"
+             hx-get="{% url 'education:delete-section' education_section_id=section.id %}"
+             hx-target="#dialog"
+             src="{% static 'icons/trash.png' %}"
+             alt="delete-btn">
+      </div>
+      {% endif %}
+    </div>
+    {% for education in section.educations.all %}
+    <div class="dc-content-body">
+      <div class="dc-title title">
+        {{ education.degree }} – {{ education.field_of_study }}
+      </div>
+      <div class="dc-title subtitle">
+        {{ education.school }},
+        {{ education.location }} |
+        {{ education.start_date.year }}
+        {% if education.end_date.year > education.start_date.year %}
+        – {{ education.end_date.year }}
+        {% endif %}
+      </div>
+      <div class="dc-content-desc">
+        {{ education.description|safe }}
+      </div>
+      {% if user.is_authenticated %}
+      <div class="btns icons">
+        <img class="btn-icon"
+             hx-get="{% url 'education:update' education_id=education.id %}"
+             hx-target="#dialog"
+             src="{% static 'icons/edit.png' %}"
+             alt="edit-btn">
+        <img class="btn-icon"
+             hx-get="{% url 'education:delete' education_id=education.id %}"
+             hx-target="#dialog"
+             src="{% static 'icons/trash.png' %}"
+             alt="delete-btn">
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+    <button class="btn valid primary"
+            hx-get="{% url 'education:add' education_section_id=section.id %}"
+            hx-target="#dialog">
+      Ajouter un parcours d'éducation
+    </button>
+    {% endif %}
+    {% endfor %}
   </div>
 </div>
 <div class="dc-container">

@@ -654,6 +654,7 @@ select {
   font-weight: 600;
   color: var(--Dark);
 }
+.dc-title.subtitle,
 .dc-title .subtitle {
   font-size: 1.8rem;
   font-weight: 600;
@@ -865,40 +866,6 @@ select {
   font-size: 1.2rem;
   color: var(--D_Grey);
 }
-/*-- Contact Page --*/
-.contact {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  gap: 1rem;
-  padding: 4rem;
-  background: var(--Dark);
-  border-bottom: 0.1rem solid var(--Divider);
-}
-.contact .author {
-  background: var(--White);
-  border: none;
-  width: 70%;
-  border-radius: 0.5rem;
-  padding: 1rem 2.5rem;
-}
-.contact-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  gap: 1rem;
-}
-.contact .register {
-  width: 70%;
-  background: var(--White);
-  border-radius: 0.5rem;
-  padding: 1rem 2rem;
-}
 /*-- Register --*/
 .register {
   display: flex;
@@ -908,6 +875,7 @@ select {
   height: 100%;
   width: 100%;
   gap: 1rem;
+  padding: 2rem;
 }
 .register.dark{
   background: var(--Dark);
@@ -959,7 +927,7 @@ select {
 .field {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
   width: 100%;
 }
 .field.checkbox{
@@ -970,8 +938,8 @@ select {
 }
 .field label {
   color: var(--D_Grey);
-  font-size: 1.6rem;
-  margin-bottom: 0.1rem;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
   font-weight: 600;
 }
 .field label.title {
@@ -979,8 +947,9 @@ select {
 }
 .field input,
 .field textarea {
+  font-size: 1.6rem;
   width: 100%;
-  padding: 0.8rem;
+  padding: 1rem;
   outline: none;
   border-radius: 0.2rem;
   border: 1.5px solid var(--Grey);
@@ -1038,11 +1007,47 @@ select {
   margin-top: 0.8rem;
 }
 input::placeholder,
-textarea::placeholder,
-.ck-editor-container input::placeholder,
-.ck-editor-container textarea::placeholder {
+textarea::placeholder {
   color: var(--Grey) !important;
   opacity: 0.5 !important;
+}
+.ck.ck-editor__editable > .ck-placeholder::before {
+  color: var(--Grey) !important;
+  opacity: 0.5 !important;
+}
+/*-- Contact Page --*/
+.contact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  gap: 1rem;
+  padding: 4rem;
+  background: var(--Dark);
+  border-bottom: 0.1rem solid var(--Divider);
+}
+.contact .author {
+  background: var(--White);
+  border: none;
+  width: 70%;
+  border-radius: 0.5rem;
+  padding: 1rem 2.5rem;
+}
+.contact-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+.contact .register {
+  width: 70%;
+  background: var(--White);
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
 }
 pre[class*="language-"],
 .field .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) pre[class*="language-"] {

@@ -21,12 +21,12 @@ class SkillAddView(View):
     def get(self, request, user_id):
         """Display the creation form."""
         form, user_obj = SkillsService.get_add_form(user_id)
-
-        return render(request, self.template_name, {
+        context = {
             "form": form,
             "user_obj": user_obj,
             "title": self.title,
-        })
+        }
+        return render(request, self.template_name, context)
 
     def post(self, request, user_id):
         """Handle form submission."""
@@ -40,11 +40,12 @@ class SkillAddView(View):
 
         if not success:
             messages.error(request, "Corrigez les erreurs.")
-            return render(request, self.template_name, {
+            context = {
                 "form": form,
                 "user_obj": user_obj,
                 "title": self.title,
-            })
+            }
+            return render(request, self.template_name, context)
 
         messages.success(request, "Catégorie de compétences ajoutée.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})

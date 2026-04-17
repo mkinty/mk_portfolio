@@ -14,7 +14,11 @@ class EducationSectionSelectors:
     @staticmethod
     def get_all_education_sections(user):
         """Retrieve all education sections for a user"""
-        return user.education_sections.all()
+        return (
+            user.education_sections
+            .all()
+            .prefetch_related("educations")
+        )
 
 
 class EducationSelectors:
@@ -29,5 +33,5 @@ class EducationSelectors:
 
     @staticmethod
     def get_all_education(education_section):
-        """Retrieve all education for a education section"""
+        """Retrieve all education for an education section"""
         return education_section.educations.all()

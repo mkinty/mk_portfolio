@@ -32,11 +32,11 @@ class SkillsForm(forms.ModelForm):
 
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Ex: Compétences Techniques"}),
-            "description": CKEditor5Widget(config_name="extends", attrs={"placeholder": "Description de la catégorie de compétences (optionnelle)."}),
+            "description": CKEditor5Widget(config_name="extends", attrs={
+                "placeholder": "Description de la catégorie de compétences (optionnelle)."}),
         }
 
         labels = {
             "name": "Nom de la catégorie de compétences",
             "description": "Description",
         }
-

@@ -4,6 +4,7 @@ from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.views import View
 
+from apps.education.selectors.education_selectors import EducationSectionSelectors, EducationSelectors
 from apps.experiences.selectors.experiences_selectors import get_all_experiences
 from apps.skills.selectors.skills_selectors import SkillsSelectors
 from apps.userprofile.services.userprofile_services import UserProfileService
@@ -12,7 +13,6 @@ from apps.userprofile.selectors.userprofile_selectors import (
     get_userprofile_by_id,
     get_userprofile_by_user
 )
-
 
 
 class UserProfileIndexView(View):
@@ -64,6 +64,7 @@ class UserProfileView(View):
         userprofile = get_userprofile_by_user(user_obj)
         experiences = get_all_experiences(user_obj)
         skills = SkillsSelectors.get_all_skills(user_obj)
+        education_sections = EducationSectionSelectors.get_all_education_sections(user_obj)
 
         if not userprofile:
             messages.info(request, "Profil utilisateur non trouvé ou non configuré.")
@@ -73,7 +74,8 @@ class UserProfileView(View):
             "user_obj": user_obj,
             "userprofile": userprofile,
             "experiences": experiences,
-            "skills": skills
+            "skills": skills,
+            "education_sections": education_sections
         }
 
         return render(request, self.template_name, context)

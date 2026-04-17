@@ -63,15 +63,17 @@ class EducationForm(forms.ModelForm):
             "school",
             "degree",
             "field_of_study",
+            "location",
             "start_date",
             "end_date",
             "description",
         )
 
         widgets = {
-            "school": forms.TextInput(attrs={"placeholder": "Université Le Havre Normandie"}),
-            "degree": forms.TextInput(attrs={"placeholder": "Master 2"}),
-            "field_of_study": forms.TextInput(attrs={"placeholder": "Mathématiques Appliquées"}),
+            "school": forms.TextInput(attrs={"placeholder": "Ex: Université Le Havre Normandie"}),
+            "degree": forms.TextInput(attrs={"placeholder": "Ex: Master 2"}),
+            "field_of_study": forms.TextInput(attrs={"placeholder": "Ex: Mathématiques Appliquées"}),
+            "location": forms.TextInput(attrs={"placeholder": "Ex: Le Havre, France"}),
             "description": CKEditor5Widget(config_name="default", attrs={"placeholder": "Description optionnelle (résultats, projets, mentions...)"}),
             "start_date": forms.DateInput(attrs={"type": "date"}),
             "end_date": forms.DateInput(attrs={"type": "date"}),
@@ -81,6 +83,7 @@ class EducationForm(forms.ModelForm):
             "school": "Établissement",
             "degree": "Diplôme",
             "field_of_study": "Domaine d'étude",
+            "location": "Lieu de localisation",
             "start_date": "Date de début",
             "end_date": "Date de fin",
             "description": "Description",
