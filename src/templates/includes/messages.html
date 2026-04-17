@@ -22,7 +22,13 @@
       Information !!!
       {% endif %}
     </div>
+
     {{ message }}
+
+    {% if form.errors %}
+    {{ form.errors.values|join:", " }}
+    {% endif %}
+
   </div>
 </div>
 {% endfor %}

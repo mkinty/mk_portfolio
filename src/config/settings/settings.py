@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'apps.experiences',
     'apps.skills',
     'apps.education',
-    'apps.technologies',
+    'apps.techstack',
     'apps.certifications',
 ]
 

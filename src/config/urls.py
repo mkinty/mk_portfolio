@@ -49,7 +49,7 @@ urlpatterns = [
     path("experiences/", include("apps.experiences.web.urls", namespace="experiences")),
     path("skills/", include("apps.skills.web.urls", namespace="skills")),
     path("education/", include("apps.education.web.urls", namespace="education")),
-    path("technologies/", include("apps.technologies.web.urls", namespace="technologies")),
+    path("techstack/", include("apps.techstack.web.urls", namespace="techstack")),
     path("certifications/", include("apps.certifications.web.urls", namespace="certifications")),
 ]
 

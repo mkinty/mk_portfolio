@@ -1,5 +1,6 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+from django.core.exceptions import ValidationError
 
 from config.settings import settings
 
@@ -33,6 +34,11 @@ class EducationSection(models.Model):
         blank=True,
         help_text="Description introductive du parcours académique."
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["created_at"]
+        unique_together = ("user", "name")  # each user can have only one section with the same name
 
     def __str__(self):
         """
@@ -91,12 +97,27 @@ class Education(models.Model):
         help_text="Date de fin de la formation (laisser vide si en cours)."
     )
 
+    is_current = models.BooleanField(
+        default=False,
+        help_text="Cochez si la formation est en cours."
+    )
+
     description = CKEditor5Field(
         "Content",
         config_name="default",
         blank=True,
         help_text="Description optionnelle (résultats, projets, mentions, etc.)."
     )
+
+    def clean(self):
+        if self.end_date and self.end_date < self.start_date:
+            raise ValidationError(
+                "Date de fin doit être après la date de début."
+            )
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ["-start_date"]

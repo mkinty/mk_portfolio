@@ -18,7 +18,10 @@
           enctype="multipart/form-data"
     >
       {% csrf_token %}
-      <div class="field">Vous êtes sur le point de supprimer cette expérience! Cette action est irréversible.</div>
+
+      <div class="field">
+        Vous êtes sur le point de supprimer cette expérience! Cette action est irréversible.
+      </div>
       <div class="btns actions">
         <button class="btn cancel delete" id="cancel" type="button">Annuler</button>
         <button class="btn valid delete" type="submit">Confirmer</button>
