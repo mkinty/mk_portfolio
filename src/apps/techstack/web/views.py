@@ -22,11 +22,7 @@ class TechStackCategoryAddView(View):
         """Display the creation form."""
         form, user_obj = TechStackCategoryServices.get_add_form(user_id)
 
-        return render(request, self.template_name, {
-            "form": form,
-            "user_obj": user_obj,
-            "title": self.title,
-        })
+        return render(request, self.template_name, {"form": form, "user_obj": user_obj, "title": self.title,})
 
     def post(self, request, user_id):
         """Handle form submission."""

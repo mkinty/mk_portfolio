@@ -46,7 +46,6 @@ class TestCertificationsServices:
         assert certification is None
 
     def test_get_update_certification_form(self, certification):
-
         service = CertificationsServices()
         form, returned_cert = service.get_update_certification_form(certification.id)
 
@@ -54,7 +53,6 @@ class TestCertificationsServices:
         assert returned_cert == certification
 
     def test_update_certification_success(self, certification):
-
         data = {
             "name": "Updated Cert",
             "issuer": "Updated Org",
@@ -70,7 +68,6 @@ class TestCertificationsServices:
         assert updated_cert.name == "Updated Cert"
 
     def test_update_certification_invalid(self, certification):
-
         data = {
             "name": "",  # invalide
         }
@@ -84,7 +81,6 @@ class TestCertificationsServices:
         assert updated_cert == certification
 
     def test_delete_certification(self, certification):
-
         result = CertificationsServices.delete_certification(certification.id)
 
         assert result is True

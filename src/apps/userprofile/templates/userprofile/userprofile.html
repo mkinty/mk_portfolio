@@ -281,23 +281,37 @@
   <div class="dc-content">
     <div class="dc-content-body">
       <div class="dc-content-cards certificates">
+        {% for certification in certifications %}
         <div class="dc-content-card certificates">
-          <div class="btn valid primary linked">
-            AWS
-          </div>
+          <a href="{{certification.issuer}}" target="_blank" >
+            <div class="btn valid primary linked">
+              {{ certification.name }}
+            </div>
+          </a>
           {% if user.is_authenticated %}
           <div class="btns icons">
-            <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
-            <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
+            <img class="btn-icon"
+                 hx-get="{% url 'certifications:update' certification_id=certification.id %}"
+                 hx-target="#dialog"
+                 src="{% static 'icons/edit.png' %}"
+                 alt="edit-btn">
+            <img class="btn-icon"
+                 hx-get="{% url 'certifications:delete' certification_id=certification.id %}"
+                 hx-target="#dialog"
+                 src="{% static 'icons/trash.png' %}"
+                 alt="delete-btn">
           </div>
           {% endif %}
         </div>
+        {% endfor %}
       </div>
     </div>
+
     {% if user.is_authenticated %}
-    <button class="btn valid primary">
+    <button class="btn valid primary"
+            hx-get="{% url 'certifications:add' user_id=user_obj.id %}"
+            hx-target="#dialog">
       Ajouter une certification
-      <img class="btn-icon" src="{% static 'icons/add.png' %}" alt="edit-btn">
     </button>
     {% endif %}
   </div>

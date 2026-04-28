@@ -31,7 +31,8 @@ class CertificationsServices:
         certification.save()
         return True, form, certification
 
-    def get_update_certification_form(self, certification_id):
+    @staticmethod
+    def get_update_certification_form(certification_id):
         """
         Get the form for editing an existing certification.
         """

@@ -4,6 +4,7 @@ from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.views import View
 
+from apps.certifications.selectors.certifications_selectors import CertificationsSelectors
 from apps.education.selectors.education_selectors import EducationSectionSelectors, EducationSelectors
 from apps.experiences.selectors.experiences_selectors import get_all_experiences
 from apps.skills.selectors.skills_selectors import SkillsSelectors
@@ -67,6 +68,7 @@ class UserProfileView(View):
         skills = SkillsSelectors.get_all_skills(user_obj)
         education_sections = EducationSectionSelectors.get_all_education_sections(user_obj)
         tech_stack_categories = TechStackCategorySelectors.get_all_tech_stack_categories(user_obj)
+        certifications = CertificationsSelectors.get_certifications_for_user(user_obj)
 
         if not userprofile:
             messages.info(request, "Profil utilisateur non trouvé ou non configuré.")
@@ -75,10 +77,11 @@ class UserProfileView(View):
         context = {
             "user_obj": user_obj,
             "userprofile": userprofile,
-            "experiences": experiences,
             "skills": skills,
+            "tech_stack_categories": tech_stack_categories,
+            "experiences": experiences,
             "education_sections": education_sections,
-            "tech_stack_categories": tech_stack_categories
+            "certifications": certifications
         }
 
         return render(request, self.template_name, context)
