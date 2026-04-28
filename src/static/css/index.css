@@ -666,6 +666,10 @@ button {
   flex-direction: column;
   gap: 2rem;
 }
+.dc-content-cards.certificates {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 .dc-card {
   flex: 1;
   display: flex;
@@ -680,7 +684,7 @@ button {
   justify-content: space-between;
   align-items: center;
   padding-bottom: 0.3rem;
-  border-bottom: 0.1rem solid var(--Grey);
+  border-bottom: 0.1rem solid var(--Primary);
 }
 .dc-content-card {
   display: flex;
@@ -689,15 +693,23 @@ button {
   flex-wrap: wrap;
   gap: 2rem;
 }
+.dc-content-card.certificates {
+  border: 0.1rem solid var(--Primary);
+  padding: 0;
+  border-radius: 0.3rem;
+}
+.dc-content-card.certificates .btns {
+  margin-right: 1rem;
+}
 .tech-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: auto;
   gap: 2rem;
-  padding:0.5rem;
-  border: 0.1rem solid var(--Grey);
-  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: 0.1rem solid var(--Primary);
+  border-radius: 0.2rem;
 }
 .tech-container .btns,
 .tech-container .btn {
@@ -716,9 +728,7 @@ button {
   gap: 1rem;
 }
 .dc-content-card .btn {
-  width: 100%;
   text-align: center;
-  border-radius: 10rem;
   padding: 1rem 2rem;
 }
 .dc-content-card .btn-icon {
@@ -1014,7 +1024,8 @@ select:open::picker-icon {
 ::picker(select) {
   border: none;
 }
-.field select option{
+.field select option {
+  cursor: pointer;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -1025,6 +1036,10 @@ select:open::picker-icon {
   background: var(--Silver);
   border-bottom: 0.1rem solid var(--Divider);
   transition: 0.4s;
+}
+.field select option:hover{
+  background: var(--White);
+  border-bottom: 0.1rem solid var(--Primary);
 }
 .field.profile-photo input{
   width: 100%;
@@ -1055,6 +1070,11 @@ select:open::picker-icon {
 .field-content .btn-icon {
   width: 3rem;
   height: 3rem;
+}
+.field.no-right-radius input,
+.field.no-right-radius select {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 /*-- CK Editor --*/
 .ck-body-wrapper {

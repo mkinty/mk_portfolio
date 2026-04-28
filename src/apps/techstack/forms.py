@@ -1,5 +1,6 @@
 from django import forms
-from .models import TechStackCategory, TechStack
+
+from apps.techstack.models import TechStackCategory, TechStack
 
 
 class TechStackCategoryForm(forms.ModelForm):

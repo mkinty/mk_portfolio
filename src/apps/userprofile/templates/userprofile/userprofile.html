@@ -15,7 +15,7 @@
             {{ userprofile.position }}
           </div>
           <small>
-            {{ userprofile.location }} | {{ user_obj.email }} | {{ userprofile.phone }} | {{ userprofile.age }} ans
+            {{ user_obj.email }} | {{ userprofile.phone }} | {{ userprofile.location }} | {{ userprofile.age }} ans
           </small>
         </div>
         <div class="avatar circle">
@@ -43,6 +43,108 @@
          alt="delete-btn">
   </div>
   {% endif %}
+</div>
+<div class="dc-container">
+  <div class="dc-category">
+    Compétences
+  </div>
+  <div class="dc-content">
+    {% for skill in skills %}
+    <div class="dc-content-body">
+      <div class="dc-title title">
+        {{ skill.name}}
+      </div>
+      <div class="dc-content-desc">
+        {{ skill.description|safe }}
+      </div>
+      {% if user.is_authenticated %}
+      <div class="btns icons">
+        <img class="btn-icon"
+             hx-get="{% url 'skills:update' skill_id=skill.id %}"
+             hx-target="#dialog"
+             src="{% static 'icons/edit.png' %}"
+             alt="edit-btn">
+        <img class="btn-icon"
+             hx-get="{% url 'skills:delete' skill_id=skill.id %}"
+             hx-target="#dialog"
+             src="{% static 'icons/trash.png' %}"
+             alt="delete-btn">
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+    <button class="btn valid primary"
+            hx-get="{% url 'skills:add' user_id=user_obj.id %}"
+            hx-target="#dialog">
+      Ajouter une catégorie de compétences
+    </button>
+    {% endif %}
+  </div>
+</div>
+<div class="dc-container">
+  <div class="dc-category">
+    Stack technique
+  </div>
+  <div class="dc-content">
+    <div class="dc-content-body">
+      <div class="dc-content-cards">
+        {% for category in tech_stack_categories %}
+        <div class="dc-card">
+          <div class="dc-card-header">
+            <div class="tech-category">
+              {{ category.name }}
+            </div>
+            {% if user.is_authenticated %}
+            <div class="btns icons">
+              <img class="btn-icon"
+                   hx-get="{% url 'techstack:update-category' tech_category_id=category.id %}"
+                   hx-target="#dialog"
+                   src="{% static 'icons/edit.png' %}"
+                   alt="edit-btn">
+              <img class="btn-icon"
+                   hx-get="{% url 'techstack:delete-category' tech_category_id=category.id %}"
+                   hx-target="#dialog"
+                   src="{% static 'icons/trash.png' %}"
+                   alt="delete-btn">
+            </div>
+            {% endif %}
+          </div>
+          <div class="dc-content-card">
+            {% for tech in category.techs.all %}
+            <div class="tech-container">
+              <div class="tech">
+                {{ tech.name }}
+              </div>
+              {% if user.is_authenticated %}
+              <div class="btns icons">
+                <img class="btn-icon"
+                     hx-get="{% url 'techstack:update' tech_stack_id=tech.id %}"
+                     hx-target="#dialog"
+                     src="{% static 'icons/edit.png' %}"
+                     alt="edit-btn">
+                <img class="btn-icon"
+                     hx-get="{% url 'techstack:delete' tech_stack_id=tech.id %}"
+                     hx-target="#dialog"
+                     src="{% static 'icons/trash.png' %}"
+                     alt="delete-btn">
+              </div>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% if user.is_authenticated %}
+    <button class="btn valid primary"
+            hx-get="{% url 'techstack:add' user_id=user_obj.id %}"
+            hx-target="#dialog">
+      Ajouter une stack technique
+    </button>
+    {% endif %}
+  </div>
 </div>
 <div class="dc-container">
   <div class="dc-category">
@@ -91,44 +193,6 @@
             hx-get="{% url 'experiences:add' user_id=user_obj.id %}"
             hx-target="#dialog">
       Ajouter une expérience
-    </button>
-    {% endif %}
-  </div>
-</div>
-<div class="dc-container">
-  <div class="dc-category">
-    Compétences
-  </div>
-  <div class="dc-content">
-    {% for skill in skills %}
-    <div class="dc-content-body">
-      <div class="dc-title title">
-        {{ skill.name}}
-      </div>
-      <div class="dc-content-desc">
-        {{ skill.description|safe }}
-      </div>
-      {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon"
-             hx-get="{% url 'skills:update' skill_id=skill.id %}"
-             hx-target="#dialog"
-             src="{% static 'icons/edit.png' %}"
-             alt="edit-btn">
-        <img class="btn-icon"
-             hx-get="{% url 'skills:delete' skill_id=skill.id %}"
-             hx-target="#dialog"
-             src="{% static 'icons/trash.png' %}"
-             alt="delete-btn">
-      </div>
-      {% endif %}
-    </div>
-    {% endfor %}
-    {% if user.is_authenticated %}
-    <button class="btn valid primary"
-            hx-get="{% url 'skills:add' user_id=user_obj.id %}"
-            hx-target="#dialog">
-      Ajouter une catégorie de compétences
     </button>
     {% endif %}
   </div>
@@ -212,89 +276,14 @@
 </div>
 <div class="dc-container">
   <div class="dc-category">
-    Technologies
-  </div>
-  <div class="dc-content">
-    <div class="dc-content-body">
-      <div class="dc-content-cards">
-        {% for category in tech_stack_categories %}
-        <div class="dc-card">
-          <div class="dc-card-header">
-            <div class="tech-category">
-              {{ category.name }}
-            </div>
-            {% if user.is_authenticated %}
-            <div class="btns icons">
-              <img class="btn-icon"
-                   hx-get="{% url 'techstack:update-category' tech_category_id=category.id %}"
-                   hx-target="#dialog"
-                   src="{% static 'icons/edit.png' %}"
-                   alt="edit-btn">
-              <img class="btn-icon"
-                   hx-get="{% url 'techstack:delete-category' tech_category_id=category.id %}"
-                   hx-target="#dialog"
-                   src="{% static 'icons/trash.png' %}"
-                   alt="delete-btn">
-            </div>
-            {% endif %}
-          </div>
-          <div class="dc-content-card">
-            {% for tech in category.techs.all %}
-            <div class="tech-container">
-              <div class="tech">
-                {{ tech.name }}
-              </div>
-              {% if user.is_authenticated %}
-              <div class="btns icons">
-                <img class="btn-icon"
-                     hx-get="{% url 'techstack:update' tech_stack_id=tech.id %}"
-                     hx-target="#dialog"
-                     src="{% static 'icons/edit.png' %}"
-                     alt="edit-btn">
-                <img class="btn-icon"
-                     hx-get="{% url 'techstack:delete' tech_stack_id=tech.id %}"
-                     hx-target="#dialog"
-                     src="{% static 'icons/trash.png' %}"
-                     alt="delete-btn">
-              </div>
-              {% endif %}
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    {% if user.is_authenticated %}
-    <button class="btn valid primary"
-            hx-get="{% url 'techstack:add' user_id=user_obj.id %}"
-            hx-target="#dialog">
-      Ajouter une stack technique
-    </button>
-    {% endif %}
-  </div>
-</div>
-<div class="dc-container">
-  <div class="dc-category">
     Certificats
   </div>
   <div class="dc-content">
     <div class="dc-content-body">
-      <div class="dc-content-cards">
-        <div class="dc-content-card">
+      <div class="dc-content-cards certificates">
+        <div class="dc-content-card certificates">
           <div class="btn valid primary linked">
             AWS
-          </div>
-          {% if user.is_authenticated %}
-          <div class="btns icons">
-            <img class="btn-icon" src="{% static 'icons/edit.png' %}" alt="edit-btn">
-            <img class="btn-icon" src="{% static 'icons/trash.png' %}" alt="delete-btn">
-          </div>
-          {% endif %}
-        </div>
-        <div class="dc-content-card">
-          <div class="btn valid primary linked">
-            Microsoft
           </div>
           {% if user.is_authenticated %}
           <div class="btns icons">
