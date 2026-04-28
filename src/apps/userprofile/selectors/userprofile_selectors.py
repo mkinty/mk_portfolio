@@ -14,7 +14,10 @@ def get_userprofile_by_id(userprofile_id: int) -> Optional[UserProfile]:
     Returns:
         UserProfile: The userprofile instance if found, otherwise None.
     """
-    return UserProfile.objects.filter(pk=userprofile_id).first()
+    try:
+        return UserProfile.objects.get(pk=userprofile_id)
+    except UserProfile.DoesNotExist:
+        return None
 
 
 def get_userprofile_by_user(user: Optional[User]) -> Optional[UserProfile]:

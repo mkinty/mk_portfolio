@@ -9,7 +9,10 @@ class EducationSectionSelectors:
     @staticmethod
     def get_education_section_by_id(education_section_id):
         """Retrieve an education selection by its unique identier"""
-        return EducationSection.objects.filter(pk=education_section_id).first()
+        try:
+            return EducationSection.objects.get(pk=education_section_id)
+        except EducationSection.DoesNotExist:
+            return None
 
     @staticmethod
     def get_all_education_sections(user):
@@ -29,7 +32,10 @@ class EducationSelectors:
     @staticmethod
     def get_education_by_id(education_id):
         """Retrieve an education by its unique identier"""
-        return Education.objects.filter(pk=education_id).first()
+        try:
+            return Education.objects.get(pk=education_id)
+        except Education.DoesNotExist:
+            return None
 
     @staticmethod
     def get_all_education(education_section):

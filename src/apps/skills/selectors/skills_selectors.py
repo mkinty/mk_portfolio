@@ -14,4 +14,7 @@ class SkillsSelectors:
     @staticmethod
     def get_skill_by_id(skill_id):
         """ Retrieve an experience by its unique identifier. """
-        return Skills.objects.filter(pk=skill_id).first()
+        try:
+            return Skills.objects.get(pk=skill_id)
+        except Skills.DoesNotExist:
+            return None

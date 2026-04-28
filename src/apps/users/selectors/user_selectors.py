@@ -26,7 +26,10 @@ def get_user_by_id(user_id: int):
     Returns:
         User | None: The user instance if found, otherwise None.
     """
-    return User.objects.filter(id=user_id).first()
+    try:
+        return User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        return None
 
 
 def get_user_by_email(email: str) -> Optional[User] | None:

@@ -10,7 +10,10 @@ class TechStackCategorySelectors:
     @staticmethod
     def get_techstack_category_by_id(techstack_category_id):
         """Retrieve a tech stack category by its unique identier"""
-        return TechStackCategory.objects.filter(pk=techstack_category_id).first()
+        try:
+            return TechStackCategory.objects.get(pk=techstack_category_id)
+        except TechStackCategory.DoesNotExist:
+            return None
 
     @staticmethod
     def get_all_tech_stack_categories(user):
@@ -30,7 +33,10 @@ class TechStackSelectors:
     @staticmethod
     def get_tech_stack_by_id(tech_stack_id):
         """Retrieve a tech stack by its unique identier"""
-        return TechStack.objects.filter(pk=tech_stack_id).first()
+        try:
+            return TechStack.objects.get(pk=tech_stack_id)
+        except TechStack.DoesNotExist:
+            return None
 
     @staticmethod
     def get_all_tech_stack_by_category(tech_stack_category):

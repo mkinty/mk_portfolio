@@ -4,6 +4,9 @@ from apps.certifications.models import Certification
 
 
 class CertificationForm(forms.ModelForm):
+    """
+    Form for creating and updating certifications.
+    """
     class Meta:
         model = Certification
         fields = ['name', 'issuer', 'order']

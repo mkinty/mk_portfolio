@@ -6,6 +6,9 @@ from config.settings import settings
 # Create your models here.
 
 class Certification(models.Model):
+    """
+    Model representing a certification earned by a user.
+    """
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

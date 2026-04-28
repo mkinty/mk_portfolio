@@ -13,7 +13,10 @@ def get_experience_by_id(experience_id: int) -> Optional[Experience]:
     Returns:
         Optional[Experience]: The experience instance if found, otherwise None.
     """
-    return Experience.objects.filter(pk=experience_id).first()
+    try:
+        return Experience.objects.get(pk=experience_id)
+    except Experience.DoesNotExist:
+        return None
 
 
 def get_all_experiences(user) -> list[Experience]:
