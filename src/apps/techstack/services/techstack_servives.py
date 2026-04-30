@@ -27,39 +27,39 @@ class TechStackCategoryServices:
         if not form.is_valid():
             return False, form, None
 
-        tech_category = form.save(commit=False)
-        tech_category.user = user
-        tech_category.save()
-        return True, form, tech_category
+        category = form.save(commit=False)
+        category.user = user
+        category.save()
+        return True, form, category
 
     @staticmethod
-    def get_update_form(tech_category_id):
+    def get_update_form(category_id):
         """
         Get the form for updating an existing tech stack category.
         """
-        tech_category = TechStackCategorySelectors.get_techstack_category_by_id(tech_category_id)
-        form = TechStackCategoryForm(instance=tech_category)
-        return form, tech_category
+        category = TechStackCategorySelectors.get_techstack_category_by_id(category_id)
+        form = TechStackCategoryForm(instance=category)
+        return form, category
 
     @staticmethod
-    def update(tech_category_id, data, files):
+    def update(category_id, data, files):
         """
         Update an existing tech stack category.
         """
-        tech_category = TechStackCategorySelectors.get_techstack_category_by_id(tech_category_id)
-        form = TechStackCategoryForm(data, files, instance=tech_category)
+        category = TechStackCategorySelectors.get_techstack_category_by_id(category_id)
+        form = TechStackCategoryForm(data, files, instance=category)
         if not form.is_valid():
-            return False, form, tech_category
+            return False, form, category
         form.save()
-        return True, form, tech_category
+        return True, form, category
 
     @staticmethod
-    def delete(tech_category_id):
+    def delete(category_id):
         """
         Delete an existing tech stack category.
         """
-        tech_category = TechStackCategorySelectors.get_techstack_category_by_id(tech_category_id)
-        tech_category.delete()
+        category = TechStackCategorySelectors.get_techstack_category_by_id(category_id)
+        category.delete()
         return True
 
 

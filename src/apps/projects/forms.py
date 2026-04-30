@@ -3,7 +3,7 @@ from django import forms
 from apps.projects.models import ProjectCategory, Project
 
 
-class ProjectCategorieForm(forms.ModelForm):
+class ProjectCategoryForm(forms.ModelForm):
     """
     Formulaire pour la création et la modification des catégories de projets.
     """
