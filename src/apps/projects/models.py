@@ -34,7 +34,7 @@ class Project(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="projects",
+        related_name="user_projects",
         help_text="Utilisateur propriétaire des projets."
     )
     title = models.CharField(

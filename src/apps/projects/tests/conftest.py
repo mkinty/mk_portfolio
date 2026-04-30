@@ -37,12 +37,3 @@ def project(user, category):
     )
 
 
-@pytest.fixture
-def project_with_url(user, category):
-    return Project.objects.create(
-        user=user,
-        title="With URL",
-        category=category,
-        start_date=date(2024, 1, 1),
-        source_code_url="https://github.com/test/repo"
-    )
