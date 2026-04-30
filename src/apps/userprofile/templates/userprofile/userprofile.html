@@ -30,17 +30,17 @@
     </div>
   </div>
   {% if user.is_authenticated %}
-  <div class="btns icons">
-    <img class="btn-icon"
-         hx-get="{% url 'userprofile:update' userprofile_id=userprofile.id %}"
-         hx-target="#dialog"
-         src="{% static 'icons/edit.png' %}"
-         alt="edit-btn">
-    <img class="btn-icon"
-         hx-get="{% url 'userprofile:delete' userprofile_id=userprofile.id %}"
-         hx-target="#dialog"
-         src="{% static 'icons/trash.png' %}"
-         alt="delete-btn">
+  <div class="btns flex-end">
+    <button class="btn cancel delete"
+            hx-get="{% url 'userprofile:delete' userprofile_id=userprofile.id %}"
+            hx-target="#dialog"
+    >Supprimer
+    </button>
+    <button class="btn valid primary"
+            hx-get="{% url 'userprofile:update' userprofile_id=userprofile.id %}"
+            hx-target="#dialog"
+    >Modifier
+    </button>
   </div>
   {% endif %}
 </div>
@@ -58,17 +58,17 @@
         {{ skill.description|safe }}
       </div>
       {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon"
-             hx-get="{% url 'skills:update' skill_id=skill.id %}"
-             hx-target="#dialog"
-             src="{% static 'icons/edit.png' %}"
-             alt="edit-btn">
-        <img class="btn-icon"
-             hx-get="{% url 'skills:delete' skill_id=skill.id %}"
-             hx-target="#dialog"
-             src="{% static 'icons/trash.png' %}"
-             alt="delete-btn">
+      <div class="btns flex-end">
+        <button class="btn cancel delete"
+                hx-get="{% url 'skills:delete' skill_id=skill.id %}"
+                hx-target="#dialog"
+        >Supprimer
+        </button>
+        <button class="btn valid primary"
+                hx-get="{% url 'skills:update' skill_id=skill.id %}"
+                hx-target="#dialog"
+        >Modifier
+        </button>
       </div>
       {% endif %}
     </div>
@@ -96,17 +96,17 @@
               {{ category.name }}
             </div>
             {% if user.is_authenticated %}
-            <div class="btns icons">
-              <img class="btn-icon"
-                   hx-get="{% url 'techstack:update-category' tech_category_id=category.id %}"
-                   hx-target="#dialog"
-                   src="{% static 'icons/edit.png' %}"
-                   alt="edit-btn">
-              <img class="btn-icon"
-                   hx-get="{% url 'techstack:delete-category' tech_category_id=category.id %}"
-                   hx-target="#dialog"
-                   src="{% static 'icons/trash.png' %}"
-                   alt="delete-btn">
+            <div class="btns flex-end">
+              <button class="btn cancel delete"
+                      hx-get="{% url 'techstack:delete-category' tech_category_id=category.id %}"
+                      hx-target="#dialog"
+              >Supprimer
+              </button>
+              <button class="btn valid primary"
+                      hx-get="{% url 'techstack:update-category' tech_category_id=category.id %}"
+                      hx-target="#dialog"
+              >Modifier
+              </button>
             </div>
             {% endif %}
           </div>
@@ -119,15 +119,15 @@
               {% if user.is_authenticated %}
               <div class="btns icons">
                 <img class="btn-icon"
-                     hx-get="{% url 'techstack:update' tech_stack_id=tech.id %}"
-                     hx-target="#dialog"
-                     src="{% static 'icons/edit.png' %}"
-                     alt="edit-btn">
-                <img class="btn-icon"
                      hx-get="{% url 'techstack:delete' tech_stack_id=tech.id %}"
                      hx-target="#dialog"
                      src="{% static 'icons/trash.png' %}"
                      alt="delete-btn">
+                <img class="btn-icon"
+                     hx-get="{% url 'techstack:update' tech_stack_id=tech.id %}"
+                     hx-target="#dialog"
+                     src="{% static 'icons/edit.png' %}"
+                     alt="edit-btn">
               </div>
               {% endif %}
             </div>
@@ -173,17 +173,17 @@
         {{ experience.description|safe }}
       </div>
       {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon"
-             hx-get="{% url 'experiences:update' experience_id=experience.id %}"
-             hx-target="#dialog"
-             src="{% static 'icons/edit.png' %}"
-             alt="edit-btn">
-        <img class="btn-icon"
-             hx-get="{% url 'experiences:delete' experience_id=experience.id %}"
-             hx-target="#dialog"
-             src="{% static 'icons/trash.png' %}"
-             alt="delete-btn">
+      <div class="btns flex-end">
+        <button class="btn cancel delete"
+                hx-get="{% url 'experiences:delete' experience_id=experience.id %}"
+                hx-target="#dialog"
+        >Supprimer
+        </button>
+        <button class="btn valid primary"
+                hx-get="{% url 'experiences:update' experience_id=experience.id %}"
+                hx-target="#dialog"
+        >Modifier
+        </button>
       </div>
       {% endif %}
     </div>
@@ -218,17 +218,17 @@
         {{ section.description|safe }}
       </div>
       {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon"
-             hx-get="{% url 'education:update-section' education_section_id=section.id %}"
-             hx-target="#dialog"
-             src="{% static 'icons/edit.png' %}"
-             alt="edit-btn">
-        <img class="btn-icon"
-             hx-get="{% url 'education:delete-section' education_section_id=section.id %}"
-             hx-target="#dialog"
-             src="{% static 'icons/trash.png' %}"
-             alt="delete-btn">
+      <div class="btns flex-end">
+        <button class="btn cancel delete"
+                hx-get="{% url 'education:delete-section' education_section_id=section.id %}"
+                hx-target="#dialog"
+        >Supprimer
+        </button>
+        <button class="btn valid primary"
+                hx-get="{% url 'education:update-section' education_section_id=section.id %}"
+                hx-target="#dialog"
+        >Modifier
+        </button>
       </div>
       {% endif %}
     </div>
@@ -249,17 +249,17 @@
         {{ education.description|safe }}
       </div>
       {% if user.is_authenticated %}
-      <div class="btns icons">
-        <img class="btn-icon"
-             hx-get="{% url 'education:update' education_id=education.id %}"
-             hx-target="#dialog"
-             src="{% static 'icons/edit.png' %}"
-             alt="edit-btn">
-        <img class="btn-icon"
-             hx-get="{% url 'education:delete' education_id=education.id %}"
-             hx-target="#dialog"
-             src="{% static 'icons/trash.png' %}"
-             alt="delete-btn">
+      <div class="btns flex-end">
+        <button class="btn cancel delete"
+                hx-get="{% url 'education:delete' education_id=education.id %}"
+                hx-target="#dialog"
+        >Supprimer
+        </button>
+        <button class="btn valid primary"
+                hx-get="{% url 'education:update' education_id=education.id %}"
+                hx-target="#dialog"
+        >Modifier
+        </button>
       </div>
       {% endif %}
     </div>
@@ -280,28 +280,39 @@
   </div>
   <div class="dc-content">
     <div class="dc-content-body">
-      <div class="dc-content-cards certificates">
+      <div class="cards">
         {% for certification in certifications %}
-        <div class="dc-content-card certificates">
-          <a href="{{certification.issuer}}" target="_blank" >
-            <div class="btn valid primary linked">
-              {{ certification.name }}
+        <div class="card small">
+          <a href="{{certification.certificate_url}}" target="_blank">
+            <div class="card-image">
+              {% if certification.image %}
+              <img src="{{ certification.image.url }}" alt="image"/>
+              {% endif %}
             </div>
           </a>
-          {% if user.is_authenticated %}
-          <div class="btns icons">
-            <img class="btn-icon"
-                 hx-get="{% url 'certifications:update' certification_id=certification.id %}"
-                 hx-target="#dialog"
-                 src="{% static 'icons/edit.png' %}"
-                 alt="edit-btn">
-            <img class="btn-icon"
-                 hx-get="{% url 'certifications:delete' certification_id=certification.id %}"
-                 hx-target="#dialog"
-                 src="{% static 'icons/trash.png' %}"
-                 alt="delete-btn">
+          <div class="card-content">
+            <div class="card-title">
+              {{ certification.name }}
+            </div>
+            <div class="card-subtitle">
+              <small>Délivré par {{ certification.issuer }}</small>
+              <small>Date d'obtention: {{ certification.obtained_date }}</small>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="btns space-between">
+              <button class="btn cancel delete"
+                      hx-get="{% url 'certifications:delete' certification_id=certification.id %}"
+                      hx-target="#dialog"
+              >Supprimer
+              </button>
+              <button class="btn valid primary"
+                      hx-get="{% url 'certifications:update' certification_id=certification.id %}"
+                      hx-target="#dialog"
+              >Modifier
+              </button>
+            </div>
+            {% endif %}
           </div>
-          {% endif %}
         </div>
         {% endfor %}
       </div>

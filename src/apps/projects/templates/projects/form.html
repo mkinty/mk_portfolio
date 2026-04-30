@@ -4,9 +4,9 @@
 <div class="register" id="large">
   <div class="close-bnt">
     <img class="btn-icon"
-         id="close-btn"
-         src="{% static 'icons/close.png' %}"
-         alt="close-btn">
+              id="close-btn"
+             src="{% static 'icons/close.png' %}"
+             alt="close-btn">
   </div>
   <div class="register-header">
     {{ title }}
@@ -19,34 +19,17 @@
     >
       {% csrf_token %}
       {{ form.media }}
-
       <div class="field">
-        <label>Titre</label>
-        {{ form.title }}
+        <label>Nom</label>
+        {{ form.name }}
       </div>
       <div class="field">
-        <label>Position</label>
-        {{ form.position }}
+        <label>Lien ou organisme de délivrance</label>
+        {{ form.issuer }}
       </div>
       <div class="field">
-        <label>Date de naissance</label>
-        {{ form.birth_date }}
-      </div>
-      <div class="field">
-        <label>Lieu de localisation</label>
-        {{ form.location }}
-      </div>
-      <div class="field">
-        <label>Numéro de téléphone</label>
-        {{ form.phone }}
-      </div>
-      <div class="field image">
-        <label>Photo profile</label>
-        {{ form.avatar }}
-      </div>
-      <div class="field">
-        <label>Résumé</label>
-        {{form.bio }}
+        <label>Ordre d'affichage</label>
+        {{ form.order }}
       </div>
       <div class="btns actions">
         <button class="btn cancel primary" id="cancel" type="button">Annuler</button>

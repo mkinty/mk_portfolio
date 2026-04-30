@@ -1,12 +1,12 @@
 {% load static %}
 
 {% include 'includes/messages.html' %}
-<div class="register" id="large">
+<div class="register" id="medium">
   <div class="close-bnt">
     <img class="btn-icon"
-              id="close-btn"
-             src="{% static 'icons/close.png' %}"
-             alt="close-btn">
+         id="close-btn"
+         src="{% static 'icons/close.png' %}"
+         alt="close-btn">
   </div>
   <div class="register-header">
     {{ title }}
@@ -18,19 +18,13 @@
           enctype="multipart/form-data"
     >
       {% csrf_token %}
-      {{ form.media }}
 
       <div class="field">
-        <label>Nom</label>
-        {{ form.name }}
-      </div>
-      <div class="field">
-        <label>Ordre d'affichage</label>
-        {{form.order }}
+        Vous êtes sur le point de supprimer ce projet ! Cette action est irréversible.
       </div>
       <div class="btns actions">
-        <button class="btn cancel primary" id="cancel" type="button">Annuler</button>
-        <button class="btn valid primary" type="submit">Enregistrer</button>
+        <button class="btn cancel delete" id="cancel" type="button">Annuler</button>
+        <button class="btn valid delete" type="submit">Confirmer</button>
       </div>
     </form>
   </div>

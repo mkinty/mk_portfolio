@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 
 from apps.certifications.selectors.certifications_selectors import CertificationsSelectors
-from apps.education.selectors.education_selectors import EducationSectionSelectors, EducationSelectors
+from apps.education.selectors.education_selectors import EducationSectionSelectors
 from apps.experiences.selectors.experiences_selectors import get_all_experiences
 from apps.skills.selectors.skills_selectors import SkillsSelectors
 from apps.techstack.selectors.techstack_selectors import TechStackCategorySelectors

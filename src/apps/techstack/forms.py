@@ -4,6 +4,9 @@ from apps.techstack.models import TechStackCategory, TechStack
 
 
 class TechStackCategoryForm(forms.ModelForm):
+    """
+    Formulaire pour la création et la modification des catégories de tech stack.
+    """
     class Meta:
         model = TechStackCategory
         fields = ["name", "order"]
@@ -18,11 +21,14 @@ class TechStackCategoryForm(forms.ModelForm):
 
         labels = {
             "name": "Nom",
-            "order": "Ordre",
+            "order": "Ordre d'affichage",
         }
 
 
 class TechStackForm(forms.ModelForm):
+    """
+    Formulaire pour la création et la modification des tech stacks.
+    """
     class Meta:
         model = TechStack
         fields = ["category", "name"]

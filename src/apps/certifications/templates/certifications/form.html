@@ -24,8 +24,20 @@
         {{ form.name }}
       </div>
       <div class="field">
-        <label>Lien ou organisme de délivrance</label>
+        <label>Organisme de délivrance</label>
         {{ form.issuer }}
+      </div>
+      <div class="field">
+        <label>Lien vers le certificat </label>
+        {{ form.certificate_url }}
+      </div>
+      <div class="field image">
+        <label>Image du certificat</label>
+        {{ form.image }}
+      </div>
+      <div class="field">
+        <label>Date d'obtention</label>
+        {{ form.obtained_date }}
       </div>
       <div class="field">
         <label>Ordre d'affichage</label>

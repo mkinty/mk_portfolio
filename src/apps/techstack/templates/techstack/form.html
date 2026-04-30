@@ -4,9 +4,9 @@
 <div class="register" id="large">
   <div class="close-bnt">
     <img class="btn-icon"
-              id="close-btn"
-             src="{% static 'icons/close.png' %}"
-             alt="close-btn">
+         id="close-btn"
+         src="{% static 'icons/close.png' %}"
+         alt="close-btn">
   </div>
   <div class="register-header">
     {{ title }}
@@ -21,6 +21,10 @@
       {{ form.media }}
 
       <div class="field no-right-radius">
+        <div class="field">
+          <label>Nom</label>
+          {{ form.name }}
+        </div>
         <label>Catégorie</label>
         <div class="field-content">
           {{ form.category }}
@@ -32,10 +36,6 @@
                  alt="add-btn">
           </div>
         </div>
-      </div>
-      <div class="field">
-        <label>Nom</label>
-        {{ form.name }}
       </div>
       <div class="btns actions">
         <button class="btn cancel primary" id="cancel" type="button">Annuler</button>
