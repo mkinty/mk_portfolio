@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 
-from apps.projects.models import Project
+from apps.project.models import Project
 
 
 @pytest.mark.django_db

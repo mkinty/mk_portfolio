@@ -1,10 +1,10 @@
 from datetime import date
 
 import pytest
-from apps.projects.models import ProjectCategory, Project
-from apps.projects.services.projects_services import (
+from apps.project.models import ProjectCategory, Project, Tag
+from apps.project.services.projects_services import (
     ProjectCategoryServices,
-    ProjectServices
+    ProjectServices, TagServices
 )
 
 
@@ -73,6 +73,90 @@ class TestProjectCategoryServices:
 
         assert result is True
         assert ProjectCategory.objects.count() == 0
+
+
+@pytest.mark.django_db
+class TestTagServices:
+    """
+    Test tag services
+    """
+
+    def test_get_add_form(self):
+        """
+        Test getting the add form
+        """
+        form = TagServices.get_add_form()
+
+        assert form is not None
+
+    def test_create_success(self, db):
+        """
+        Test creating a tag successfully
+        """
+        data = {"name": "Django"}
+
+        success, form, tag = TagServices.create(data, {})
+
+        assert success is True
+        assert form.is_valid()
+        assert tag is not None
+        assert tag.name == "Django"
+        assert Tag.objects.count() == 1
+
+    def test_create_invalid(self, db):
+        """
+        Test creating a tag with invalid data
+        """
+        data = {"name": ""}  # invalide
+
+        success, form, tag = TagServices.create(data, {})
+
+        assert success is False
+        assert not form.is_valid()
+        assert tag is None
+
+    def test_get_update_form(self, tag):
+        """
+        Test getting the update form
+        """
+        form, returned_tag = TagServices.get_update_form(tag.id)
+
+        assert form.instance == tag
+        assert returned_tag == tag
+
+    def test_update_success(self, tag):
+        """
+        Test updating a tag successfully
+        """
+        data = {"name": "Updated Tag"}
+
+        success, form, updated_tag = TagServices.update(tag.id, data, {})
+
+        assert success is True
+        assert updated_tag.name == "Updated Tag"
+
+    def test_update_invalid(self, tag):
+        """
+        Test updating a tag with invalid data
+        """
+        data = {"name": ""}
+
+        success, form, updated_tag = TagServices.update(tag.id, data, {})
+
+        assert success is False
+        assert not form.is_valid()
+        assert updated_tag == tag
+
+    def test_delete(self, tag):
+        result = TagServices.delete(tag.id)
+
+        assert result is True
+        assert Tag.objects.count() == 0
+
+    def test_delete_non_existing_safe(self):
+        result = TagServices.delete(999)
+
+        assert result is False
 
 
 @pytest.mark.django_db

@@ -30,6 +30,20 @@ class ProjectCategory(models.Model):
         return self.name
 
 
+class Tag(models.Model):
+    """
+    Tag du projet
+    """
+    name = models.CharField(
+        max_length=50,
+        unique=True,
+        help_text="Nom du tag"
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -76,6 +90,11 @@ class Project(models.Model):
         blank=True,
         null=True,
         help_text="Image du projet"
+    )
+    tags = models.ManyToManyField(
+        Tag,
+        blank=True,
+        help_text="Tags du projet"
     )
     description = CKEditor5Field(
         "Content",

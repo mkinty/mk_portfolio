@@ -1,0 +1,81 @@
+{% load static %}
+{% include 'includes/messages.html' %}
+<div class="project-detail">
+  <div class="project-detail-aside">
+    {% for project in projects %}
+    <div class="nav {% if project.category.id == current_category.id %}active{% endif %}">
+      <div class="nav-title {% if project.category.id == current_category.id %}active{% endif %}">
+        {{ project.category.name }}
+        <img class="icon" src="{% static 'icons/polygon.png' %}" alt="">
+      </div>
+      <div class="nav-menu {% if project.category.id == current_category.id %}active{% endif %}">
+        <div class="nav-item {% if project.id == current_project.id %}active{% endif %}"
+             hx-get="{% url 'project:detail' project.id %}"
+             hx-target="#project-detail"
+             hx-swap="innerHTML"
+        >
+          {{ project.title }}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="project-detail-main">
+    <div class="project-detail-header">
+      {{ project.title }}
+      {% if user.is_authenticated %}
+      <div class="btns flex-end">
+        <button class="btn cancel delete"
+                hx-get="{% url 'project:delete' project_id=project.id %}"
+                hx-target="#dialog"
+        >Supprimer
+        </button>
+        <button class="btn valid primary"
+                hx-get="{% url 'project:update' project_id=project.id %}"
+                hx-target="#dialog"
+        >Modifier
+        </button>
+      </div>
+      {% endif %}
+    </div>
+    <div class="author">
+      <div class="author-picture avatar circle">{{ mkprofile.profile.avatar }}
+        {% if user_obj.profile and user_obj.profile.avatar %}
+        <img src="{{ user_obj.profile.avatar.url }}" alt="profile"/>
+        {% endif %}
+      </div>
+      <div class="author-detail">
+        <div class="author-name">
+          {{ user_obj.first_name|lower|capfirst }} {{ user_obj.last_name|upper }}
+        </div>
+        <div class="author-title">
+          {{ user_obj.profile.title }}
+        </div>
+        <div class="author-position">
+          {{ user_obj.profile.position }}
+        </div>
+        <div class="author-date updated">
+          Mis à jour le {{ project.updated_at|date:"d F Y" }}
+        </div>
+        <div class="author-date created">
+          Publié le {{ project.created_at|date:"d F Y" }}
+        </div>
+      </div>
+    </div>
+    <div class="project-detail-content">
+      {{ project.description|safe }}
+    </div>
+  </div>
+</div>
+
+<script>
+  // Navigation toggle
+$('.nav-title').on('click', function() {
+  const nav = $(this).closest('.nav');
+  const menu = nav.find('.nav-menu');
+  nav.toggleClass('active');
+  menu.toggleClass('active');
+  $(this).toggleClass('active')
+  console.log('clicked');
+});
+</script>

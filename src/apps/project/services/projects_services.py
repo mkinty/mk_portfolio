@@ -1,5 +1,5 @@
-from apps.projects.forms import ProjectCategoryForm, ProjectForm
-from apps.projects.selectors.projects_selectors import ProjectCategorySelectors, ProjectSelectors
+from apps.project.forms import ProjectCategoryForm, TagForm, ProjectForm
+from apps.project.selectors.projects_selectors import ProjectCategorySelectors, TagSelectors, ProjectSelectors
 from apps.users.selectors.user_selectors import get_user_by_id
 
 
@@ -57,7 +57,66 @@ class ProjectCategoryServices:
         Delete an existing project category.
         """
         category = ProjectCategorySelectors.get_project_category_by_id(category_id)
+        if not category:
+            return False
         category.delete()
+        return True
+
+
+class TagServices:
+    """
+    Service class for tag operations.
+    """
+
+    @staticmethod
+    def get_add_form():
+        """
+        Get the form for adding a new tag.
+        """
+        form = TagForm()
+        return form
+
+    @staticmethod
+    def create(data, files):
+        """
+        Create a new tag.
+        """
+        form = TagForm(data, files)
+        if not form.is_valid():
+            return False, form, None
+        tag = form.save()
+        return True, form, tag
+
+    @staticmethod
+    def get_update_form(tag_id):
+        """
+        Get the form for updating an existing tag.
+        """
+        tag = TagSelectors.get_tag_by_id(tag_id)
+        form = TagForm(instance=tag)
+        return form, tag
+
+    @staticmethod
+    def update(tag_id, data, files):
+        """
+        Update an existing tag.
+        """
+        tag = TagSelectors.get_tag_by_id(tag_id)
+        form = TagForm(data, files, instance=tag)
+        if not form.is_valid():
+            return False, form, tag
+        form.save()
+        return True, form, tag
+
+    @staticmethod
+    def delete(tag_id):
+        """
+        Delete an existing tag.
+        """
+        tag = TagSelectors.get_tag_by_id(tag_id)
+        if not tag:
+            return False
+        tag.delete()
         return True
 
 
@@ -86,6 +145,7 @@ class ProjectServices:
         project = form.save(commit=False)
         project.user = user
         project.save()
+        form.save_m2m()  # Save many-to-many relationships
         return True, form, project
 
     @staticmethod
@@ -115,5 +175,7 @@ class ProjectServices:
         Delete an existing project.
         """
         project = ProjectSelectors.get_project_by_id(project_id)
+        if not project:
+            return False
         project.delete()
         return True

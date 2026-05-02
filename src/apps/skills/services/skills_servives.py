@@ -52,5 +52,7 @@ class SkillsService:
     def delete(skill_id: int) -> bool:
         """Delete a skill instance"""
         skill = SkillsSelectors.get_skill_by_id(skill_id)
+        if not skill:
+            return False
         skill.delete()
         return True

@@ -1,0 +1,83 @@
+{% load static %}
+
+{% include 'includes/messages.html' %}
+<div class="register" id="large">
+  <div class="close-bnt">
+    <img class="btn-icon"
+         id="close-btn"
+         src="{% static 'icons/close.png' %}"
+         alt="close-btn">
+  </div>
+  <div class="register-header">
+    {{ title }}
+  </div>
+  <div class="register-content">
+    <form hx-post="{{ request.path }}"
+          hx-target="#dialog"
+          hx-swap="innerHTML"
+          enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      {{ form.media }}
+
+      <div class="field">
+        <label>Titre du projet</label>
+        {{ form.title }}
+      </div>
+      <div class="field no-right-radius">
+        <label>Catégorie</label>
+        <div class="field-content">
+          {{ form.category }}
+          <div class="btn valid primary"
+               hx-get="{% url 'project:add-category' user_id=user_obj.id %}"
+               hx-target="#dialog">
+            <img class="btn-icon"
+                 src="{% static 'icons/add-white.png' %}"
+                 alt="add-btn">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Date de début</label>
+        {{ form.start_date }}
+      </div>
+      <div class="field">
+        <label>Date de fin</label>
+        {{ form.end_date }}
+      </div>
+      <div class="field">
+        <label>Lien du code source</label>
+        {{ form.source_code_url }}
+      </div>
+      <div class="field">
+        <label>Image</label>
+        {{ form.image }}
+      </div>
+      <div class="field no-right-radius">
+        <label>Tag</label>
+        <div class="field-content select-multiple">
+          {{ form.tags }}
+          <div class="btn valid primary"
+               hx-get="{% url 'project:add-tag' %}"
+               hx-target="#dialog">
+            <img class="btn-icon"
+                 src="{% static 'icons/add-white.png' %}"
+                 alt="add-btn">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Le projet est actif</label>
+        {{ form.is_active }}
+      </div>
+      <div class="field">
+        <label>Description</label>
+        {{ form.description }}
+      </div>
+      <div class="btns actions">
+        <button class="btn cancel primary" id="cancel" type="button">Annuler</button>
+        <button class="btn valid primary" type="submit">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>

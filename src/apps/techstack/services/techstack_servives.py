@@ -59,6 +59,8 @@ class TechStackCategoryServices:
         Delete an existing tech stack category.
         """
         category = TechStackCategorySelectors.get_techstack_category_by_id(category_id)
+        if not category:
+            return False
         category.delete()
         return True
 
@@ -119,5 +121,7 @@ class TechStackServices:
         Delete an existing tech stack.
         """
         tech_stack = TechStackSelectors.get_tech_stack_by_id(tech_stack_id)
+        if not tech_stack:
+            return False
         tech_stack.delete()
         return True

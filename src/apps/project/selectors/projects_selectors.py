@@ -1,10 +1,11 @@
-from apps.projects.models import ProjectCategory, Project
+from apps.project.models import ProjectCategory, Tag, Project
 
 
 class ProjectCategorySelectors:
     """
     Selectors for ProjectCategory model
     """
+
     @staticmethod
     def get_project_category_by_id(project_category_id):
         """
@@ -23,8 +24,32 @@ class ProjectCategorySelectors:
         return ProjectCategory.objects.all()
 
 
+class TagSelectors:
+    """
+    Selectors for Tag model
+    """
+
+    @staticmethod
+    def get_tag_by_id(tag_id):
+        """
+        Get a tag by its ID
+        """
+        try:
+            return Tag.objects.get(pk=tag_id)
+        except Tag.DoesNotExist:
+            return None
+
+    @staticmethod
+    def get_tags():
+        """
+        Get all tags
+        """
+        return Tag.objects.all()
+
+
 class ProjectSelectors:
     """Selectors for Project model"""
+
     @staticmethod
     def get_project_by_id(project_id):
         """
@@ -55,3 +80,11 @@ class ProjectSelectors:
         Get projects by user
         """
         return user.user_projects.all()
+
+    @staticmethod
+    @staticmethod
+    def get_projects_by_tag(tag):
+        """
+        Get projects by tag (case-insensitive)
+        """
+        return Project.objects.filter(tags__name__iexact=str(tag).strip()).distinct()

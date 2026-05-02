@@ -23,7 +23,7 @@ Page d'accueil
       </div>
     </div>
     <div class="avatar">
-      {% if user_obj.profile and user_obj.profile.avatar  %}
+      {% if user_obj.profile and user_obj.profile.avatar %}
       <img src="{{ user_obj.profile.avatar.url }}" alt="Avatar"/>
       {% endif %}
     </div>
@@ -36,145 +36,63 @@ Page d'accueil
   <div class="projects-container">
     <div class="projects-title">Projets Data & Engineering</div>
     <div class="projects-subtitle">Dernièrs projets réalisés</div>
-    <div class="cards overflow-x-auto">
+    <div class="cards">
+      {% for project in data_projects %}
       <div class="card">
         <div class="card-image">
-          <img src="{% static 'img/project1.jpg' %}" alt="project-image">
+          {% if project.image  %}
+          <img src="{{ project.image.url }}" alt="image"/>
+          {% endif %}
         </div>
         <div class="card-content">
           <div class="card-title">
-            Apps Django
-            <small class="card-date">@2026</small>
+            {{ project.title }}
+            <small class="card-date">@{{project.created_at}}</small>
           </div>
           <div class="card-subtitle">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae excepturi itaque nemo odio temporibus!
+            {{ project.description|safe|truncatewords:12 }}
           </div>
         </div>
         <div class="btns space-between">
-          <a href="" class="btn cancel primary">Voir le code</a>
-          <div class="btn valid primary">Voir le projet</div>
+          <a href="{{ project.source_code_url }}" class="btn cancel primary" target="_blank">Voir le code</a>
+          <a href="{% url 'project:detail' project.id %}" class="btn valid primary">Voir le projet</a>
         </div>
       </div>
-      <div class="card">
-        <div class="card-image">
-          <img src="{% static 'img/project1.jpg' %}" alt="project-image">
-        </div>
-        <div class="card-content">
-          <div class="card-title">
-            Apps Django
-            <small class="card-date">@2026</small>
-          </div>
-          <div class="card-subtitle">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae excepturi itaque nemo odio temporibus!
-          </div>
-        </div>
-        <div class="btns space-between">
-          <a href="" class="btn cancel primary">Voir le code</a>
-          <div class="btn valid primary">Voir le projet</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-image">
-          <img src="{% static 'img/project1.jpg' %}" alt="project-image">
-        </div>
-        <div class="card-content">
-          <div class="card-title">
-            Apps Django
-            <small class="card-date">@2026</small>
-          </div>
-          <div class="card-subtitle">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae excepturi itaque nemo odio temporibus!
-          </div>
-        </div>
-        <div class="btns space-between">
-          <a href="" class="btn cancel primary">Voir le code</a>
-          <div class="btn valid primary">Voir le projet</div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
   <div class="projects-container">
     <div class="projects-title">Projets Développements</div>
     <div class="projects-subtitle">Dernièrs projets réalisés</div>
-     <div class="cards overflow-x-auto">
+    <div class="cards">
+      {% for project in dev_projects %}
       <div class="card">
         <div class="card-image">
-          <img src="{% static 'img/project1.jpg' %}" alt="project-image">
+          {% if project.image  %}
+          <img src="{{ project.image.url }}" alt="image"/>
+          {% endif %}
         </div>
         <div class="card-content">
           <div class="card-title">
-            Apps Django
-            <small class="card-date">@2026</small>
+            {{ project.title }}
+            <small class="card-date">@{{project.created_at}}</small>
           </div>
           <div class="card-subtitle">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae excepturi itaque nemo odio temporibus!
+            {{ project.description|safe|truncatewords:12 }}
           </div>
         </div>
         <div class="btns space-between">
-          <a href="" class="btn cancel primary">Voir le code</a>
-          <div class="btn valid primary">Voir le projet</div>
+          <a href="{{ project.source_code_url }}" class="btn cancel primary" target="_blank">Voir le code</a>
+          <a href="{% url 'project:detail' project.id %}" class="btn valid primary">Voir le projet</a>
         </div>
       </div>
-      <div class="card">
-        <div class="card-image">
-          <img src="{% static 'img/project1.jpg' %}" alt="project-image">
-        </div>
-        <div class="card-content">
-          <div class="card-title">
-            Apps Django
-            <small class="card-date">@2026</small>
-          </div>
-          <div class="card-subtitle">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae excepturi itaque nemo odio temporibus!
-          </div>
-        </div>
-        <div class="btns space-between">
-          <a href="" class="btn cancel primary">Voir le code</a>
-          <div class="btn valid primary">Voir le projet</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-image">
-          <img src="{% static 'img/project1.jpg' %}" alt="project-image">
-        </div>
-        <div class="card-content">
-          <div class="card-title">
-            Apps Django
-            <small class="card-date">@2026</small>
-          </div>
-          <div class="card-subtitle">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae excepturi itaque nemo odio temporibus!
-          </div>
-        </div>
-        <div class="btns space-between">
-          <a href="" class="btn cancel primary">Voir le code</a>
-          <div class="btn valid primary">Voir le projet</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-image">
-          <img src="{% static 'img/project1.jpg' %}" alt="project-image">
-        </div>
-        <div class="card-content">
-          <div class="card-title">
-            Apps Django
-            <small class="card-date">@2026</small>
-          </div>
-          <div class="card-subtitle">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae excepturi itaque nemo odio temporibus!
-          </div>
-        </div>
-        <div class="btns space-between">
-          <a href="" class="btn cancel primary">Voir le code</a>
-          <div class="btn valid primary">Voir le projet</div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </div>
 <div class="projects-container all">
   <div class="projects-title">Tous les projets réalisés</div>
-  <a href="{% url 'projects:projects-list' %}">
+  <a href="{% url 'project:list' user_obj.id %}">
     <div class="projects-btn">
       <div class="btn valid primary">Voir tous les projets</div>
       <div class="icon">

@@ -1,0 +1,28 @@
+{% load static %}
+{% include 'includes/messages.html' %}
+<div class="projects all">
+  <div class="cards">
+    {% for project in projects %}
+    <div class="card">
+      <div class="card-image">
+        {% if project.image %}
+        <img src="{{ project.image.url }}" alt="image"/>
+        {% endif %}
+      </div>
+      <div class="card-content">
+        <div class="card-title">
+          {{ project.title }}
+          <small class="card-date">@ {{project.created_at|date:"F Y"}}</small>
+        </div>
+        <div class="card-subtitle">
+          {{ project.description|safe|truncatewords:12 }}
+        </div>
+      </div>
+      <div class="btns space-between">
+        <a href="{{ project.source_code_url }}" class="btn cancel primary" target="_blank">Voir le code</a>
+        <a href="{% url 'project:detail-index' project.id %}" class="btn valid primary">Voir le projet</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

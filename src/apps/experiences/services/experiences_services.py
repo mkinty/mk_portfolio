@@ -117,5 +117,7 @@ class ExperienceService:
             experience_id (Experience): instance to delete.
         """
         experience = get_experience_by_id(experience_id)
+        if not experience:
+            return False
         experience.delete()
         return True

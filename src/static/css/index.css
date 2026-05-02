@@ -260,6 +260,7 @@ small {
 }
 .nav-item.active {
   color: var(--Primary);
+  border-bottom: 1px solid var(--Primary);
 }
 /*-- Table --*/
 .table-content {
@@ -418,6 +419,10 @@ small {
 }
 /*-- Header --*/
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 6rem;
   background: var(--White);
   display: flex;
@@ -425,6 +430,8 @@ small {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 10rem;
+  border-bottom: 1px solid var(--Divider);
+  z-index: 1000;
 }
 .logo {
   width: 5rem;
@@ -474,6 +481,7 @@ small {
   display: flex;
   flex-direction: column;
   padding: 0;
+  margin-top: 6rem;
 }
 .content-header {
   display: flex;
@@ -492,27 +500,27 @@ small {
 .search-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   gap: 4rem;
   width: 100%;
   border-radius: 0.2rem;
 }
-.search-content {
-   flex: 1;
+.filter {
+  flex: 1;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 1rem;
-  border: 1.5px solid var(--Grey);
   border-radius: 3rem;
   padding-left: 1.5rem;
+  border: 1.5px solid var(--Grey);
 }
-.search-content input {
-  flex: 1;
+.filter input {
+  width: 100%;
   font-size: 1.6rem;
-  padding: 1rem 1.5rem;
+  padding: 1.3rem 1.5rem;
   outline: none;
   border: none;
   border-top-right-radius: 3rem;
@@ -520,6 +528,9 @@ small {
 }
 .search-content input::placeholder {
   opacity: 0.5;
+}
+.search-content form {
+  width: 100%;
 }
 .category {
   position: relative;
@@ -531,6 +542,33 @@ small {
   width: 30rem;
   border: 1.5px solid var(--Grey);
 }
+#filters select {
+  height: 10rem;
+  overflow-y: auto;
+}
+.tags-filters {
+  position: relative;
+  margin-top: 2rem;
+}
+.field-filters {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 5rem;
+  height: 10rem;
+  overflow-y: auto;
+}
+.tags-btn {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  cursor: pointer;
+  border-bottom: 1.5px solid var(--Divider);
+}
 /* -- Card -- */
 .cards {
   display: flex;
@@ -539,9 +577,6 @@ small {
   justify-content: flex-start;
   gap: 2rem;
 }
-.cards.overflow-x-auto {
-  overflow-x: auto;
-}
 .card {
   display: flex;
   flex-direction: column;
@@ -549,6 +584,7 @@ small {
   height: 34rem;
   min-width: 34rem;
   min-height: 34rem;
+  margin: 2rem 0;
   border-radius: 0.2rem;
 }
 .card.small {
@@ -576,8 +612,14 @@ small {
   border-radius: 0.2rem;
 }
 .card-content {
+  height: 12rem;
+  min-height: 12rem;
   display: flex;
   flex-direction: column;
+}
+.card-content.small {
+  height: 9rem;
+  min-height: 9rem;
 }
 .card-title {
   display: flex;
@@ -860,22 +902,31 @@ small {
   flex-direction: row;
   align-items: start;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   gap: 1rem;
-  border-top: 0.1rem solid var(--Divider);
+  overflow-y: auto;
 }
 .project-detail-aside {
   background: var(--Silver);
   width: 30rem;
-  height: 100%;
+  height: 100vh;
   padding: 4rem 0rem;
+  position: fixed;
+  top: 6rem;
+  overflow-y: auto;
 }
 .project-detail-main {
-  flex: 1;
+  width: calc(100% - 30rem);
+  margin-left: 30rem;
   height: 100%;
   padding: 4rem;
 }
 .project-detail-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   font-size: 2rem;
   font-weight: 700;
   color: var(--Dark);
@@ -884,7 +935,7 @@ small {
 .author {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   gap: 1rem;
   padding: 1rem 0;
@@ -917,6 +968,14 @@ small {
 .author-position {
   font-size: 1.2rem;
   color: var(--D_Grey);
+}
+.author-date {
+  font-size: 1.2rem;
+  color: var(--D_Grey);
+  padding: 0.8rem 0;
+}
+.author-date.updated {
+  color: var(--Primary);
 }
 /*-- Register --*/
 .register {
@@ -977,11 +1036,13 @@ small {
   gap: 2rem;
 }
 .field {
-  position: relative;
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
   width: 100%;
+}
+.category .field{
+  padding: 0;
 }
 .field.checkbox{
   flex-direction: row;
@@ -994,6 +1055,10 @@ small {
   font-size: 1.8rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
+}
+.tags-filters .field label {
+  font-weight: normal;
+  font-size: 1.6rem;
 }
 .field label.title {
   margin-bottom: 1rem;
@@ -1011,19 +1076,25 @@ small {
 .field textarea:focus {
   border: 1.5px solid var(--Primary);
 }
-.field select {
-  flex: 1;
-}
 .field select,
 ::picker(select) {
   appearance: base-select;
 }
+::picker(select) {
+  top: calc(anchor(bottom) + 0.1rem);
+  left: anchor(0%);
+  border: none;
+}
 .field select {
+  flex: 1;
   padding: 1rem;
   background: var(--White);
   border: 1.5px solid var(--Grey);
   border-radius: 0.2rem;
   transition: 0.4s;
+}
+.category .field select{
+  background: var(--Silver);
 }
 .field select:hover,
 .field select:focus {
@@ -1035,9 +1106,6 @@ select::picker-icon {
 }
 select:open::picker-icon {
   rotate: 180deg;
-}
-::picker(select) {
-  border: none;
 }
 .field select option {
   cursor: pointer;
@@ -1065,6 +1133,7 @@ select:open::picker-icon {
 }
 .field input[type="checkbox"]{
   max-width: 2rem;
+  accent-color: var(--S1);
 }
 .field label[for="avatar-clear_id"] {
   cursor: pointer;
@@ -1073,6 +1142,17 @@ select:open::picker-icon {
   width: 100%;
   display: flex;
   align-items: center;
+}
+.field-content.select-multiple {
+  align-items: flex-start;
+}
+.field-content.select-multiple select {
+  height: 4.8rem;
+  padding-top: 0rem;
+}
+.field-content.select-multiple select:hover {
+  height: 20rem;
+  padding-top: 0.5rem;
 }
 .field-content .btn {
   width: auto;

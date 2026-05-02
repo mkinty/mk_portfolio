@@ -59,5 +59,7 @@ class CertificationsServices:
         Delete a certification.
         """
         certification = CertificationsSelectors.get_certification_by_id(certification_id)
+        if not certification:
+            return False
         certification.delete()
         return True

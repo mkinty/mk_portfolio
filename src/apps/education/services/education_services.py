@@ -58,6 +58,8 @@ class EducationSectionServices:
         Delete an existing education section.
         """
         education_section = EducationSectionSelectors.get_education_section_by_id(education_section_id)
+        if not education_section:
+            return False
         education_section.delete()
         return True
 
@@ -118,5 +120,7 @@ class EducationServices:
         Delete an existing education item.
         """
         education = EducationSelectors.get_education_by_id(education_id)
+        if not education:
+            return False
         education.delete()
         return True
