@@ -84,10 +84,12 @@ class ProjectDetailView(View):
 
     def get(self, request, project_id):
         project = ProjectSelectors.get_project_by_id(project_id)
+        categories = ProjectCategorySelectors.get_project_categories().prefetch_related('projects')
         projects = ProjectSelectors.get_projects()
         projects.navbar_url = reverse_lazy('projects:detail', kwargs={'project_id': project_id})
-        print("project.category", project.category)
+
         context = {
+            "categories": categories,
             "projects": projects,
             "project": project,
             "current_project": project,

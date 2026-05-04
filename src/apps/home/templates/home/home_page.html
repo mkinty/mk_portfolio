@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 {% block title %}
 Page d'accueil
 {% endblock title %}
-
 {% block content %}
 <div class="user-profile">
   <div class="user-profile-container">
@@ -40,14 +40,18 @@ Page d'accueil
       {% for project in data_projects %}
       <div class="card">
         <div class="card-image">
-          {% if project.image  %}
+          {% if project.image %}
           <img src="{{ project.image.url }}" alt="image"/>
           {% endif %}
         </div>
         <div class="card-content">
           <div class="card-title">
             {{ project.title }}
-            <small class="card-date">@{{project.created_at}}</small>
+            <small class="card-date">
+              {% language 'fr' %}
+              @ {{project.created_at|date:"F Y"}}
+              {% endlanguage %}
+            </small>
           </div>
           <div class="card-subtitle">
             {{ project.description|safe|truncatewords:12 }}
@@ -55,7 +59,7 @@ Page d'accueil
         </div>
         <div class="btns space-between">
           <a href="{{ project.source_code_url }}" class="btn cancel primary" target="_blank">Voir le code</a>
-          <a href="{% url 'project:detail' project.id %}" class="btn valid primary">Voir le projet</a>
+          <a href="{% url 'project:detail-index' project.id %}" class="btn valid primary">Voir le projet</a>
         </div>
       </div>
       {% endfor %}
@@ -68,14 +72,18 @@ Page d'accueil
       {% for project in dev_projects %}
       <div class="card">
         <div class="card-image">
-          {% if project.image  %}
+          {% if project.image %}
           <img src="{{ project.image.url }}" alt="image"/>
           {% endif %}
         </div>
         <div class="card-content">
           <div class="card-title">
             {{ project.title }}
-            <small class="card-date">@{{project.created_at}}</small>
+            <small class="card-date">
+              {% language 'fr' %}
+              @ {{project.created_at|date:"F Y"}}
+              {% endlanguage %}
+            </small>
           </div>
           <div class="card-subtitle">
             {{ project.description|safe|truncatewords:12 }}
@@ -83,7 +91,7 @@ Page d'accueil
         </div>
         <div class="btns space-between">
           <a href="{{ project.source_code_url }}" class="btn cancel primary" target="_blank">Voir le code</a>
-          <a href="{% url 'project:detail' project.id %}" class="btn valid primary">Voir le projet</a>
+          <a href="{% url 'project:detail-index' project.id %}" class="btn valid primary">Voir le projet</a>
         </div>
       </div>
       {% endfor %}
@@ -92,7 +100,7 @@ Page d'accueil
 </div>
 <div class="projects-container all">
   <div class="projects-title">Tous les projets réalisés</div>
-  <a href="{% url 'project:list' user_obj.id %}">
+  <a href="{% url 'project:index' user_obj.id %}">
     <div class="projects-btn">
       <div class="btn valid primary">Voir tous les projets</div>
       <div class="icon">

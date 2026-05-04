@@ -20,10 +20,10 @@ app_name = "project"
 
 urlpatterns = [
     # projects
-    path("user/<int:user_id>/index/", ProjectIndexView.as_view(), name="index"),
-    path("user/<int:user_id>/list/", ProjectsView.as_view(), name="list"),
+    path("user/<int:user_id>", ProjectIndexView.as_view(), name="index"),
+    path("user/<int:user_id>/list", ProjectsView.as_view(), name="list"),
     # project detail
-    path("<int:project_id>/index", ProjectDetailIndexView.as_view(), name="detail-index"),
+    path("<int:project_id>", ProjectDetailIndexView.as_view(), name="detail-index"),
     path("<int:project_id>/detail", ProjectDetailView.as_view(), name="detail"),
     # project category
     path("<int:user_id>/add-category/", ProjectCategoryAddView.as_view(), name="add-category"),

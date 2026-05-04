@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% include 'includes/messages.html' %}
 <div class="projects all">
   <div class="cards">
@@ -12,7 +13,11 @@
       <div class="card-content">
         <div class="card-title">
           {{ project.title }}
-          <small class="card-date">@ {{project.created_at|date:"F Y"}}</small>
+          <small class="card-date">
+            {% language 'fr' %}
+            @ {{project.created_at|date:"F Y"}}
+            {% endlanguage %}
+          </small>
         </div>
         <div class="card-subtitle">
           {{ project.description|safe|truncatewords:12 }}

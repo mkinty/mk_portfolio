@@ -233,19 +233,27 @@ small {
   flex-wrap: nowrap;
   font-weight: 600;
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   cursor: pointer;
   border-bottom: 1px solid var(--Divider);
 }
-.nav-title.active {
+.nav-title.active .nav-title-name {
   color: var(--Dark);
+}
+.nav-title:hover {
+  opacity: 0.8;
 }
 .nav-title .icon {
   width: 1.2rem;
   height: 0.8rem;
+  transition: rotate 0.1s ease;
+}
+.nav-title.active .icon {
+  rotate: 180deg;
+  transition: rotate 0.1s ease;
 }
 .nav-menu {
-  padding-left: 2rem;
+  padding-left: 2.5rem;
   display: none;
 }
 .nav-menu.active {
@@ -254,13 +262,16 @@ small {
   color: var(--White);
 }
 .nav-item {
-  padding: 0.3rem 0.5rem;
+  padding: 0.3rem 1rem 0.3rem 0rem;
   border-bottom: 1px solid var(--Silver);
   cursor: pointer;
 }
 .nav-item.active {
   color: var(--Primary);
   border-bottom: 1px solid var(--Primary);
+}
+.nav-item:hover {
+  opacity: 0.8;
 }
 /*-- Table --*/
 .table-content {
@@ -910,16 +921,44 @@ small {
   background: var(--Silver);
   width: 30rem;
   height: 100vh;
-  padding: 4rem 0rem;
   position: fixed;
   top: 6rem;
   overflow-y: auto;
+  transition: 0.1s ease;
 }
 .project-detail-main {
   width: calc(100% - 30rem);
   margin-left: 30rem;
   height: 100%;
   padding: 4rem;
+  transition: 0.1s ease;
+}
+.project-detail-aside.active {
+  width: 4rem;
+  transition: 0.1s ease;
+}
+.project-detail-aside.active .nav-title-name,
+.project-detail-aside.active .nav-item {
+  display: none;
+}
+.project-detail-main.active {
+  width: calc(100% - 4rem);
+  margin-left: 4rem;
+  transition: 0.1s ease;
+}
+.aside-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 2rem 1rem;
+}
+.aside-menu-icon {
+  cursor: pointer;
+}
+.aside-menu-icon:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
 }
 .project-detail-header {
   display: flex;
