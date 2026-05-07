@@ -4,7 +4,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 
 from apps.authentication.services.token_services import generate_reset_token
-from apps.notifications.services.email_service import send_activation_email
+from apps.notifications.services.email_service import send_email
 from apps.users.models import User
 
 
@@ -38,10 +38,10 @@ def send_user_activation_email(user: Optional[User], domain: str) -> None:
     # Build the full activation link
     activation_link = f"{domain}/auth/activate/{uid}/{token}/"
 
-
     # Send the activation email using the notifications service
-    send_activation_email(
+    send_email(
         subject="Activation de votre compte",
         message=f"Activez votre compte : {activation_link}",
-        recipients=[user.email],
+        recipients=["kintymoustapha@gmail.com"]
+        # You can replace this with [user.email] to send the email to the currently logged-in user
     )

@@ -1,15 +1,25 @@
 from django.shortcuts import render
+from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views import View
 
-from apps.project.selectors.projects_selectors import TagSelectors, ProjectCategorySelectors, ProjectSelectors
+from apps.notifications.services.email_service import send_email
+from apps.project.selectors.projects_selectors import ProjectSelectors
 from apps.users.selectors.user_selectors import get_user_by_email
+from apps.utils.services.http_responses import HTTPResponseHXRedirect
 
 
 class HomePageView(View):
+    """
+    View for handling home page requests.
+    """
     template_name = "home/home_page.html"
 
     def get(self, request):
+        """
+        Handle GET request for home page.
+        Returns user data and project lists.
+        """
         user_obj = get_user_by_email("kintymoustapha@gmail.com")
         user_obj.navbar_url = reverse_lazy('home:home-page')
         data_projects = (
@@ -35,9 +45,16 @@ class HomePageView(View):
 
 
 class ContactPageView(View):
+    """
+    View for handling contact page requests.
+    """
     template_name = "home/contact_page.html"
 
     def get(self, request):
+        """
+        Handle GET request for contact page.
+        Returns contact form with user data.
+        """
         user_obj = get_user_by_email("kintymoustapha@gmail.com")
         contact = dict()
         contact["navbar_url"] = reverse_lazy('home:contact-page')
@@ -46,3 +63,27 @@ class ContactPageView(View):
             "contact": contact
         }
         return render(request, self.template_name, context)
+
+    def post(self, request):
+        """
+        Handle POST request for contact form submission.
+        Validates input and sends email notification.
+        """
+        data = request.POST
+
+        first_name = data.get("first_name", "")
+        last_name = data.get("last_name", "")
+        email = data.get("email", "")
+        message = data.get("message", "")
+
+        if not message or message == "":
+            messages.error(request, "Merci de renseigner le message à envoyer")
+            return HTTPResponseHXRedirect(reverse_lazy('home:contact-page'))
+
+        send_email(
+            subject="Contacte depuis votre site web",
+            message=f"Prénom: {first_name}\nNom: {last_name}\nEmail: {email}\n \n{message}",
+            recipients=["kintymoustapha@gmail.com"]
+        )
+        messages.success(request, "Message envoyé avec succès!")
+        return HTTPResponseHXRedirect(reverse_lazy('home:home-page'))

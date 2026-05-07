@@ -3,7 +3,7 @@ from django.conf import settings
 from ..tasks import send_email_task
 
 
-def send_activation_email(subject: str, message: str, recipients: list[str]) -> None:
+def send_email(subject: str, message: str, recipients: list[str]) -> None:
     """
     Send an email asynchronously using Celery.
 

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from apps.users.models import User
 
 
