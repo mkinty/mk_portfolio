@@ -130,7 +130,7 @@ class PasswordResetRequestView(View):
 
     def get(self, request):
         """ Handle GET request - render password reset request form """
-        return render(request, self.template_name)
+        return render(request, self.template_name, {"user_obj": ""})
 
     def post(self, request):
         """ Handle POST request - process password reset request """
@@ -182,8 +182,8 @@ class PasswordResetConfirmView(View):
         user = get_user_from_token(uidb64, token)
         if not user:
             messages.error(request, "Lien de réinitialisation invalide ou expiré")
-            return render(request, self.template_name)
-        return render(request, self.template_name, {"uidb64": uidb64, "token": token})
+            return redirect(reverse_lazy('home:home-page'))
+        return render(request, self.template_name, {"uidb64": uidb64, "token": token, "user_obj": user})
 
     def post(self, request, uidb64: str, token: str):
         """ Handle POST request - process password reset confirmation """

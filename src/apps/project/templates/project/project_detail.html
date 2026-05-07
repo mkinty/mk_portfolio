@@ -4,15 +4,15 @@
 <div class="project-detail">
   <div class="project-detail-aside">
     <div class="aside-menu">
-      <img class="icon aside-menu-icon" src="{% static 'icons/menu.png' %}" alt="">
+      <img class="icon aside-menu-icon" src="{% static 'icons/open-pane.png' %}" alt="">
     </div>
     {% for category in categories %}
     <div class="nav {% if category.id == current_category.id %}active{% endif %}">
       <div class="nav-title {% if category.id == current_category.id %}active{% endif %}">
+        <img class="icon arrow" src="{% static 'icons/large-' %}{% if category.id == current_category.id %}dark{% else %}grey{% endif %}-arrow.png" alt="">
         <div class="nav-title-name">
           {{ category.name }}
         </div>
-        <img class="icon" src="{% static 'icons/polygon.png' %}" alt="">
       </div>
       <div class="nav-menu {% if category.id == current_category.id %}active{% endif %}">
         {% for project in category.projects.all %}

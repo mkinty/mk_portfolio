@@ -108,3 +108,7 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def is_development(self):
+        return self.tags.filter(name__iexact='development').exists()

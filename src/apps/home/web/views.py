@@ -38,10 +38,11 @@ class ContactPageView(View):
     template_name = "home/contact_page.html"
 
     def get(self, request):
-        contact = get_user_by_email("kintymoustapha@gmail.com")
-        contact.navbar_url = reverse_lazy('home:contact-page')
+        user_obj = get_user_by_email("kintymoustapha@gmail.com")
+        contact = dict()
+        contact["navbar_url"] = reverse_lazy('home:contact-page')
         context = {
-            "contact": contact,
-            "user_obj": contact
+            "user_obj": user_obj,
+            "contact": contact
         }
         return render(request, self.template_name, context)

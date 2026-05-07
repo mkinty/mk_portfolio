@@ -228,9 +228,9 @@ small {
 }
 .nav-title {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: nowrap;
+  gap: 0.5rem;
   font-weight: 600;
   width: 100%;
   padding: 0.5rem 1.5rem;
@@ -244,16 +244,17 @@ small {
   opacity: 0.8;
 }
 .nav-title .icon {
-  width: 1.2rem;
-  height: 0.8rem;
+  width: 1.6rem;
+  height: 1.5rem;
+  font-width: 700;
   transition: rotate 0.1s ease;
 }
 .nav-title.active .icon {
-  rotate: 180deg;
+  rotate: 90deg;
   transition: rotate 0.1s ease;
 }
 .nav-menu {
-  padding-left: 2.5rem;
+  padding-left: 5rem;
   display: none;
 }
 .nav-menu.active {
@@ -934,7 +935,7 @@ small {
   transition: 0.1s ease;
 }
 .project-detail-aside.active {
-  width: 4rem;
+  width: 5rem;
   transition: 0.1s ease;
 }
 .project-detail-aside.active .nav-title-name,
@@ -942,8 +943,8 @@ small {
   display: none;
 }
 .project-detail-main.active {
-  width: calc(100% - 4rem);
-  margin-left: 4rem;
+  width: calc(100% - 5rem);
+  margin-left: 5rem;
   transition: 0.1s ease;
 }
 .aside-menu {
@@ -957,8 +958,11 @@ small {
   cursor: pointer;
 }
 .aside-menu-icon:hover {
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
+  background: var(--Divider);
+  border-radius: 0.3rem;
+}
+.project-detail-aside.active .aside-menu-icon {
+  rotate: 180deg;
 }
 .project-detail-header {
   display: flex;
@@ -985,6 +989,8 @@ small {
 .author-picture {
   width: 10rem;
   height: 10rem;
+  min-width: 10rem;
+  min-height: 10rem;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -1027,9 +1033,8 @@ small {
   gap: 1rem;
   padding: 2rem;
 }
-.register.dark{
-  background: var(--Dark);
-  border-bottom: 0.1rem solid var(--Divider);
+.register.silver{
+  background: var(--Silver);
 }
 .register-container {
   display: flex;
@@ -1251,37 +1256,33 @@ textarea::placeholder {
 /*-- Contact Page --*/
 .contact {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
   gap: 1rem;
   padding: 4rem;
-  background: var(--Dark);
-  border-bottom: 0.1rem solid var(--Divider);
+  background: var(--Silver);
 }
 .contact .author {
+  width: 50rem;
+  padding: 2.5rem;
   background: var(--White);
-  border: none;
-  width: 70%;
   border-radius: 0.5rem;
-  padding: 1rem 2.5rem;
 }
 .contact-content {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   gap: 1rem;
-}
-.contact .register {
-  width: 70%;
+  padding: 0 2.5rem;
   background: var(--White);
   border-radius: 0.5rem;
-  padding: 1rem 2rem;
 }
+
 pre[class*="language-"],
 .field .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) pre[class*="language-"] {
     background: var(--Black) !important;
