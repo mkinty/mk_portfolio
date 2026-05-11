@@ -504,6 +504,9 @@ small {
   background: var(--Silver);
 }
 .counter-btn {
+  position: absolute;
+  top: 20rem;
+  left: 10rem;
   font-size: 2rem;
   font-weight: 700;
   color: var(--Dark);
@@ -568,7 +571,7 @@ small {
   display: flex;
   flex-direction: column;
   top: 5rem;
-  height: 10rem;
+  height: 6rem;
   overflow-y: auto;
 }
 .tags-btn {

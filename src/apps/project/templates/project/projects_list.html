@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% include 'includes/messages.html' %}
+<div class="counter-btn">{{ nb_projects }}</div>
 <div class="projects all">
   <div class="cards">
     {% for project in projects %}

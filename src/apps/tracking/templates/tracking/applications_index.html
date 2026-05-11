@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Liste des candidatures
+{% endblock title %}
+{% block content %}
+<div class="content-header">
+  <div class="search-container" id="filters">
+    <!-- Search input -->
+    <div class="filter">
+      <img class="btn-icon" src="{% static 'icons/search.png' %}" alt="edit-btn">
+      <input type="search"
+             name="qs"
+             hx-get="{% url 'project:list' user_obj.id %}"
+             hx-trigger="change"
+             hx-target="#applications-container"
+             hx-include="#filters"
+             placeholder="Chercher ici"/>
+    </div>
+    <div class="btns">
+    {% if user.is_authenticated %}
+    <button class="btn valid primary"
+            hx-get="#"
+            hx-target="#dialog"
+
+    >Ajouter une candidature
+    </button>
+    {% endif %}
+  </div>
+  </div>
+</div>
+<div id="applications-container"
+     hx-get="{% url 'tracking:applications-tracking' user_obj.id %}"
+     hx-trigger="load, formSubmittedEvent from:body"
+     hx-target="this"
+     hx-swap="innerHTML">
+</div>
+{% endblock content %}

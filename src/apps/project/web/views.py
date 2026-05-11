@@ -26,9 +26,10 @@ class ProjectIndexView(View):
         categories = ProjectCategorySelectors.get_project_categories()
         tags = TagSelectors.get_tags()
         categories.navbar_url = reverse_lazy('project:index', kwargs={'user_id': user_id})
+        projects = ProjectSelectors.get_projects()
         context = {
             "categories": categories,
-            "projects": categories,
+            "projects": projects,
             "tags": tags,
             "user_obj": user_obj,
         }
@@ -57,8 +58,12 @@ class ProjectsView(View):
             queryset = (Q(title__icontains=query) | Q(description__icontains=query))
             projects = projects.filter(queryset).distinct()
 
+        # projets réalisés
+        nb_projects = f"{len(projects)} Projets réalisés" if len(projects) > 1 else f"{len(projects)} Projet réalisé"
+
         context = {
             "projects": projects,
+            "nb_projects": nb_projects,
             "user_obj": user_obj,
         }
         return render(request, self.template_name, context)

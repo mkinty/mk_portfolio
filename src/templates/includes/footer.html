@@ -31,7 +31,7 @@
   <div class="description">
     <a class="item linked" href="{% url 'home:contact-page' %}">Me contacter</a>
     {% if user.is_authenticated %}
-    <a class="item linked" href="{% url 'tracking:applications-tracking' %}">Mes candidatures</a>
+    <a class="item linked" href="{% url 'tracking:applications-index' user_id=user_obj.id %}">Mes candidatures</a>
     {% endif %}
   </div>
 </div>

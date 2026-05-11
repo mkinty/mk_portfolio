@@ -1,22 +1,7 @@
-{% extends "base.html" %}
 {% load static %}
-{% block title %}
-Page d'accueil
-{% endblock title %}
-
-{% block content %}
-<div class="content-header">
-  <div class="search-container">
-    <div class="search-content">
-      <img class="btn-icon" src="{% static 'icons/search.png' %}" alt="edit-btn">
-      <input type="text" placeholder="Rechercher un projet...">
-    </div>
-    <button class="btn valid primary">
-      Ajouter une candidature
-    </button>
-  </div>
-  <div class="counter-btn">12 projets trouvés</div>
-</div>
+{% load i18n %}
+{% include 'includes/messages.html' %}
+<div class="counter-btn">{{ nb_applications }}</div>
 <div class="table-content">
   <div class="row table-header">
     <div class="col">Post</div>
@@ -81,4 +66,3 @@ Page d'accueil
     Ajouter une candidature
   </button>
 </div>
-{% endblock content%}
