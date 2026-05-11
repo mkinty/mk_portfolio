@@ -82,7 +82,7 @@ class ApplicationFollowUpForm(forms.ModelForm):
             }),
 
             'date': forms.DateTimeInput(attrs={
-                'type': 'datetime-local'
+                'type': 'date'
             }),
 
             'status': forms.Select(),

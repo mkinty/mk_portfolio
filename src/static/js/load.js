@@ -8,6 +8,13 @@ $('.nav-title').on('click', function() {
   console.log('clicked');
 });
 
+$('.detail-btn').on('click', function() {
+  const nav = $(this).closest('.detail-section');
+  const menu = nav.find('.nav');
+  nav.toggleClass('active');
+  console.log('clicked');
+});
+
 // Aside menu toggle
 $('.aside-menu-icon').on('click', function() {
   $('.project-detail-aside').toggleClass('active');

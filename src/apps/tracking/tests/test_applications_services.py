@@ -3,7 +3,7 @@ import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
 from apps.tracking.services.applications_services import (
     ApplicationsServices,
-    ApplicationFollowUpServices,
+    FollowUpServices,
 )
 from apps.tracking.models import ApplicationStatus, FollowUpStatus
 
@@ -117,14 +117,14 @@ class TestApplicationsServices:
 
 
 # =========================================================
-# ApplicationFollowUpServices
+# FollowUpServices
 # =========================================================
 
 @pytest.mark.django_db
-class TestApplicationFollowUpServices:
+class TestFollowUpServices:
 
     def test_get_add_form(self, job_application):
-        form, application = ApplicationFollowUpServices.get_add_form(
+        form, application = FollowUpServices.get_add_form(
             job_application.id
         )
 
@@ -132,7 +132,7 @@ class TestApplicationFollowUpServices:
         assert application == job_application
 
     def test_get_add_form_not_found(self):
-        form, application = ApplicationFollowUpServices.get_add_form(999999)
+        form, application = FollowUpServices.get_add_form(999999)
 
         assert form is None
         assert application is None
@@ -144,7 +144,7 @@ class TestApplicationFollowUpServices:
             "status": FollowUpStatus.PENDING,
         }
 
-        success, form, follow_up = ApplicationFollowUpServices.create(
+        success, form, follow_up = FollowUpServices.create(
             application=job_application,
             data=data,
             files={}
@@ -158,7 +158,7 @@ class TestApplicationFollowUpServices:
     def test_create_invalid(self, job_application):
         data = {}
 
-        success, form, follow_up = ApplicationFollowUpServices.create(
+        success, form, follow_up = FollowUpServices.create(
             application=job_application,
             data=data,
             files={}
@@ -169,7 +169,7 @@ class TestApplicationFollowUpServices:
         assert form.errors
 
     def test_get_update_form(self, follow_up):
-        form, instance = ApplicationFollowUpServices.get_update_form(
+        form, instance = FollowUpServices.get_update_form(
             follow_up.id
         )
 
@@ -177,7 +177,7 @@ class TestApplicationFollowUpServices:
         assert instance == follow_up
 
     def test_get_update_form_not_found(self):
-        form, instance = ApplicationFollowUpServices.get_update_form(999999)
+        form, instance = FollowUpServices.get_update_form(999999)
 
         assert form is None
         assert instance is None
@@ -189,7 +189,7 @@ class TestApplicationFollowUpServices:
             "status": FollowUpStatus.PENDING,
         }
 
-        success, form, instance = ApplicationFollowUpServices.update(
+        success, form, instance = FollowUpServices.update(
             follow_up.id,
             data,
             files={}
@@ -201,7 +201,7 @@ class TestApplicationFollowUpServices:
     def test_update_invalid(self, follow_up):
         data = {}
 
-        success, form, instance = ApplicationFollowUpServices.update(
+        success, form, instance = FollowUpServices.update(
             follow_up.id,
             data,
             files={}
@@ -212,11 +212,11 @@ class TestApplicationFollowUpServices:
         assert form.errors
 
     def test_delete(self, follow_up):
-        success = ApplicationFollowUpServices.delete(follow_up.id)
+        success = FollowUpServices.delete(follow_up.id)
 
         assert success is True
 
     def test_delete_not_found(self):
-        success = ApplicationFollowUpServices.delete(999999)
+        success = FollowUpServices.delete(999999)
 
         assert success is False

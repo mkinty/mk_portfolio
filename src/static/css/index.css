@@ -205,6 +205,7 @@ small {
   padding: 0.8rem;
   font-size: 1.4rem;
 }
+
 .col {
   flex: 1;
   display: flex;
@@ -302,30 +303,36 @@ small {
   width: 100%;
   font-size: 1.4rem;
   font-weight: 500;
-  margin: 0.5rem 0;
+  margin: 2rem 0;
 }
 .table-body .nav {
   padding: 0.5rem 0;
-
 }
-.table-body .nav-title {
-  font-weight: 500;
-  padding: 0;
-  border: none;
-}
-.table-body .nav-menu {
-  padding: 0;
-}
-.table-body .nav .row {
+.nav .row {
+  border-top: none;
   background: transparent;
 }
-.nav-title .row {
-  border: 1px solid var(--Divider);
+.nav .row.head {
+  border: 1px solid var(--Grey);
 }
-.nav-menu .row {
-  border-top: none;
-  border-bottom: 1px solid var(--Divider);
+.detail-section {
+  margin-bottom: 0.5rem;
 }
+.detail-section .nav {
+  display: none;
+}
+.detail-section.active .nav {
+  display: block;
+}
+
+.detail-section .detail-btn {
+  rotate: -90deg;
+}
+
+.detail-section.active .detail-btn {
+  rotate: 90deg;
+}
+
 /* -- Alert -- */
 .messages {
   position: fixed;

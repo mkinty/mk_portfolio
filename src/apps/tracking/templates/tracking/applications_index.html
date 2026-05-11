@@ -11,7 +11,7 @@ Liste des candidatures
       <img class="btn-icon" src="{% static 'icons/search.png' %}" alt="edit-btn">
       <input type="search"
              name="qs"
-             hx-get="{% url 'project:list' user_obj.id %}"
+             hx-get="{% url 'tracking:applications-tracking' user_obj.id %}"
              hx-trigger="change"
              hx-target="#applications-container"
              hx-include="#filters"

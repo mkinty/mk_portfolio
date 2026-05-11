@@ -1,0 +1,41 @@
+{% load static %}
+
+{% include 'includes/messages.html' %}
+<div class="register" id="large">
+  <div class="close-bnt">
+    <img class="btn-icon"
+         id="close-btn"
+         src="{% static 'icons/close.png' %}"
+         alt="close-btn">
+  </div>
+  <div class="register-header">
+    {{ title }}
+  </div>
+  <div class="register-content">
+    <form hx-post="{{ request.path }}"
+          hx-target="#dialog"
+          hx-swap="innerHTML"
+          enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      {{ form.media }}
+
+      <div class="field">
+        <label>Intitulé</label>
+        {{ form.title }}
+      </div>
+      <div class="field no-right-radius">
+        <label>Date</label>
+        {{ form.date }}
+      </div>
+      <div class="field">
+        <label>Statut</label>
+        {{ form.status }}
+      </div>
+      <div class="btns actions">
+        <button class="btn cancel primary" id="cancel" type="button">Annuler</button>
+        <button class="btn valid primary" type="submit">Enregistrer</button>
+      </div>
+    </form>
+  </div>
+</div>

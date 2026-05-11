@@ -82,7 +82,6 @@ class ProjectSelectors:
         return user.user_projects.all()
 
     @staticmethod
-    @staticmethod
     def get_projects_by_tag(tag):
         """
         Get projects by tag (case-insensitive)

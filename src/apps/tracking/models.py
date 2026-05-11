@@ -6,10 +6,10 @@ from config.settings import settings
 
 class ApplicationStatus(models.TextChoices):
     """Application status"""
-    SENT = "sent", "Envoyée"
-    INTERVIEWING = "interviewing", "Entretiens en cours"
-    ACCEPTED = "accepted", "Acceptée"
-    REJECTED = "rejected", "Rejetée"
+    SENT = "Envoyée", "Envoyée"
+    INTERVIEWING = "Entretiens en cours", "Entretiens en cours"
+    ACCEPTED = "Acceptée", "Acceptée"
+    REJECTED = "Rejetée", "Rejetée"
 
 
 class JobApplication(models.Model):
@@ -22,7 +22,7 @@ class JobApplication(models.Model):
 
     position = models.CharField(
         max_length=255,
-        help_text="Description du poste"
+        help_text="Intitulé du poste"
     )
 
     company = models.CharField(
@@ -85,9 +85,9 @@ class JobApplication(models.Model):
 
 
 class FollowUpStatus(models.TextChoices):
-    PENDING = "pending", "En attente"
-    COMPLETED = "completed", "Terminé"
-    CANCELLED = "cancelled", "Annulé"
+    PENDING = "En attente", "En attente"
+    COMPLETED = "Terminé", "Terminé"
+    CANCELLED = "Annulé", "Annulé"
 
 
 class ApplicationFollowUp(models.Model):
@@ -103,7 +103,7 @@ class ApplicationFollowUp(models.Model):
         verbose_name="Intitulé"
     )
 
-    date = models.DateTimeField(
+    date = models.DateField(
         verbose_name="Date"
     )
 

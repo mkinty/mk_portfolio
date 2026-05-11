@@ -15,7 +15,11 @@ class ApplicationSelectors:
     @staticmethod
     def get_application_by_user(user):
         """Get job applications by user"""
-        return JobApplication.objects.filter(user=user)
+        return (
+            user.job_applications
+            .all()
+            .prefetch_related('follow_ups')
+        )
 
     @staticmethod
     def get_application_by_status(status):

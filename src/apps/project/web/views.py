@@ -55,8 +55,7 @@ class ProjectsView(View):
             projects = projects.filter(tags__id__in=tag_ids).distinct()
 
         if query:
-            queryset = (Q(title__icontains=query) | Q(description__icontains=query))
-            projects = projects.filter(queryset).distinct()
+            projects = projects.filter(Q(title__icontains=query) | Q(description__icontains=query)).distinct()
 
         # projets réalisés
         nb_projects = f"{len(projects)} Projets réalisés" if len(projects) > 1 else f"{len(projects)} Projet réalisé"

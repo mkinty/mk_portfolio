@@ -57,7 +57,7 @@ class ApplicationsServices:
         return True
 
 
-class ApplicationFollowUpServices:
+class FollowUpServices:
     """
     Services for job application follow-ups
     """
@@ -77,37 +77,37 @@ class ApplicationFollowUpServices:
         form = ApplicationFollowUpForm(data, files)
         if not form.is_valid():
             return False, form, None
-        follow_up = form.save(commit=False)
-        follow_up.job_application = application
-        follow_up.save()
-        return True, form, follow_up
+        followup = form.save(commit=False)
+        followup.job_application = application
+        followup.save()
+        return True, form, followup
 
     @staticmethod
-    def get_update_form(follow_up_id):
+    def get_update_form(followup_id):
         """Get an update form for a follow-up element"""
-        follow_up = FollowUpSelectors.get_follow_up_by_id(follow_up_id)
-        if not follow_up:
+        followup = FollowUpSelectors.get_follow_up_by_id(followup_id)
+        if not followup:
             return None, None
-        form = ApplicationFollowUpForm(instance=follow_up)
-        return form, follow_up
+        form = ApplicationFollowUpForm(instance=followup)
+        return form, followup
 
     @staticmethod
-    def update(follow_up_id, data, files):
+    def update(followup_id, data, files):
         """Update a follow-up element"""
-        follow_up = FollowUpSelectors.get_follow_up_by_id(follow_up_id)
-        if not follow_up:
+        followup = FollowUpSelectors.get_follow_up_by_id(followup_id)
+        if not followup:
             return False, None, None
-        form = ApplicationFollowUpForm(data, files, instance=follow_up)
+        form = ApplicationFollowUpForm(data, files, instance=followup)
         if not form.is_valid():
             return False, form, None
         form.save()
-        return True, form, follow_up
+        return True, form, followup
 
     @staticmethod
-    def delete(follow_up_id):
+    def delete(followup_id):
         """Delete a follow-up element"""
-        follow_up = FollowUpSelectors.get_follow_up_by_id(follow_up_id)
-        if not follow_up:
+        followup = FollowUpSelectors.get_follow_up_by_id(followup_id)
+        if not followup:
             return False
-        follow_up.delete()
+        followup.delete()
         return True
