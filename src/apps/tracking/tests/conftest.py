@@ -1,10 +1,13 @@
 import pytest
 from datetime import date
 from django.utils import timezone
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 from apps.tracking.models import (
     JobApplication,
     ApplicationFollowUp,
+    ApplicationStatus,
+    FollowUpStatus,
 )
 from apps.users.models import User
 
@@ -26,7 +29,7 @@ def job_application(db, user):
         position="Backend Developer",
         company="OpenAI",
         job_offer_link="https://openai.com",
-        resume="resumes/cv.pdf",
+        resume=SimpleUploadedFile("cv.pdf", b"fake-cv-content"),
         application_date=date(2024, 1, 1),
     )
 
@@ -37,9 +40,9 @@ def job_application_with_status(db, user):
         user=user,
         position="Data Engineer",
         company="Google",
-        resume="resumes/cv.pdf",
+        resume=SimpleUploadedFile("cv.pdf", b"fake-cv-content"),
         application_date=date(2024, 2, 1),
-        application_status="interviewing",
+        application_status=ApplicationStatus.INTERVIEWING,
     )
 
 
@@ -58,5 +61,5 @@ def follow_up_completed(db, job_application):
         job_application=job_application,
         title="Entretien technique",
         date=timezone.now(),
-        status="completed",
+        status=FollowUpStatus.COMPLETED,
     )
