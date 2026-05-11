@@ -1,14 +1,14 @@
-from apps.tracking.models import JobApplication
+from apps.tracking.models import JobApplication, ApplicationFollowUp
 
 
 class ApplicationSelectors:
     """Selectors for JobApplication model"""
 
     @staticmethod
-    def get_application_by_id(job_application_id):
+    def get_application_by_id(application_id):
         """Get job applications by company name"""
         try:
-            return JobApplication.objects.get(pk=job_application_id)
+            return JobApplication.objects.get(pk=application_id)
         except JobApplication.DoesNotExist:
             return None
 
@@ -30,6 +30,14 @@ class ApplicationSelectors:
 
 class FollowUpSelectors:
     """Selectors for follow-up tracking"""
+
+    @staticmethod
+    def get_follow_up_by_id(follow_up_id):
+        """Get follow-up by ID"""
+        try:
+            return ApplicationFollowUp.objects.get(pk=follow_up_id)
+        except ApplicationFollowUp.DoesNotExist:
+            return None
 
     @staticmethod
     def get_follow_ups_by_application(application):

@@ -76,3 +76,15 @@ class TestFollowUpSelectors:
         assert follow_up in results
         assert follow_up_completed in results
         assert results.count() == 2
+
+    def test_get_follow_up_by_id(self, follow_up):
+        result = FollowUpSelectors.get_follow_up_by_id(follow_up.id)
+
+        assert result is not None
+        assert result.id == follow_up.id
+        assert result.title == follow_up.title
+
+    def test_get_follow_up_by_id_returns_none(self):
+        result = FollowUpSelectors.get_follow_up_by_id(999999)
+
+        assert result is None
