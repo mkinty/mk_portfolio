@@ -24,6 +24,7 @@ class HomePageView(View):
 
         if not user_obj:
             user_obj = type("UserMock", (), {})()
+            user_obj.id = 1
 
         user_obj.navbar_url = reverse_lazy('home:home-page')
 
