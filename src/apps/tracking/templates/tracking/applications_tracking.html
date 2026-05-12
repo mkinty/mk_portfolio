@@ -1,112 +1,131 @@
 {% load static %}
 {% load i18n %}
 {% include 'includes/messages.html' %}
-<div class="counter-btn">{{ nb_applications }}</div>
-<div class="table-content">
-  <div class="row table-header">
-    <div class="col">Post</div>
-    <div class="col">Entreprise</div>
-    <div class="col medium">Offre</div>
-    <div class="col medium">CV</div>
-    <div class="col medium">Motivation</div>
-    <div class="col medium">Date</div>
-    <div class="col medium">État</div>
-    <div class="col medium">Actions</div>
+{% if user.is_authenticated %}
+
+{% endif %}
+<div class="add-application-btn">
+  <div class="counter-btn">
+    {{ nb_applications }}
   </div>
-  <div class="table-body">
-    {% for application in applications %}
-    <div class="detail-section">
-      <div class="row">
-        <div class="col">{{ application.position }}</div>
-        <div class="col">{{ application.company }}</div>
-        <div class="col medium">
-          <a href="{{ application.job_offer_link }}" target="_blank">
-            <img class="btn-icon" src="{% static 'icons/link.png' %}" alt="edit-btn">
-          </a>
-          <a href="{{ application.job_offer_file.url }}" target="_blank">
-            <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
-          </a>
-        </div>
-        <div class="col medium">
-          <a href="{{ application.resume.url }}" target="_blank">
-            <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
-          </a>
-        </div>
-        <div class="col medium">
-          <a href="{{ application.cover_letter.url }}" target="_blank">
-            <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
-          </a>
-        </div>
-        <div class="col medium">
-          {{ application.date|date:"d/m/Y" }}
-        </div>
-        <div class="col medium">
-          {{ application.application_status }}
-          <img class="icon" src="{% static 'icons/polygon.png' %}" alt="edit-btn">
-        </div>
-        <div class="col medium">
-          <img class="btn-icon"
-               hx-get="{% url 'tracking:delete-application' application_id=application.id %}"
-               hx-target="#dialog"
-               src="{% static 'icons/trash.png' %}"
-               alt="delete-btn"
-          >
-          <img class="btn-icon"
-               hx-get="{% url 'tracking:update-application' application_id=application.id %}"
-               hx-target="#dialog"
-               src="{% static 'icons/edit.png' %}"
-               alt="edit-btn"
-          >
-          <img class="btn-icon detail-btn" src="{% static 'icons/open-pane.png' %}" alt="detail-btn">
-        </div>
-      </div>
-      <div class="nav">
-        <div class="row head">
-          <div class="col">Intitule</div>
-          <div class="col">Date</div>
-          <div class="col">État</div>
-          <div class="col">Actions</div>
-        </div>
-        {% for followup in application.follow_ups.all %}
+  {% if user.is_authenticated %}
+  <button class=" btn valid primary"
+          hx-get="{% url 'tracking:add-application' user_id=user_obj.id %}"
+          hx-target="#dialog"
+  >Ajouter une candidature
+  </button>
+  {% endif %}
+</div>
+<div class="table-container">
+  <div class="table-content">
+    <div class="row table-header">
+      <div class="col">Post</div>
+      <div class="col">Entreprise</div>
+      <div class="col medium">Offre</div>
+      <div class="col medium">CV</div>
+      <div class="col medium">Motivation</div>
+      <div class="col medium">Date</div>
+      <div class="col">État</div>
+      <div class="col medium">Actions</div>
+    </div>
+    <div class="table-body">
+      {% for application in applications %}
+      <div class="detail-section">
         <div class="row">
-          <div class="col">
-            {{ followup.title }}
+          <div class="col">{{ application.position }}</div>
+          <div class="col">{{ application.company }}</div>
+          <div class="col medium">
+            <a href="{{ application.job_offer_link }}" target="_blank">
+              <img class="btn-icon" src="{% static 'icons/link.png' %}" alt="edit-btn">
+            </a>
+            <a href="{{ application.job_offer_file.url }}" target="_blank">
+              <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
+            </a>
           </div>
-          <div class="col">
-            {{ followup.date }}
+          <div class="col medium">
+            <a href="{{ application.resume.url }}" target="_blank">
+              <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
+            </a>
           </div>
-          <div class="col">
-            {{ followup.status }}
+          <div class="col medium">
+            <a href="{{ application.cover_letter.url }}" target="_blank">
+              <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
+            </a>
           </div>
-          <div class="col">
+          <div class="col medium">
+            {{ application.application_date|date:"d/m/Y" }}
+          </div>
+          <div class="col {{application.application_status}} ">
+            {{ application.get_application_status_display }}
+            <img class="icon small btn-icon"
+                 hx-get="{% url 'tracking:update-application-status' application_id=application.id %}"
+                 hx-target="#dialog"
+                 src="{% static 'icons/polygon.png' %}" alt="edit-btn">
+          </div>
+          <div class="col medium">
             <img class="btn-icon"
-                 hx-get="{% url 'tracking:delete-followup' followup_id=followup.id %}"
+                 hx-get="{% url 'tracking:delete-application' application_id=application.id %}"
                  hx-target="#dialog"
                  src="{% static 'icons/trash.png' %}"
                  alt="delete-btn"
             >
             <img class="btn-icon"
-                 hx-get="{% url 'tracking:update-followup' followup_id=followup.id %}"
+                 hx-get="{% url 'tracking:update-application' application_id=application.id %}"
                  hx-target="#dialog"
                  src="{% static 'icons/edit.png' %}"
                  alt="edit-btn"
             >
+            <img class="btn-icon detail-btn" src="{% static 'icons/open-pane.png' %}" alt="detail-btn">
           </div>
         </div>
-        {% endfor %}
-        <button class="btn valid primary"
-                hx-get="{% url 'tracking:add-followup' application_id=application.id %}"
-                hx-target="#dialog"
-        >Ajouter un élément
-        </button>
+        <div class="nav">
+          <div class="row head">
+            <div class="col">Intitule</div>
+            <div class="col">Date</div>
+            <div class="col">État</div>
+            <div class="col">Actions</div>
+          </div>
+          {% for followup in application.follow_ups.all %}
+          <div class="row">
+            <div class="col">
+              {{ followup.title }}
+            </div>
+            <div class="col">
+              {{ followup.event_date|date:"d/m/Y" }}
+            </div>
+            <div class="col {{ followup.status }} ">
+              {{ followup.get_status_display }}
+            </div>
+            <div class="col">
+              <img class="btn-icon"
+                   hx-get="{% url 'tracking:delete-followup' followup_id=followup.id %}"
+                   hx-target="#dialog"
+                   src="{% static 'icons/trash.png' %}"
+                   alt="delete-btn"
+              >
+              <img class="btn-icon"
+                   hx-get="{% url 'tracking:update-followup' followup_id=followup.id %}"
+                   hx-target="#dialog"
+                   src="{% static 'icons/edit.png' %}"
+                   alt="edit-btn"
+              >
+            </div>
+          </div>
+          {% endfor %}
+          <button class="btn valid primary"
+                  hx-get="{% url 'tracking:add-followup' application_id=application.id %}"
+                  hx-target="#dialog"
+          >Ajouter un élément
+          </button>
+        </div>
       </div>
+      {% endfor %}
+      <button class="btn valid primary"
+              hx-get="{% url 'tracking:add-application' user_id=user_obj.id %}"
+              hx-target="#dialog"
+      >Ajouter une candidature
+      </button>
     </div>
-    {% endfor %}
-    <button class="btn valid primary"
-            hx-get="{% url 'tracking:add-application' user_id=user_obj.id %}"
-            hx-target="#dialog"
-    >Ajouter une candidature
-    </button>
   </div>
 </div>
 <script src="{% static 'js/load.js' %}" defer></script>

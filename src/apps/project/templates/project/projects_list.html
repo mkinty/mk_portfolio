@@ -1,7 +1,19 @@
 {% load static %}
 {% load i18n %}
 {% include 'includes/messages.html' %}
-<div class="counter-btn">{{ nb_projects }}</div>
+<div class="add-application-btn">
+  <div class="counter-btn">{{ nb_projects }}</div>
+  <div class="btns">
+    {% if user.is_authenticated %}
+    <button class="btn valid primary"
+            hx-get="{% url 'project:add' user_id=user_obj.id %}"
+            hx-target="#dialog"
+
+    >Ajouter un projet
+    </button>
+    {% endif %}
+  </div>
+</div>
 <div class="projects all">
   <div class="cards">
     {% for project in projects %}

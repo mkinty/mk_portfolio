@@ -4,7 +4,9 @@
 <div class="project-detail">
   <div class="project-detail-aside">
     <div class="aside-menu">
-      <img class="icon aside-menu-icon" src="{% static 'icons/open-pane.png' %}" alt="">
+      <div class="aside-menu-btn">
+        <img class="icon aside-menu-icon" src="{% static 'icons/open-pane.png' %}" alt="">
+      </div>
     </div>
     {% for category in categories %}
     <div class="nav {% if category.id == current_category.id %}active{% endif %}">

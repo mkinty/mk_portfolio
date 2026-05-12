@@ -1,4 +1,4 @@
-from apps.tracking.forms import JobApplicationForm, ApplicationFollowUpForm
+from apps.tracking.forms import JobApplicationForm, ApplicationFollowUpForm, ApplicationStatusForm
 from apps.tracking.selectors.applications_selectors import ApplicationSelectors, FollowUpSelectors
 from apps.users.selectors.user_selectors import get_user_by_id
 
@@ -42,6 +42,18 @@ class ApplicationsServices:
         if not application:
             return False, None, None
         form = JobApplicationForm(data, files, instance=application)
+        if not form.is_valid():
+            return False, form, None
+        form.save()
+        return True, form, application
+
+    @staticmethod
+    def update_status(application_id, data, files):
+        """Update an existing job application"""
+        application = ApplicationSelectors.get_application_by_id(application_id)
+        if not application:
+            return False, None, None
+        form = ApplicationStatusForm(data, files, instance=application)
         if not form.is_valid():
             return False, form, None
         form.save()

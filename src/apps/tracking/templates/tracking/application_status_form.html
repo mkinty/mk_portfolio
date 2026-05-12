@@ -1,7 +1,7 @@
 {% load static %}
 
 {% include 'includes/messages.html' %}
-<div class="register" id="large">
+<div class="register" id="small">
   <div class="close-bnt">
     <img class="btn-icon"
          id="close-btn"
@@ -19,18 +19,9 @@
     >
       {% csrf_token %}
       {{ form.media }}
-
       <div class="field">
-        <label>Intitulé</label>
-        {{ form.title }}
-      </div>
-      <div class="field no-right-radius">
-        <label>Date prévue</label>
-        {{ form.event_date }}
-      </div>
-      <div class="field">
-        <label>Statut</label>
-        {{ form.status }}
+        <label>État de la candidature</label>
+        {{ form.application_status }}
       </div>
       <div class="btns actions">
         <button class="btn cancel primary" id="cancel" type="button">Annuler</button>

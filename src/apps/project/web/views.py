@@ -16,6 +16,7 @@ from apps.project.services.projects_services import (
     TagServices
 )
 from apps.users.selectors.user_selectors import get_user_by_id
+from apps.utils.services.http_responses import HTTPResponseHXRedirect
 
 
 class ProjectIndexView(View):
@@ -380,6 +381,8 @@ class ProjectDeleteView(View):
 
     def post(self, request, project_id):
         """Handle delete request"""
+        project = ProjectSelectors.get_project_by_id(project_id)
+        user_id = project.user.id
         success = ProjectServices.delete(project_id)
 
         if not success:
@@ -387,4 +390,4 @@ class ProjectDeleteView(View):
             return HttpResponse(status=400)
 
         messages.success(request, "Projet supprimé avec succès")
-        return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
+        return HTTPResponseHXRedirect(reverse_lazy('project:index', kwargs={'user_id': user_id}))

@@ -57,16 +57,6 @@ Liste des projets
       </div>
     </div>
   </div>
-  <div class="btns">
-    {% if user.is_authenticated %}
-    <button class="btn valid primary"
-            hx-get="{% url 'project:add' user_id=user_obj.id %}"
-            hx-target="#dialog"
-
-    >Ajouter un projet
-    </button>
-    {% endif %}
-  </div>
 </div>
 <div id="projects-container"
      hx-get="{% url 'project:list' user_obj.id %}"

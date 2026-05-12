@@ -17,16 +17,29 @@ Liste des candidatures
              hx-include="#filters"
              placeholder="Chercher ici"/>
     </div>
-    <div class="btns">
-    {% if user.is_authenticated %}
-    <button class="btn valid primary"
-            hx-get="#"
-            hx-target="#dialog"
-
-    >Ajouter une candidature
-    </button>
-    {% endif %}
-  </div>
+    <!-- Tags -->
+    <div class="category">
+      <div class="tags-btn">
+        Filtrer par statut
+        <img class="btn-icon" src="{% static 'icons/filter.png' %}" alt="filter">
+      </div>
+      <div class="field field-filters">
+        {% for tag in status %}
+        <label>
+          <input
+                  type="checkbox"
+                  name="status"
+                  value="{{ tag.value }}"
+                  hx-get="{% url 'tracking:applications-tracking' user_obj.id %}"
+                  hx-trigger="change"
+                  hx-target="#applications-container"
+                  hx-include="#filters"
+          >
+          {{ tag.label }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>
 <div id="applications-container"

@@ -62,6 +62,26 @@ class JobApplicationForm(forms.ModelForm):
         }
 
 
+class ApplicationStatusForm(forms.ModelForm):
+    """
+    Formulaire pour la création et la modification des candidatures.
+    """
+
+    class Meta:
+        model = JobApplication
+        fields = [
+            'application_status',
+        ]
+
+        widgets = {
+            'application_status': forms.Select(),
+        }
+
+        labels = {
+            'application_status': 'État de la candidature',
+        }
+
+
 class ApplicationFollowUpForm(forms.ModelForm):
     """
     Formulaire pour la création et la modification des éléments de suivi.
@@ -72,7 +92,7 @@ class ApplicationFollowUpForm(forms.ModelForm):
 
         fields = [
             'title',
-            'date',
+            'event_date',
             'status',
         ]
 
@@ -81,7 +101,7 @@ class ApplicationFollowUpForm(forms.ModelForm):
                 'placeholder': 'Ex: Premier entretien RH'
             }),
 
-            'date': forms.DateTimeInput(attrs={
+            'event_date': forms.DateInput(attrs={
                 'type': 'date'
             }),
 
@@ -90,6 +110,6 @@ class ApplicationFollowUpForm(forms.ModelForm):
 
         labels = {
             'title': 'Intitulé',
-            'date': 'Date',
+            'event_date': 'Date',
             'status': 'Statut',
         }

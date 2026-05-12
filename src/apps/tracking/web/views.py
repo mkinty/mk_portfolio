@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.views import View
 from django.db.models import Q
 
+from apps.tracking.models import ApplicationStatus
 from apps.tracking.selectors.applications_selectors import ApplicationSelectors, FollowUpSelectors
 from apps.tracking.services.applications_services import ApplicationsServices, FollowUpServices
 from apps.users.selectors.user_selectors import get_user_by_id
@@ -14,8 +15,16 @@ class ApplicationsTrackingIndexView(View):
 
     def get(self, request, user_id):
         user_obj = get_user_by_id(user_id)
+        status = [
+            {
+                "value": value,
+                "label": label,
+            }
+            for value, label in ApplicationStatus.choices
+        ]
         context = {
-            "user_obj": user_obj
+            "user_obj": user_obj,
+            "status": status,
         }
         return render(request, self.template_name, context)
 
@@ -27,12 +36,11 @@ class ApplicationsTrackingView(View):
         user_obj = get_user_by_id(user_id)
 
         applications = ApplicationSelectors.get_application_by_user(user_obj)
-
-        application_status = request.GET.get('status')
+        status_names = request.GET.getlist('status')
         query = request.GET.get('qs', '')
 
-        if application_status:
-            applications = applications.filter(application_status=application_status)
+        if status_names:
+            applications = applications.filter(application_status__in=status_names)
 
         if query:
             applications = applications.filter(Q(position__icontains=query) | Q(company__icontains=query) | Q(
@@ -103,6 +111,11 @@ class JobApplicationUpdateView(View):
         """
         form, application = ApplicationsServices.get_update_form(application_id)
 
+        current_url = request.build_absolute_uri().split("/")
+        if "status" in current_url:
+            self.template_name = "tracking/application_status_form.html"
+            self.title = "Modifier l'état"
+
         return render(request, self.template_name, {
             "form": form,
             "user_obj": application.user,
@@ -113,6 +126,28 @@ class JobApplicationUpdateView(View):
         """
         POST request - Handle form submission to update a job application
         """
+        current_url = request.build_absolute_uri().split("/")
+
+        if "status" in current_url:
+
+            if "status" in current_url:
+                self.template_name = "tracking/application_status_form.html"
+                self.title = "Modifier l'état"
+
+            success, form, application = ApplicationsServices.update_status(
+                application_id,
+                request.POST,
+                request.FILES,
+            )
+            if not success:
+                messages.error(request, "Corrigez les erreurs dans le formulaire")
+                return render(request, self.template_name, {
+                    "form": form,
+                    "title": self.title
+                })
+
+            messages.success(request, "Candidature modifiée avec succès")
+            return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
 
         success, form, application = ApplicationsServices.update(
             application_id,
@@ -124,7 +159,46 @@ class JobApplicationUpdateView(View):
             messages.error(request, "Corrigez les erreurs dans le formulaire")
             return render(request, self.template_name, {
                 "form": form,
-                "user_obj": application.user,
+                "title": self.title
+            })
+
+        messages.success(request, "Candidature modifiée avec succès")
+        return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
+
+
+class ApplicationStatusUpdateView(View):
+    """
+    View for updating an existing job application
+    """
+
+    template_name = "tracking/application_status_form.html"
+    title = "Modifier l'état"
+
+    def get(self, request, application_id):
+        """
+        GET request - Display the form to update a job application
+        """
+        form, application = ApplicationsServices.get_update_form(application_id)
+
+        return render(request, self.template_name, {
+            "form": form,
+            "user_obj": application.user,
+            "title": self.title
+        })
+
+    def post(self, request, application_id):
+        """
+        POST request - Handle form submission to update a job application
+        """
+        success, form, application = ApplicationsServices.update_status(
+            application_id,
+            request.POST,
+            request.FILES,
+        )
+        if not success:
+            messages.error(request, "Corrigez les erreurs dans le formulaire")
+            return render(request, self.template_name, {
+                "form": form,
                 "title": self.title
             })
 

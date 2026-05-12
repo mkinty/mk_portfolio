@@ -6,10 +6,10 @@ from config.settings import settings
 
 class ApplicationStatus(models.TextChoices):
     """Application status"""
-    SENT = "Envoyée", "Envoyée"
-    INTERVIEWING = "Entretiens en cours", "Entretiens en cours"
-    ACCEPTED = "Acceptée", "Acceptée"
-    REJECTED = "Rejetée", "Rejetée"
+    SENT = "sent", "Envoyée"
+    INTERVIEWING = "interviewing", "Entretiens en cours"
+    ACCEPTED = "accepted", "Acceptée"
+    REJECTED = "rejected", "Rejetée"
 
 
 class JobApplication(models.Model):
@@ -85,9 +85,9 @@ class JobApplication(models.Model):
 
 
 class FollowUpStatus(models.TextChoices):
-    PENDING = "En attente", "En attente"
-    COMPLETED = "Terminé", "Terminé"
-    CANCELLED = "Annulé", "Annulé"
+    PENDING = "pending", "En attente"
+    COMPLETED = "completed", "Terminé"
+    CANCELLED = "cancelled", "Annulé"
 
 
 class ApplicationFollowUp(models.Model):
@@ -103,7 +103,7 @@ class ApplicationFollowUp(models.Model):
         verbose_name="Intitulé"
     )
 
-    date = models.DateField(
+    event_date = models.DateField(
         verbose_name="Date"
     )
 
@@ -125,7 +125,7 @@ class ApplicationFollowUp(models.Model):
     )
 
     class Meta:
-        ordering = ["date"]
+        ordering = ["event_date"]
         verbose_name = "Élément de suivi"
         verbose_name_plural = "Éléments de suivi"
 

@@ -210,13 +210,34 @@ small {
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 2rem;
 }
 .col.medium {
-  max-width: 12rem;
+  max-width: 10rem;
 }
-.col.medium .icon {
+.col.sent {
+  color: var(--Secondary);
+}
+.col.interviewing {
+  color: var(--Info);
+}
+.col.accepted {
+  color: var(--Success);
+}
+.col.rejected {
+  color: var(--Error);
+}
+.col.pending {
+  color: var(--Info);
+}
+.col.completed {
+  color: var(--Success);
+}
+.col.cancelled {
+  color: var(--Error);
+}
+.col .icon.small {
   width: 1.2rem;
   height: 0.8rem;
 }
@@ -276,7 +297,12 @@ small {
   opacity: 0.8;
 }
 /*-- Table --*/
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
 .table-content {
+  min-width: 120rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -507,13 +533,19 @@ small {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 10rem 10rem 4rem 10rem;
+  padding: 10rem;
   background: var(--Silver);
 }
-.counter-btn {
+.add-application-btn {
   position: absolute;
-  top: 20rem;
+  top: 22rem;
   left: 10rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4rem;
+}
+.counter-btn {
   font-size: 2rem;
   font-weight: 700;
   color: var(--Dark);
@@ -578,7 +610,7 @@ small {
   display: flex;
   flex-direction: column;
   top: 5rem;
-  height: 6rem;
+  height: 10rem;
   overflow-y: auto;
 }
 .tags-btn {
@@ -964,12 +996,18 @@ small {
   width: 100%;
   padding: 2rem 1rem;
 }
-.aside-menu-icon {
+.aside-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+  transition: background 0.2s ease;
 }
-.aside-menu-icon:hover {
+.aside-menu-btn:hover {
   background: var(--Divider);
   border-radius: 0.3rem;
+  transition: background 0.2s ease;
 }
 .project-detail-aside.active .aside-menu-icon {
   rotate: 180deg;
@@ -1110,7 +1148,7 @@ small {
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
-.tags-filters .field label {
+.field.field-filters label {
   font-weight: normal;
   font-size: 1.6rem;
 }
