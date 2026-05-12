@@ -337,11 +337,15 @@ class TestProjectDeleteView:
         mock_delete.return_value = True
 
         url = reverse("project:delete", kwargs={"project_id": project.id})
+        expected_url = reverse(
+            "project:index",
+            kwargs={"user_id": project.user.id}
+        )
 
         response = client.post(url)
 
         assert response.status_code == 200
-        assert response.headers["HX-Trigger"] == "formSubmittedEvent"
+        assert response.headers["HX-Redirect"] == expected_url
 
     @patch("apps.project.web.views.ProjectServices.delete")
     def test_post_failure(self, mock_delete, client, project):

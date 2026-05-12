@@ -80,7 +80,7 @@ class TestApplicationFollowUpModel:
         follow = ApplicationFollowUp.objects.create(
             job_application=job_application,
             title="Test",
-            date="2024-01-01T10:00:00Z",
+            event_date="2024-01-01",
         )
         assert follow.status == FollowUpStatus.PENDING
 
@@ -92,7 +92,7 @@ class TestApplicationFollowUpModel:
         assert follow_up in job_application.follow_ups.all()
 
     def test_ordering(self):
-        assert ApplicationFollowUp._meta.ordering == ["date"]
+        assert ApplicationFollowUp._meta.ordering == ["event_date"]
 
     def test_meta_verbose_name(self):
         assert ApplicationFollowUp._meta.verbose_name == "Élément de suivi"

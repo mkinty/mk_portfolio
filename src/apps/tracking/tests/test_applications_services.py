@@ -140,7 +140,7 @@ class TestFollowUpServices:
     def test_create_valid(self, job_application):
         data = {
             "title": "Premier entretien RH",
-            "date": "2024-01-01T10:00",
+            "event_date": "2024-01-01",
             "status": FollowUpStatus.PENDING,
         }
 
@@ -185,7 +185,7 @@ class TestFollowUpServices:
     def test_update_valid(self, follow_up):
         data = {
             "title": "Updated Follow Up",
-            "date": "2024-01-01T10:00",
+            "event_date": "2024-01-01",
             "status": FollowUpStatus.PENDING,
         }
 

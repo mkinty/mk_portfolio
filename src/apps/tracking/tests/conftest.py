@@ -51,7 +51,7 @@ def follow_up(db, job_application):
     return ApplicationFollowUp.objects.create(
         job_application=job_application,
         title="Premier entretien RH",
-        date=timezone.now(),
+        event_date=timezone.now(),
     )
 
 
@@ -60,6 +60,6 @@ def follow_up_completed(db, job_application):
     return ApplicationFollowUp.objects.create(
         job_application=job_application,
         title="Entretien technique",
-        date=timezone.now(),
+        event_date=timezone.now(),
         status=FollowUpStatus.COMPLETED,
     )

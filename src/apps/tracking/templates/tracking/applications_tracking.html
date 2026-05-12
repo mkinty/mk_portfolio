@@ -35,22 +35,30 @@
           <div class="col">{{ application.position }}</div>
           <div class="col">{{ application.company }}</div>
           <div class="col medium">
+            {% if application.job_offer_file %}
             <a href="{{ application.job_offer_link }}" target="_blank">
               <img class="btn-icon" src="{% static 'icons/link.png' %}" alt="edit-btn">
             </a>
+            {% endif %}
+            {% if application.job_offer_file %}
             <a href="{{ application.job_offer_file.url }}" target="_blank">
               <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
             </a>
+            {% endif %}
           </div>
           <div class="col medium">
+            {% if application.job_offer_file %}
             <a href="{{ application.resume.url }}" target="_blank">
               <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
             </a>
+            {% endif %}
           </div>
           <div class="col medium">
+            {% if application.job_offer_file %}
             <a href="{{ application.cover_letter.url }}" target="_blank">
               <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
             </a>
+            {% endif %}
           </div>
           <div class="col medium">
             {{ application.application_date|date:"d/m/Y" }}
