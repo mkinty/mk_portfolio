@@ -21,20 +21,26 @@ class HomePageView(View):
         Returns user data and project lists.
         """
         user_obj = get_user_by_email("kintymoustapha@gmail.com")
+
+        if not user_obj:
+            user_obj = type("UserMock", (), {})()
+
+        user_obj.navbar_url = reverse_lazy('home:home-page')
+
         user_obj.navbar_url = reverse_lazy('home:home-page')
         data_projects = (
             ProjectSelectors
             .get_projects_by_tag("Data")
             .select_related("category", "user")
             .prefetch_related("tags")
-            .distinct()[:3]
+            .distinct()[:3] or []
         )
         dev_projects = (
             ProjectSelectors
             .get_projects_by_tag("Development")
             .select_related("category", "user")
             .prefetch_related("tags")
-            .distinct()[:3]
+            .distinct()[:3] or []
         )
         context = {
             "user_obj": user_obj,
@@ -56,8 +62,8 @@ class ContactPageView(View):
         Returns contact form with user data.
         """
         user_obj = get_user_by_email("kintymoustapha@gmail.com")
-        contact = dict()
-        contact["navbar_url"] = reverse_lazy('home:contact-page')
+        contact = type("UserMock", (), {})()
+        contact.navbar_url = reverse_lazy('home:contact-page')
         context = {
             "user_obj": user_obj,
             "contact": contact
