@@ -2,8 +2,6 @@ import pytest
 from django.contrib.messages import get_messages
 from django.urls import reverse
 
-from apps.project.models import Project
-
 
 @pytest.mark.django_db
 class TestHomePageView:
@@ -162,7 +160,6 @@ class TestContactPageView:
         Vérifie que l'email est envoyé correctement.
         """
 
-        send_email_mock = pytest.MonkeyPatch()
 
         mocked_send_email = []
 

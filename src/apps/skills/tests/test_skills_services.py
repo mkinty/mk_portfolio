@@ -1,7 +1,6 @@
 import pytest
 
 from apps.skills.services.skills_servives import SkillsService
-from apps.skills.tests.conftest import skill
 
 
 @pytest.mark.django_db

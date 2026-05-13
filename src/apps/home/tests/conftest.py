@@ -2,14 +2,12 @@ import pytest
 
 from datetime import date
 from django.core.files.uploadedfile import SimpleUploadedFile
-
+from apps.users.models import User
 from apps.project.models import (
     Project,
     ProjectCategory,
     Tag,
 )
-from apps.userprofile.models import UserProfile
-from apps.users.models import User
 
 
 @pytest.fixture

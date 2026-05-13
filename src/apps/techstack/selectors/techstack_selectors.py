@@ -1,4 +1,3 @@
-from apps.education.models import Education, EducationSection
 from apps.techstack.models import TechStackCategory, TechStack
 
 
