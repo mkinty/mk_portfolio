@@ -133,7 +133,8 @@ jobs:
             cd ~/mkinty/mk_portfolio
 
             echo "=== GIT PULL ==="
-            git pull origin develop
+            git fetch origin develop
+            git reset --hard origin/develop
 
             echo "=== ACTIVATE VENV ==="
             source ~/virtualenv/mkinty/mk_portfolio/src/3.11/bin/activate
