@@ -154,25 +154,5 @@ jobs:
             
             echo "=== STOP OLD CELERY ==="
             pkill -f "celery -A config worker" || true
-            
-            echo "=== CHECK REDIS ==="
-            redis-cli ping || redis-server --daemonize yes
-            
-            sleep 3
-            
-            echo "=== START CELERY ==="
-            nohup python -m celery \
-              -A config worker \
-              -l info \
-              --concurrency=2 \
-              > celery.log 2>&1 < /dev/null &
-            
-            sleep 5
-            
-            echo "=== CELERY STATUS ==="
-            ps aux | grep '[c]elery' || true
-            
-            echo "=== REDIS STATUS ==="
-            ps aux | grep '[r]edis' || true
 
             echo "=== STAGING DEPLOY SUCCESS ==="
