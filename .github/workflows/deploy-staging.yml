@@ -157,9 +157,7 @@ jobs:
             touch tmp/restart.txt
             
             echo "=== REDIS AND CELERY ==="
-            
             chmod +x start_services.sh
-            
             ./start_services.sh
-
+            
             echo "=== STAGING DEPLOY SUCCESS ==="
