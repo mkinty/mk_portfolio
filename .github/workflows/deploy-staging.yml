@@ -1,13 +1,13 @@
-name: Portfolio SaaS CI/CD
+name: Portfolio SaaS CI/CD - Deploy STAGING
 
 on:
   push:
     branches:
-      - main
+      - develop
 
   pull_request:
     branches:
-      - main
+      - develop
 
 env:
   PYTHON_VERSION: "3.11"
