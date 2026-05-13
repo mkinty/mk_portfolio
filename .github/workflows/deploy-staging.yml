@@ -151,5 +151,32 @@ jobs:
 
             echo "=== RESTART PASSENGER ==="
             touch tmp/restart.txt
+            
+            echo "=== STOP OLD CELERY ==="
+            CELERY_PIDS=$(pgrep -f "celery -A config worker" || true)
+            
+            if [ ! -z "$CELERY_PIDS" ]; then
+              echo "$CELERY_PIDS" | xargs kill -9 || true
+            fi
+            
+            echo "=== CHECK REDIS ==="
+            redis-cli ping || redis-server --daemonize yes
+            
+            sleep 3
+            
+            echo "=== START CELERY ==="
+            nohup python -m celery \
+              -A config worker \
+              -l info \
+              --concurrency=2 \
+              > celery.log 2>&1 < /dev/null &
+            
+            sleep 5
+            
+            echo "=== CELERY STATUS ==="
+            ps aux | grep '[c]elery' || true
+            
+            echo "=== REDIS STATUS ==="
+            ps aux | grep '[r]edis' || true
 
             echo "=== STAGING DEPLOY SUCCESS ==="
