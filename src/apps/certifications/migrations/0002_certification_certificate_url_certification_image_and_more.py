@@ -4,30 +4,42 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('certifications', '0001_initial'),
+        ("certifications", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='certification',
-            name='certificate_url',
-            field=models.URLField(blank=True, help_text='Lien vers le certificat', null=True),
+            model_name="certification",
+            name="certificate_url",
+            field=models.URLField(
+                blank=True, help_text="Lien vers le certificat", null=True
+            ),
         ),
         migrations.AddField(
-            model_name='certification',
-            name='image',
-            field=models.ImageField(blank=True, help_text='Image du certificat', null=True, upload_to='certifications/images/'),
+            model_name="certification",
+            name="image",
+            field=models.ImageField(
+                blank=True,
+                help_text="Image du certificat",
+                null=True,
+                upload_to="certifications/images/",
+            ),
         ),
         migrations.AddField(
-            model_name='certification',
-            name='obtained_date',
-            field=models.DateField(blank=True, help_text="Date d'obtention du certificat", null=True),
+            model_name="certification",
+            name="obtained_date",
+            field=models.DateField(
+                blank=True, help_text="Date d'obtention du certificat", null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='certification',
-            name='issuer',
-            field=models.CharField(blank=True, help_text="L'organisme qui a délivré la certification", max_length=255),
+            model_name="certification",
+            name="issuer",
+            field=models.CharField(
+                blank=True,
+                help_text="L'organisme qui a délivré la certification",
+                max_length=255,
+            ),
         ),
     ]

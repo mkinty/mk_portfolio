@@ -1,9 +1,9 @@
 from datetime import date
+
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
 from config.settings import settings
-
 
 # Create your models here.
 
@@ -20,43 +20,35 @@ class UserProfile(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="profile",
-        help_text="The user associated with this profile."
+        help_text="The user associated with this profile.",
     )
     title = models.CharField(
         max_length=150,
         blank=True,
-        help_text="Professional title of the user (e.g., Software Engineer)."
+        help_text="Professional title of the user (e.g., Software Engineer).",
     )
     position = models.CharField(
         max_length=150,
         blank=True,
-        help_text="Current position or role held by the user."
+        help_text="Current position or role held by the user.",
     )
     birth_date = models.DateField(
-        blank=True,
-        null=True,
-        help_text="Birth date of the user."
+        blank=True, null=True, help_text="Birth date of the user."
     )
     location = models.CharField(
-        max_length=150,
-        blank=True,
-        help_text="Location of the user."
+        max_length=150, blank=True, help_text="Location of the user."
     )
     phone = models.CharField(
-        max_length=20,
-        blank=True,
-        help_text="Phone number of the user."
+        max_length=20, blank=True, help_text="Phone number of the user."
     )
     avatar = models.ImageField(
-        upload_to="avatars/",
-        blank=True,
-        help_text="Profile picture of the user."
+        upload_to="avatars/", blank=True, help_text="Profile picture of the user."
     )
     bio = CKEditor5Field(
         "Content",
         config_name="default",
         blank=True,
-        help_text="Detailed biography or description of the user."
+        help_text="Detailed biography or description of the user.",
     )
 
     @property
@@ -66,12 +58,9 @@ class UserProfile(models.Model):
 
         today = date.today()
         return (
-                today.year
-                - self.birth_date.year
-                - (
-                        (today.month, today.day)
-                        < (self.birth_date.month, self.birth_date.day)
-                )
+            today.year
+            - self.birth_date.year
+            - ((today.month, today.day) < (self.birth_date.month, self.birth_date.day))
         )
 
     def __str__(self):

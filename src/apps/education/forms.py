@@ -1,7 +1,7 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 
-from apps.education.models import EducationSection, Education
+from apps.education.models import Education, EducationSection
 
 
 class EducationSectionForm(forms.ModelForm):
@@ -26,7 +26,13 @@ class EducationSectionForm(forms.ModelForm):
 
         widgets = {
             "name": forms.TextInput(attrs={"placeholder": "Ex: Parcours Académique"}),
-            "description": CKEditor5Widget(config_name="extends", attrs={"placeholder": "Description introductive du parcours académique (optionnelle)."}),
+            "description": CKEditor5Widget(
+                config_name="extends",
+                attrs={
+                    "placeholder": "Description introductive "
+                    "du parcours académique (optionnelle)."
+                },
+            ),
         }
 
         labels = {
@@ -36,12 +42,9 @@ class EducationSectionForm(forms.ModelForm):
 
         help_texts = {
             "name": "Titre de la section (ex: Parcours Académique).",
-            "description": "Description introductive du parcours académique (optionnelle).",
+            "description": "Description introductive "
+            "du parcours académique (optionnelle).",
         }
-
-
-
-
 
 
 class EducationForm(forms.ModelForm):
@@ -70,11 +73,21 @@ class EducationForm(forms.ModelForm):
         )
 
         widgets = {
-            "school": forms.TextInput(attrs={"placeholder": "Ex: Université Le Havre Normandie"}),
+            "school": forms.TextInput(
+                attrs={"placeholder": "Ex: Université Le Havre Normandie"}
+            ),
             "degree": forms.TextInput(attrs={"placeholder": "Ex: Master 2"}),
-            "field_of_study": forms.TextInput(attrs={"placeholder": "Ex: Mathématiques Appliquées"}),
+            "field_of_study": forms.TextInput(
+                attrs={"placeholder": "Ex: Mathématiques Appliquées"}
+            ),
             "location": forms.TextInput(attrs={"placeholder": "Ex: Le Havre, France"}),
-            "description": CKEditor5Widget(config_name="default", attrs={"placeholder": "Description optionnelle (résultats, projets, mentions...)"}),
+            "description": CKEditor5Widget(
+                config_name="default",
+                attrs={
+                    "placeholder": "Description optionnelle "
+                    "(résultats, projets, mentions...)"
+                },
+            ),
             "start_date": forms.DateInput(attrs={"type": "date"}),
             "end_date": forms.DateInput(attrs={"type": "date"}),
         }

@@ -1,5 +1,7 @@
 from apps.certifications.forms import CertificationForm
-from apps.certifications.selectors.certifications_selectors import CertificationsSelectors
+from apps.certifications.selectors.certifications_selectors import (
+    CertificationsSelectors,
+)
 from apps.users.selectors.user_selectors import get_user_by_id
 
 
@@ -36,7 +38,9 @@ class CertificationsServices:
         """
         Get the form for editing an existing certification.
         """
-        certification = CertificationsSelectors.get_certification_by_id(certification_id)
+        certification = CertificationsSelectors.get_certification_by_id(
+            certification_id
+        )
         form = CertificationForm(instance=certification)
         return form, certification
 
@@ -45,7 +49,9 @@ class CertificationsServices:
         """
         Update an existing certification.
         """
-        certification = CertificationsSelectors.get_certification_by_id(certification_id)
+        certification = CertificationsSelectors.get_certification_by_id(
+            certification_id
+        )
         form = CertificationForm(data, files, instance=certification)
         if not form.is_valid():
             return False, form, certification
@@ -58,7 +64,9 @@ class CertificationsServices:
         """
         Delete a certification.
         """
-        certification = CertificationsSelectors.get_certification_by_id(certification_id)
+        certification = CertificationsSelectors.get_certification_by_id(
+            certification_id
+        )
         if not certification:
             return False
         certification.delete()

@@ -1,7 +1,7 @@
 from typing import Optional
 
-from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
 from apps.authentication.services.token_services import generate_reset_token
 from apps.notifications.services.email_service import send_email
@@ -42,6 +42,7 @@ def send_user_activation_email(user: Optional[User], domain: str) -> None:
     send_email(
         subject="Activation de votre compte",
         message=f"Activez votre compte : {activation_link}",
-        recipients=["kintymoustapha@gmail.com"]
-        # You can replace this with [user.email] to send the email to the currently logged-in user
+        recipients=["kintymoustapha@gmail.com"],
+        # You can replace this with [user.email] to send
+        # the email to the currently logged-in user
     )

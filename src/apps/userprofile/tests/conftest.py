@@ -16,7 +16,7 @@ def user(db):
         email="testuser@example.com",
         password="testpassword123",
         first_name="Test",
-        last_name="User"
+        last_name="User",
     )
 
 

@@ -5,7 +5,6 @@ from apps.skills.selectors.skills_selectors import SkillsSelectors
 
 @pytest.mark.django_db
 class TestSkillsSelectors:
-
     def test_get_existing_skill(self, skill):
         """
         Test retrieving an existing skill by ID.
@@ -20,7 +19,6 @@ class TestSkillsSelectors:
         """
         result = SkillsSelectors.get_skill_by_id(99999)
         assert result is None
-
 
     def test_get_all_skills(self, skill):
         """

@@ -1,4 +1,4 @@
-from apps.tracking.models import JobApplication, ApplicationFollowUp
+from apps.tracking.models import ApplicationFollowUp, JobApplication
 
 
 class ApplicationSelectors:
@@ -15,11 +15,7 @@ class ApplicationSelectors:
     @staticmethod
     def get_application_by_user(user):
         """Get job applications by user"""
-        return (
-            user.job_applications
-            .all()
-            .prefetch_related('follow_ups')
-        )
+        return user.job_applications.all().prefetch_related("follow_ups")
 
     @staticmethod
     def get_application_by_status(status):

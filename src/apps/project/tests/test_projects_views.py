@@ -48,7 +48,10 @@ class TestProjectCategoryAddView:
 
     @patch("apps.project.web.views.ProjectCategoryServices.create")
     def test_post_success(self, mock_create, client, user):
-        """Test that the project category add view returns a 200 status code on success."""
+        """
+        Test that the project category add view
+        returns a 200 status code on success.
+        """
         mock_create.return_value = (True, None, None)
 
         url = reverse("project:add-category", kwargs={"user_id": user.id})
@@ -60,10 +63,14 @@ class TestProjectCategoryAddView:
 
     @patch("apps.project.web.views.ProjectCategoryServices.create")
     def test_post_invalid(self, mock_create, client, user):
-        """Test that the project category add view returns a 200 status code on invalid form."""
+        """
+        Test that the project category add view
+        returns a 200 status code on invalid form.
+        """
 
         class FakeForm:
-            def is_valid(self): return False
+            def is_valid(self):
+                return False
 
         mock_create.return_value = (False, FakeForm(), user)
 
@@ -80,7 +87,10 @@ class TestProjectCategoryUpdateView:
     """Test cases for project category update view."""
 
     def test_get(self, client, category):
-        """Test that the project category update view returns a 200 status code."""
+        """
+        Test that the project category update view
+        returns a 200 status code.
+        """
         url = reverse("project:update-category", kwargs={"category_id": category.id})
 
         response = client.get(url)
@@ -90,7 +100,10 @@ class TestProjectCategoryUpdateView:
 
     @patch("apps.project.web.views.ProjectCategoryServices.update")
     def test_post_success(self, mock_update, client, category):
-        """Test that the project category update view returns a 200 status code on success."""
+        """
+        Test that the project category update view
+        returns a 200 status code on success.
+        """
         mock_update.return_value = (True, None, category)
 
         url = reverse("project:update-category", kwargs={"category_id": category.id})
@@ -106,7 +119,10 @@ class TestProjectCategoryDeleteView:
     """Test cases for project category delete view"""
 
     def test_get(self, client, category):
-        """Test that the project category delete view returns a 200 status code."""
+        """
+        Test that the project category delete view
+        returns a 200 status code.
+        """
         url = reverse("project:delete-category", kwargs={"category_id": category.id})
 
         response = client.get(url)
@@ -116,7 +132,10 @@ class TestProjectCategoryDeleteView:
 
     @patch("apps.project.web.views.ProjectCategoryServices.delete")
     def test_post_success(self, mock_delete, client, category):
-        """Test that the project category delete view returns a 200 status code on success."""
+        """
+        Test that the project category delete view
+        returns a 200 status code on success.
+        """
         mock_delete.return_value = True
 
         url = reverse("project:delete-category", kwargs={"category_id": category.id})
@@ -128,7 +147,10 @@ class TestProjectCategoryDeleteView:
 
     @patch("apps.project.web.views.ProjectCategoryServices.delete")
     def test_post_failure(self, mock_delete, client, category):
-        """Test that the project category delete view returns a 400 status code on failure."""
+        """
+        Test that the project category delete view
+        returns a 400 status code on failure.
+        """
         mock_delete.return_value = False
 
         url = reverse("project:delete-category", kwargs={"category_id": category.id})
@@ -165,10 +187,14 @@ class TestTagAddView:
 
     @patch("apps.project.web.views.TagServices.create")
     def test_post_invalid(self, mock_create, client):
-        """Test that the tag add view returns a 200 status code on invalid form."""
+        """
+        Test that the tag add view returns a 200
+        status code on invalid form.
+        """
 
         class FakeForm:
-            def is_valid(self): return False
+            def is_valid(self):
+                return False
 
         mock_create.return_value = (False, FakeForm(), None)
 
@@ -211,10 +237,14 @@ class TestTagUpdateView:
 
     @patch("apps.project.web.views.TagServices.update")
     def test_post_invalid(self, mock_update, client):
-        """Test that the tag update view returns a 200 status code on invalid form."""
+        """
+        Test that the tag update view returns a 200
+        status code on invalid form.
+        """
 
         class FakeForm:
-            def is_valid(self): return False
+            def is_valid(self):
+                return False
 
         mock_update.return_value = (False, FakeForm(), "tag")
 
@@ -244,7 +274,10 @@ class TestTagDeleteView:
 
     @patch("apps.project.web.views.TagServices.delete")
     def test_post_success(self, mock_delete, client):
-        """Test that the tag delete view returns a 200 status code on success."""
+        """
+        Test that the tag delete view returns a 200
+        status code on success.
+        """
         mock_delete.return_value = True
 
         url = reverse("project:delete-tag", kwargs={"tag_id": 1})
@@ -256,7 +289,10 @@ class TestTagDeleteView:
 
     @patch("apps.project.web.views.TagServices.delete")
     def test_post_failure(self, mock_delete, client):
-        """Test that the tag delete view returns a 400 status code on failure."""
+        """
+        Test that the tag delete view
+        returns a 400 status code on failure.
+        """
         mock_delete.return_value = False
 
         url = reverse("project:delete-tag", kwargs={"tag_id": 1})
@@ -281,7 +317,10 @@ class TestProjectAddView:
 
     @patch("apps.project.web.views.ProjectServices.create")
     def test_post_success(self, mock_create, client, user):
-        """Test that the project add view returns a 200 status code on success."""
+        """
+        Test that the project add view
+        returns a 200 status code on success.
+        """
         mock_create.return_value = (True, None, None)
 
         url = reverse("project:add", kwargs={"user_id": user.id})
@@ -297,7 +336,10 @@ class TestProjectUpdateView:
     """Test cases for project update view"""
 
     def test_get(self, client, project):
-        """Test that the project update view returns a 200 status code."""
+        """
+        Test that the project update view
+        returns a 200 status code.
+        """
         url = reverse("project:update", kwargs={"project_id": project.id})
 
         response = client.get(url)
@@ -307,7 +349,10 @@ class TestProjectUpdateView:
 
     @patch("apps.project.web.views.ProjectServices.update")
     def test_post_success(self, mock_update, client, project):
-        """Test that the project update view returns a 200 status code on success."""
+        """
+        Test that the project update view
+        returns a 200 status code on success.
+        """
         mock_update.return_value = (True, None, project)
 
         url = reverse("project:update", kwargs={"project_id": project.id})
@@ -323,7 +368,10 @@ class TestProjectDeleteView:
     """Test cases for project delete view"""
 
     def test_get(self, client, project):
-        """Test that the project delete view returns a 200 status code."""
+        """
+        Test that the project delete view
+        returns a 200 status code.
+        """
         url = reverse("project:delete", kwargs={"project_id": project.id})
 
         response = client.get(url)
@@ -333,14 +381,14 @@ class TestProjectDeleteView:
 
     @patch("apps.project.web.views.ProjectServices.delete")
     def test_post_success(self, mock_delete, client, project):
-        """Test that the project delete view returns a 200 status code on success."""
+        """
+        Test that the project delete view
+        returns a 200 status code on success.
+        """
         mock_delete.return_value = True
 
         url = reverse("project:delete", kwargs={"project_id": project.id})
-        expected_url = reverse(
-            "project:index",
-            kwargs={"user_id": project.user.id}
-        )
+        expected_url = reverse("project:index", kwargs={"user_id": project.user.id})
 
         response = client.post(url)
 
@@ -349,7 +397,10 @@ class TestProjectDeleteView:
 
     @patch("apps.project.web.views.ProjectServices.delete")
     def test_post_failure(self, mock_delete, client, project):
-        """Test that the project delete view returns a 400 status code on failure."""
+        """
+        Test that the project delete view
+        returns a 400 status code on failure.
+        """
         mock_delete.return_value = False
 
         url = reverse("project:delete", kwargs={"project_id": project.id})

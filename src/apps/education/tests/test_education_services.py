@@ -69,9 +69,7 @@ class TestEducationServices:
         """
         Test retrieving update form for section.
         """
-        form, section = EducationSectionServices.get_update_form(
-            education_section.id
-        )
+        form, section = EducationSectionServices.get_update_form(education_section.id)
 
         assert form is not None
         assert section == education_section
@@ -116,7 +114,9 @@ class TestEducationServices:
         """
         Test retrieving add form for education.
         """
-        form, returned_education_section = EducationServices.get_add_form(education_section.id)
+        form, returned_education_section = EducationServices.get_add_form(
+            education_section.id
+        )
 
         assert form is not None
         assert returned_education_section == education_section
@@ -164,9 +164,7 @@ class TestEducationServices:
         """
         Test retrieving update form for education.
         """
-        form, education = EducationServices.get_update_form(
-            education_entry.id
-        )
+        form, education = EducationServices.get_update_form(education_entry.id)
 
         assert form is not None
         assert education == education_entry

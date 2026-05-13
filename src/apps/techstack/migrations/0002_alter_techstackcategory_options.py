@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('techstack', '0001_initial'),
+        ("techstack", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='techstackcategory',
-            options={'ordering': ['order']},
+            name="techstackcategory",
+            options={"ordering": ["order"]},
         ),
     ]

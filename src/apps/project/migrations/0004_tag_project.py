@@ -7,39 +7,120 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('project', '0003_delete_testmodel'),
+        ("project", "0003_delete_testmodel"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Nom du tag', max_length=50, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Nom du tag", max_length=50, unique=True
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Project',
+            name="Project",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text='Nom du projet.', max_length=200)),
-                ('start_date', models.DateField(help_text='Date de debut du projet')),
-                ('end_date', models.DateField(blank=True, help_text='Date de fin du projet', null=True)),
-                ('is_active', models.BooleanField(default=True, help_text='Statut du projet (actif/inactif)')),
-                ('created_at', models.DateTimeField(auto_now_add=True, help_text='Date de création du projet')),
-                ('updated_at', models.DateTimeField(auto_now=True, help_text='Date de dernière mise à jour du projet')),
-                ('source_code_url', models.URLField(blank=True, help_text='URL du code source du projet', null=True)),
-                ('image', models.ImageField(blank=True, help_text='Image du projet', null=True, upload_to='projects/images/')),
-                ('description', django_ckeditor_5.fields.CKEditor5Field(blank=True, help_text='Détails complets du projet.', verbose_name='Content')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='projects', to='project.projectcategory')),
-                ('user', models.ForeignKey(help_text='Utilisateur propriétaire des projets.', on_delete=django.db.models.deletion.CASCADE, related_name='user_projects', to=settings.AUTH_USER_MODEL)),
-                ('tags', models.ManyToManyField(blank=True, help_text='Tags du projet', to='project.tag')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(help_text="Nom du projet.", max_length=200)),
+                ("start_date", models.DateField(help_text="Date de debut du projet")),
+                (
+                    "end_date",
+                    models.DateField(
+                        blank=True, help_text="Date de fin du projet", null=True
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(
+                        default=True, help_text="Statut du projet (actif/inactif)"
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, help_text="Date de création du projet"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True,
+                        help_text="Date de dernière mise à jour du projet",
+                    ),
+                ),
+                (
+                    "source_code_url",
+                    models.URLField(
+                        blank=True, help_text="URL du code source du projet", null=True
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True,
+                        help_text="Image du projet",
+                        null=True,
+                        upload_to="projects/images/",
+                    ),
+                ),
+                (
+                    "description",
+                    django_ckeditor_5.fields.CKEditor5Field(
+                        blank=True,
+                        help_text="Détails complets du projet.",
+                        verbose_name="Content",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="projects",
+                        to="project.projectcategory",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        help_text="Utilisateur propriétaire des projets.",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="user_projects",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "tags",
+                    models.ManyToManyField(
+                        blank=True, help_text="Tags du projet", to="project.tag"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-created_at'],
+                "ordering": ["-created_at"],
             },
         ),
     ]

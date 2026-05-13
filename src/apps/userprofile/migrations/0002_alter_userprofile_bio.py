@@ -5,15 +5,16 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('userprofile', '0001_initial'),
+        ("userprofile", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userprofile',
-            name='bio',
-            field=django_ckeditor_5.fields.CKEditor5Field(blank=True, verbose_name='Content'),
+            model_name="userprofile",
+            name="bio",
+            field=django_ckeditor_5.fields.CKEditor5Field(
+                blank=True, verbose_name="Content"
+            ),
         ),
     ]

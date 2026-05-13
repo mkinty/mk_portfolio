@@ -1,5 +1,12 @@
-from apps.tracking.forms import JobApplicationForm, ApplicationFollowUpForm, ApplicationStatusForm
-from apps.tracking.selectors.applications_selectors import ApplicationSelectors, FollowUpSelectors
+from apps.tracking.forms import (
+    ApplicationFollowUpForm,
+    ApplicationStatusForm,
+    JobApplicationForm,
+)
+from apps.tracking.selectors.applications_selectors import (
+    ApplicationSelectors,
+    FollowUpSelectors,
+)
 from apps.users.selectors.user_selectors import get_user_by_id
 
 

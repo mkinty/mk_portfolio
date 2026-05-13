@@ -1,7 +1,6 @@
 import pytest
 from django.urls import reverse
 
-from apps.experiences.models import Experience
 from apps.skills.models import Skills
 
 
@@ -117,7 +116,6 @@ class TestSkillsViews:
             3. Verify database is updated
         """
         url = reverse("skills:update", kwargs={"skill_id": skill.id})
-
 
         data = {
             "name": "Updated Technical skills",

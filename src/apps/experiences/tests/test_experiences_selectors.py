@@ -1,7 +1,10 @@
 import pytest
 
 from apps.experiences.models import Experience
-from apps.experiences.selectors.experiences_selectors import get_experience_by_id, get_all_experiences
+from apps.experiences.selectors.experiences_selectors import (
+    get_all_experiences,
+    get_experience_by_id,
+)
 
 
 @pytest.mark.django_db

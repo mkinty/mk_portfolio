@@ -1,5 +1,9 @@
-from apps.project.forms import ProjectCategoryForm, TagForm, ProjectForm
-from apps.project.selectors.projects_selectors import ProjectCategorySelectors, TagSelectors, ProjectSelectors
+from apps.project.forms import ProjectCategoryForm, ProjectForm, TagForm
+from apps.project.selectors.projects_selectors import (
+    ProjectCategorySelectors,
+    ProjectSelectors,
+    TagSelectors,
+)
 from apps.users.selectors.user_selectors import get_user_by_id
 
 

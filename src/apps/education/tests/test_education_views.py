@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 
-from apps.education.models import EducationSection, Education
+from apps.education.models import Education, EducationSection
 
 
 @pytest.mark.django_db

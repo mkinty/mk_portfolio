@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -16,25 +15,108 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='EducationSection',
+            name="EducationSection",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Titre de la section (ex: Parcours Académique).', max_length=150)),
-                ('description', django_ckeditor_5.fields.CKEditor5Field(blank=True, help_text='Description introductive du parcours académique.', verbose_name='Content')),
-                ('user', models.ForeignKey(help_text='Utilisateur associé à cette section académique.', on_delete=django.db.models.deletion.CASCADE, related_name='education_sections', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Titre de la section (ex: Parcours Académique).",
+                        max_length=150,
+                    ),
+                ),
+                (
+                    "description",
+                    django_ckeditor_5.fields.CKEditor5Field(
+                        blank=True,
+                        help_text="Description introductive du parcours académique.",
+                        verbose_name="Content",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        help_text="Utilisateur associé à cette section académique.",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="education_sections",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Education',
+            name="Education",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('school', models.CharField(help_text="Nom de l'établissement (ex: Université de Paris).", max_length=150)),
-                ('degree', models.CharField(help_text='Diplôme obtenu (ex: Licence, Master, Doctorat).', max_length=150)),
-                ('field_of_study', models.CharField(blank=True, help_text="Domaine d'étude (ex: Informatique, Mathématiques).", max_length=150)),
-                ('start_date', models.DateField(help_text='Date de début de la formation.')),
-                ('end_date', models.DateField(blank=True, help_text='Date de fin de la formation (laisser vide si en cours).', null=True)),
-                ('description', models.TextField(blank=True, help_text='Description optionnelle (résultats, projets, mentions, etc.).')),
-                ('education_section', models.ForeignKey(help_text='Section académique à laquelle cette formation appartient.', on_delete=django.db.models.deletion.CASCADE, related_name='educations', to='education.educationsection')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "school",
+                    models.CharField(
+                        help_text="Nom de l'établissement (ex: Université de Paris).",
+                        max_length=150,
+                    ),
+                ),
+                (
+                    "degree",
+                    models.CharField(
+                        help_text="Diplôme obtenu (ex: Licence, Master, Doctorat).",
+                        max_length=150,
+                    ),
+                ),
+                (
+                    "field_of_study",
+                    models.CharField(
+                        blank=True,
+                        help_text="Domaine d'étude (ex: Informatique, Mathématiques).",
+                        max_length=150,
+                    ),
+                ),
+                (
+                    "start_date",
+                    models.DateField(help_text="Date de début de la formation."),
+                ),
+                (
+                    "end_date",
+                    models.DateField(
+                        blank=True,
+                        help_text="Date de fin de la formation "
+                        "(laisser vide si en cours).",
+                        null=True,
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        blank=True,
+                        help_text="Description optionnelle "
+                        "(résultats, projets, mentions, etc.).",
+                    ),
+                ),
+                (
+                    "education_section",
+                    models.ForeignKey(
+                        help_text="Section académique à laquelle "
+                        "cette formation appartient.",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="educations",
+                        to="education.educationsection",
+                    ),
+                ),
             ],
         ),
     ]

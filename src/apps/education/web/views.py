@@ -3,8 +3,14 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 
-from apps.education.selectors.education_selectors import EducationSectionSelectors, EducationSelectors
-from apps.education.services.education_services import EducationSectionServices, EducationServices
+from apps.education.selectors.education_selectors import (
+    EducationSectionSelectors,
+    EducationSelectors,
+)
+from apps.education.services.education_services import (
+    EducationSectionServices,
+    EducationServices,
+)
 from apps.users.selectors.user_selectors import get_user_by_id
 
 
@@ -55,29 +61,37 @@ class EducationSectionUpdateView(View):
 
     def get(self, request, education_section_id):
         """Show update form."""
-        form, education_section = EducationSectionServices.get_update_form(education_section_id)
+        form, education_section = EducationSectionServices.get_update_form(
+            education_section_id
+        )
 
-        return render(request, self.template_name, {
-            "form": form,
-            "education_section": education_section,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "education_section": education_section,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, education_section_id):
         """Handle update."""
         success, form, education_section = EducationSectionServices.update(
-            education_section_id,
-            request.POST,
-            request.FILES
+            education_section_id, request.POST, request.FILES
         )
 
         if not success:
             messages.error(request, "Corrigez les erreurs.")
-            return render(request, self.template_name, {
-                "form": form,
-                "education_section": education_section,
-                "title": self.title,
-            })
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "education_section": education_section,
+                    "title": self.title,
+                },
+            )
 
         messages.success(request, "Section d'éducation mise à jour.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
@@ -95,12 +109,18 @@ class EducationSectionDeleteView(View):
 
     def get(self, request, education_section_id):
         """Show confirmation page."""
-        education_section = EducationSectionSelectors.get_education_section_by_id(education_section_id)
+        education_section = EducationSectionSelectors.get_education_section_by_id(
+            education_section_id
+        )
 
-        return render(request, self.template_name, {
-            "education_section": education_section,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "education_section": education_section,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, education_section_id):
         """Delete experience."""
@@ -125,7 +145,9 @@ class EducationAddView(View):
         return render(request, self.template_name, context)
 
     def post(self, request, education_section_id):
-        education_section = EducationSectionSelectors.get_education_section_by_id(education_section_id)
+        education_section = EducationSectionSelectors.get_education_section_by_id(
+            education_section_id
+        )
 
         success, form, education = EducationServices.create(
             education_section,
@@ -135,11 +157,15 @@ class EducationAddView(View):
 
         if not success:
             messages.error(request, "Corrigez les erreurs.")
-            return render(request, self.template_name, {
-                "form": form,
-                "education_section": education_section,
-                "title": self.title,
-            })
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "education_section": education_section,
+                    "title": self.title,
+                },
+            )
 
         messages.success(request, "Parcours d'éducation ajouté.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
@@ -159,27 +185,33 @@ class EducationUpdateView(View):
         """Show update form."""
         form, education = EducationServices.get_update_form(education_id)
 
-        return render(request, self.template_name, {
-            "form": form,
-            "education": education,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "education": education,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, education_id):
         """Handle update."""
         success, form, education = EducationServices.update(
-            education_id,
-            request.POST,
-            request.FILES
+            education_id, request.POST, request.FILES
         )
 
         if not success:
             messages.error(request, "Corrigez les erreurs.")
-            return render(request, self.template_name, {
-                "form": form,
-                "education": education,
-                "title": self.title,
-            })
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "education": education,
+                    "title": self.title,
+                },
+            )
 
         messages.success(request, "Parcours d'éducation mis à jour.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
@@ -199,10 +231,14 @@ class EducationDeleteView(View):
         """Show confirmation page."""
         education = EducationSelectors.get_education_by_id(education_id)
 
-        return render(request, self.template_name, {
-            "education": education,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "education": education,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, education_id):
         """Delete experience."""

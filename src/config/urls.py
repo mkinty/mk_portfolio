@@ -14,31 +14,32 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
+
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
 from drf_spectacular.views import (
     SpectacularAPIView,
-    SpectacularSwaggerView,
     SpectacularRedocView,
+    SpectacularSwaggerView,
 )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
+    path("admin/", admin.site.urls),
     # CKEditor 5
-    path('ckeditor5/', include('django_ckeditor_5.urls')),
-
+    path("ckeditor5/", include("django_ckeditor_5.urls")),
     # API
     path("api/users/", include("apps.users.api.urls")),
     # path("api/auth/", include("apps.authentication.api.urls")),
-
     # API documentation
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-    path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+    path(
+        "api/docs/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
     path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
-
     # Web (templates Django)
     path("", include("apps.home.web.urls", namespace="home")),
     path("users/", include("apps.users.web.urls", namespace="users")),
@@ -50,7 +51,10 @@ urlpatterns = [
     path("skills/", include("apps.skills.web.urls", namespace="skills")),
     path("education/", include("apps.education.web.urls", namespace="education")),
     path("techstack/", include("apps.techstack.web.urls", namespace="techstack")),
-    path("certifications/", include("apps.certifications.web.urls", namespace="certifications")),
+    path(
+        "certifications/",
+        include("apps.certifications.web.urls", namespace="certifications"),
+    ),
 ]
 
 # Servir les fichiers media et statiques seulement en développement

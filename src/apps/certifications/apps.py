@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class CertificationsConfig(AppConfig):
-    name = 'apps.certifications'
+    name = "apps.certifications"

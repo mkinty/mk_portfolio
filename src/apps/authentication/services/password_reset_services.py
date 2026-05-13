@@ -1,7 +1,7 @@
 from typing import Optional
 
-from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
 from apps.authentication.services.token_services import generate_reset_token
 from apps.notifications.services.email_service import send_email
@@ -44,6 +44,7 @@ def send_password_reset_email(user: Optional[User], domain: str) -> None:
     # Send the password reset email using the notifications service
     send_email(
         subject="Réinitialisation de votre mot de passe",
-        message=f"Hello {user.first_name},\nRéinitialiser votre mot de passe ici: {reset_link}",
+        message=f"Hello {user.first_name},\n"
+        f"Réinitialiser votre mot de passe ici: {reset_link}",
         recipients=[user.email],
     )

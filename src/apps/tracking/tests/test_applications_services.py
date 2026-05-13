@@ -1,20 +1,19 @@
 import pytest
-
 from django.core.files.uploadedfile import SimpleUploadedFile
+
+from apps.tracking.models import ApplicationStatus, FollowUpStatus
 from apps.tracking.services.applications_services import (
     ApplicationsServices,
     FollowUpServices,
 )
-from apps.tracking.models import ApplicationStatus, FollowUpStatus
-
 
 # =========================================================
 # ApplicationsServices
 # =========================================================
 
+
 @pytest.mark.django_db
 class TestApplicationsServices:
-
     def test_get_add_form(self, user):
         form, returned_user = ApplicationsServices.get_add_form(user.id)
 
@@ -30,12 +29,7 @@ class TestApplicationsServices:
             "application_status": ApplicationStatus.SENT,
         }
 
-        files = {
-            "resume": SimpleUploadedFile(
-                "cv.pdf",
-                b"fake-cv-content"
-            )
-        }
+        files = {"resume": SimpleUploadedFile("cv.pdf", b"fake-cv-content")}
 
         success, form, application = ApplicationsServices.create(
             user=user,
@@ -52,9 +46,7 @@ class TestApplicationsServices:
         data = {}  # invalid form
 
         success, form, application = ApplicationsServices.create(
-            user=user,
-            data=data,
-            files={}
+            user=user, data=data, files={}
         )
 
         assert success is False
@@ -62,9 +54,7 @@ class TestApplicationsServices:
         assert form.errors
 
     def test_get_update_form(self, job_application):
-        form, application = ApplicationsServices.get_update_form(
-            job_application.id
-        )
+        form, application = ApplicationsServices.get_update_form(job_application.id)
 
         assert form is not None
         assert application == job_application
@@ -84,9 +74,7 @@ class TestApplicationsServices:
         }
 
         success, form, application = ApplicationsServices.update(
-            job_application.id,
-            data,
-            files={}
+            job_application.id, data, files={}
         )
 
         assert success is True
@@ -96,9 +84,7 @@ class TestApplicationsServices:
         data = {}  # invalid
 
         success, form, application = ApplicationsServices.update(
-            job_application.id,
-            data,
-            files={}
+            job_application.id, data, files={}
         )
 
         assert success is False
@@ -120,13 +106,11 @@ class TestApplicationsServices:
 # FollowUpServices
 # =========================================================
 
+
 @pytest.mark.django_db
 class TestFollowUpServices:
-
     def test_get_add_form(self, job_application):
-        form, application = FollowUpServices.get_add_form(
-            job_application.id
-        )
+        form, application = FollowUpServices.get_add_form(job_application.id)
 
         assert form is not None
         assert application == job_application
@@ -145,9 +129,7 @@ class TestFollowUpServices:
         }
 
         success, form, follow_up = FollowUpServices.create(
-            application=job_application,
-            data=data,
-            files={}
+            application=job_application, data=data, files={}
         )
 
         assert success is True
@@ -159,9 +141,7 @@ class TestFollowUpServices:
         data = {}
 
         success, form, follow_up = FollowUpServices.create(
-            application=job_application,
-            data=data,
-            files={}
+            application=job_application, data=data, files={}
         )
 
         assert success is False
@@ -169,9 +149,7 @@ class TestFollowUpServices:
         assert form.errors
 
     def test_get_update_form(self, follow_up):
-        form, instance = FollowUpServices.get_update_form(
-            follow_up.id
-        )
+        form, instance = FollowUpServices.get_update_form(follow_up.id)
 
         assert form is not None
         assert instance == follow_up
@@ -189,11 +167,7 @@ class TestFollowUpServices:
             "status": FollowUpStatus.PENDING,
         }
 
-        success, form, instance = FollowUpServices.update(
-            follow_up.id,
-            data,
-            files={}
-        )
+        success, form, instance = FollowUpServices.update(follow_up.id, data, files={})
 
         assert success is True
         assert instance.title == "Updated Follow Up"
@@ -201,11 +175,7 @@ class TestFollowUpServices:
     def test_update_invalid(self, follow_up):
         data = {}
 
-        success, form, instance = FollowUpServices.update(
-            follow_up.id,
-            data,
-            files={}
-        )
+        success, form, instance = FollowUpServices.update(follow_up.id, data, files={})
 
         assert success is False
         assert instance is None

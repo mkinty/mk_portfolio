@@ -32,9 +32,7 @@ class TestExperienceService:
         }
 
         success, form, experience = ExperienceService.create(
-            user=user,
-            data=data,
-            files=None
+            user=user, data=data, files=None
         )
 
         assert success is True
@@ -52,9 +50,7 @@ class TestExperienceService:
         }
 
         success, form, experience = ExperienceService.create(
-            user=user,
-            data=data,
-            files=None
+            user=user, data=data, files=None
         )
 
         assert success is False
@@ -83,9 +79,7 @@ class TestExperienceService:
         }
 
         success, form, updated_exp = ExperienceService.update(
-            experience_id=experience.id,
-            data=data,
-            files=None
+            experience_id=experience.id, data=data, files=None
         )
 
         updated_exp.refresh_from_db()
@@ -103,9 +97,7 @@ class TestExperienceService:
         }
 
         success, form, exp = ExperienceService.update(
-            experience_id=experience.id,
-            data=data,
-            files=None
+            experience_id=experience.id, data=data, files=None
         )
 
         assert success is False

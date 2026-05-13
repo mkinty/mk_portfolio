@@ -1,7 +1,7 @@
 from typing import List, Optional
 
-from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 
 from apps.authentication.services.activation_services import send_user_activation_email
 from apps.users.models import User
@@ -10,11 +10,8 @@ from apps.users.services.user_services import create_user_account
 
 
 def validate_registration_data(
-        first_name: str,
-        last_name: str,
-        email: str,
-        password: str,
-        password2: str) -> List[str]:
+    first_name: str, last_name: str, email: str, password: str, password2: str
+) -> List[str]:
     """
     Validate user registration input data.
 
@@ -64,7 +61,9 @@ def validate_registration_data(
     return errors
 
 
-def register_user(first_name: str, last_name: str, email: str, password: str, domain: str) -> Optional[User]:
+def register_user(
+    first_name: str, last_name: str, email: str, password: str, domain: str
+) -> Optional[User]:
     """
     Create a new user account and send an activation email.
 

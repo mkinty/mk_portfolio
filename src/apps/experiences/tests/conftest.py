@@ -1,5 +1,6 @@
-import pytest
 from datetime import date
+
+import pytest
 
 from apps.experiences.models import Experience
 from apps.users.models import User
@@ -17,7 +18,7 @@ def user(db):
         email="testuser@example.com",
         password="testpassword123",
         first_name="Test",
-        last_name="User"
+        last_name="User",
     )
 
 

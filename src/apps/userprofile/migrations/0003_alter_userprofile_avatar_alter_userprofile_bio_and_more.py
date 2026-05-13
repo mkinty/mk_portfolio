@@ -7,36 +7,56 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('userprofile', '0002_alter_userprofile_bio'),
+        ("userprofile", "0002_alter_userprofile_bio"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userprofile',
-            name='avatar',
-            field=models.ImageField(blank=True, help_text='Profile picture of the user.', upload_to='avatars/'),
+            model_name="userprofile",
+            name="avatar",
+            field=models.ImageField(
+                blank=True,
+                help_text="Profile picture of the user.",
+                upload_to="avatars/",
+            ),
         ),
         migrations.AlterField(
-            model_name='userprofile',
-            name='bio',
-            field=django_ckeditor_5.fields.CKEditor5Field(blank=True, help_text='Detailed biography or description of the user.', verbose_name='Content'),
+            model_name="userprofile",
+            name="bio",
+            field=django_ckeditor_5.fields.CKEditor5Field(
+                blank=True,
+                help_text="Detailed biography or description of the user.",
+                verbose_name="Content",
+            ),
         ),
         migrations.AlterField(
-            model_name='userprofile',
-            name='position',
-            field=models.CharField(blank=True, help_text='Current position or role held by the user.', max_length=150),
+            model_name="userprofile",
+            name="position",
+            field=models.CharField(
+                blank=True,
+                help_text="Current position or role held by the user.",
+                max_length=150,
+            ),
         ),
         migrations.AlterField(
-            model_name='userprofile',
-            name='title',
-            field=models.CharField(blank=True, help_text='Professional title of the user (e.g., Software Engineer).', max_length=150),
+            model_name="userprofile",
+            name="title",
+            field=models.CharField(
+                blank=True,
+                help_text="Professional title of the user (e.g., Software Engineer).",
+                max_length=150,
+            ),
         ),
         migrations.AlterField(
-            model_name='userprofile',
-            name='user',
-            field=models.OneToOneField(help_text='The user associated with this profile.', on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL),
+            model_name="userprofile",
+            name="user",
+            field=models.OneToOneField(
+                help_text="The user associated with this profile.",
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="profile",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

@@ -13,7 +13,7 @@ def user(db):
         email="test@example.com",
         first_name="Test",
         last_name="User",
-        password="testpass123"
+        password="testpass123",
     )
 
 
@@ -23,10 +23,7 @@ def certification(user):
     Create a test certification.
     """
     return Certification.objects.create(
-        user=user,
-        name="AWS Certified Developer",
-        issuer="Amazon",
-        order=1
+        user=user, name="AWS Certified Developer", issuer="Amazon", order=1
     )
 
 
@@ -35,12 +32,13 @@ def certification_factory(user):
     """
     Create a test certification factory.
     """
+
     def create_cert(**kwargs):
         data = {
             "user": user,
             "name": "Default Cert",
             "issuer": "Default Issuer",
-            "order": 0
+            "order": 0,
         }
         data.update(kwargs)
         return Certification.objects.create(**data)

@@ -25,11 +25,7 @@ class TestSkillsServices:
             "name": "Technical skills",
             "description": "Technical skills description",
         }
-        success, form, skill = SkillsService.create(
-            user=user,
-            data=data,
-            files=None
-        )
+        success, form, skill = SkillsService.create(user=user, data=data, files=None)
 
         assert success is True
         assert form is not None
@@ -45,11 +41,7 @@ class TestSkillsServices:
             "name": "",
             "description": "",
         }
-        success, form, skill = SkillsService.create(
-            user=user,
-            data=data,
-            files=None
-        )
+        success, form, skill = SkillsService.create(user=user, data=data, files=None)
 
         assert success is False
         assert form.errors

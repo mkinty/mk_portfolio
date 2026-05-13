@@ -26,9 +26,4 @@ def send_email(subject: str, message: str, recipients: list[str]) -> None:
             recipients=["user@example.com"]
         )
     """
-    send_email_task.delay(
-        subject,
-        message,
-        settings.EMAIL_HOST_USER,
-        recipients
-    )
+    send_email_task.delay(subject, message, settings.EMAIL_HOST_USER, recipients)

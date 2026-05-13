@@ -1,10 +1,12 @@
 from datetime import date
 
 import pytest
-from apps.project.models import ProjectCategory, Project, Tag
+
+from apps.project.models import Project, ProjectCategory, Tag
 from apps.project.services.projects_services import (
     ProjectCategoryServices,
-    ProjectServices, TagServices
+    ProjectServices,
+    TagServices,
 )
 
 
@@ -53,7 +55,9 @@ class TestProjectCategoryServices:
         """Test updating a project category successfully"""
         data = {"name": "Updated"}
 
-        success, form, updated_category = ProjectCategoryServices.update(category.id, data, {})
+        success, form, updated_category = ProjectCategoryServices.update(
+            category.id, data, {}
+        )
 
         assert success is True
         assert updated_category.name == "Updated"
@@ -62,7 +66,9 @@ class TestProjectCategoryServices:
         """Test updating a project category with invalid data"""
         data = {"name": ""}
 
-        success, form, updated_category = ProjectCategoryServices.update(category.id, data, {})
+        success, form, updated_category = ProjectCategoryServices.update(
+            category.id, data, {}
+        )
 
         assert success is False
         assert not form.is_valid()

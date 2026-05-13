@@ -4,19 +4,22 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('tracking', '0007_alter_applicationfollowup_status'),
+        ("tracking", "0007_alter_applicationfollowup_status"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='applicationfollowup',
-            options={'ordering': ['event_date'], 'verbose_name': 'Élément de suivi', 'verbose_name_plural': 'Éléments de suivi'},
+            name="applicationfollowup",
+            options={
+                "ordering": ["event_date"],
+                "verbose_name": "Élément de suivi",
+                "verbose_name_plural": "Éléments de suivi",
+            },
         ),
         migrations.RenameField(
-            model_name='applicationfollowup',
-            old_name='date',
-            new_name='event_date',
+            model_name="applicationfollowup",
+            old_name="date",
+            new_name="event_date",
         ),
     ]

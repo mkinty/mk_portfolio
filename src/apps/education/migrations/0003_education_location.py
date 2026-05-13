@@ -4,15 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('education', '0002_alter_education_options_alter_education_description'),
+        ("education", "0002_alter_education_options_alter_education_description"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='education',
-            name='location',
-            field=models.CharField(blank=True, help_text="Localisation de l'établissement (ex: Paris, France).", max_length=150),
+            model_name="education",
+            name="location",
+            field=models.CharField(
+                blank=True,
+                help_text="Localisation de l'établissement (ex: Paris, France).",
+                max_length=150,
+            ),
         ),
     ]

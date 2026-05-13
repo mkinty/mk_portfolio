@@ -1,9 +1,10 @@
 import pytest
+
 from apps.tracking.models import (
-    JobApplication,
-    ApplicationStatus,
     ApplicationFollowUp,
+    ApplicationStatus,
     FollowUpStatus,
+    JobApplication,
 )
 
 
@@ -66,7 +67,6 @@ class TestJobApplicationModel:
 
 @pytest.mark.django_db
 class TestApplicationFollowUpModel:
-
     def test_create_follow_up(self, follow_up, job_application):
         assert follow_up.id is not None
         assert follow_up.job_application == job_application

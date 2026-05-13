@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.contrib import messages
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 
@@ -13,6 +13,7 @@ class HomePageView(View):
     """
     View for handling home page requests.
     """
+
     template_name = "home/home_page.html"
 
     def get(self, request):
@@ -26,22 +27,22 @@ class HomePageView(View):
             user_obj = type("UserMock", (), {})()
             user_obj.id = 1
 
-        user_obj.navbar_url = reverse_lazy('home:home-page')
+        user_obj.navbar_url = reverse_lazy("home:home-page")
 
-        user_obj.navbar_url = reverse_lazy('home:home-page')
+        user_obj.navbar_url = reverse_lazy("home:home-page")
         data_projects = (
-            ProjectSelectors
-            .get_projects_by_tag("Data")
+            ProjectSelectors.get_projects_by_tag("Data")
             .select_related("category", "user")
             .prefetch_related("tags")
-            .distinct()[:3] or []
+            .distinct()[:3]
+            or []
         )
         dev_projects = (
-            ProjectSelectors
-            .get_projects_by_tag("Development")
+            ProjectSelectors.get_projects_by_tag("Development")
             .select_related("category", "user")
             .prefetch_related("tags")
-            .distinct()[:3] or []
+            .distinct()[:3]
+            or []
         )
         context = {
             "user_obj": user_obj,
@@ -55,6 +56,7 @@ class ContactPageView(View):
     """
     View for handling contact page requests.
     """
+
     template_name = "home/contact_page.html"
 
     def get(self, request):
@@ -64,11 +66,8 @@ class ContactPageView(View):
         """
         user_obj = get_user_by_email("kintymoustapha@gmail.com")
         contact = type("UserMock", (), {})()
-        contact.navbar_url = reverse_lazy('home:contact-page')
-        context = {
-            "user_obj": user_obj,
-            "contact": contact
-        }
+        contact.navbar_url = reverse_lazy("home:contact-page")
+        context = {"user_obj": user_obj, "contact": contact}
         return render(request, self.template_name, context)
 
     def post(self, request):
@@ -85,12 +84,15 @@ class ContactPageView(View):
 
         if not message or message == "":
             messages.error(request, "Merci de renseigner le message à envoyer")
-            return HTTPResponseHXRedirect(reverse_lazy('home:contact-page'))
+            return HTTPResponseHXRedirect(reverse_lazy("home:contact-page"))
 
         send_email(
             subject="Contacte depuis votre site web",
-            message=f"Prénom: {first_name}\nNom: {last_name}\nEmail: {email}\n \n{message}",
-            recipients=["kintymoustapha@gmail.com"]
+            message=f"Prénom: {first_name}\n"
+            f"Nom: {last_name}\n"
+            f"Email: {email}\n"
+            f"\n{message}",
+            recipients=["kintymoustapha@gmail.com"],
         )
         messages.success(request, "Message envoyé avec succès!")
-        return HTTPResponseHXRedirect(reverse_lazy('home:home-page'))
+        return HTTPResponseHXRedirect(reverse_lazy("home:home-page"))

@@ -2,11 +2,7 @@ from datetime import date
 
 import pytest
 
-from apps.project.models import (
-    ProjectCategory,
-    Tag,
-    Project
-)
+from apps.project.models import Project, ProjectCategory, Tag
 from apps.users.models import User
 
 
@@ -19,16 +15,13 @@ def user(db):
         email="test@example.com",
         first_name="Test",
         last_name="User",
-        password="testpass123"
+        password="testpass123",
     )
 
 
 @pytest.fixture
 def category(user):
-    return ProjectCategory.objects.create(
-        user=user,
-        name="Web"
-    )
+    return ProjectCategory.objects.create(user=user, name="Web")
 
 
 @pytest.fixture

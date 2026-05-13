@@ -1,5 +1,8 @@
 from apps.techstack.forms import TechStackCategoryForm, TechStackForm
-from apps.techstack.selectors.techstack_selectors import TechStackCategorySelectors, TechStackSelectors
+from apps.techstack.selectors.techstack_selectors import (
+    TechStackCategorySelectors,
+    TechStackSelectors,
+)
 from apps.users.selectors.user_selectors import get_user_by_id
 
 

@@ -1,5 +1,6 @@
-import pytest
 from datetime import date
+
+import pytest
 
 from apps.experiences.models import Experience
 
@@ -40,7 +41,7 @@ class TestExperienceModel:
             title="Senior Developer",
             company="Google",
             start_date=date(2022, 1, 1),
-            is_current=True
+            is_current=True,
         )
 
         assert experience.title == "Senior Developer"

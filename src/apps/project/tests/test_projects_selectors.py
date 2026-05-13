@@ -1,12 +1,14 @@
-import pytest
 from datetime import date
-from apps.project.models import Project
-from apps.users.models import User
 
+import pytest
+
+from apps.project.models import Project
 from apps.project.selectors.projects_selectors import (
     ProjectCategorySelectors,
-    ProjectSelectors, TagSelectors
+    ProjectSelectors,
+    TagSelectors,
 )
+from apps.users.models import User
 
 
 @pytest.mark.django_db
@@ -127,8 +129,7 @@ class TestProjectSelectors:
         """
 
         other_user = User.objects.create_user(
-            email="other@example.com",
-            password="testpass123"
+            email="other@example.com", password="testpass123"
         )
 
         p1 = Project.objects.create(

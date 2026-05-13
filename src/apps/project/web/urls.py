@@ -1,19 +1,19 @@
 from django.urls import path
 
 from apps.project.web.views import (
-    ProjectIndexView,
-    ProjectsView,
+    ProjectAddView,
+    ProjectCategoryAddView,
+    ProjectCategoryDeleteView,
+    ProjectCategoryUpdateView,
+    ProjectDeleteView,
     ProjectDetailIndexView,
     ProjectDetailView,
-    ProjectCategoryAddView,
-    ProjectCategoryUpdateView,
-    ProjectCategoryDeleteView,
-    ProjectAddView,
+    ProjectIndexView,
+    ProjectsView,
     ProjectUpdateView,
-    ProjectDeleteView,
     TagAddView,
+    TagDeleteView,
     TagUpdateView,
-    TagDeleteView
 )
 
 app_name = "project"
@@ -26,9 +26,21 @@ urlpatterns = [
     path("<int:project_id>", ProjectDetailIndexView.as_view(), name="detail-index"),
     path("<int:project_id>/detail", ProjectDetailView.as_view(), name="detail"),
     # project category
-    path("<int:user_id>/add-category/", ProjectCategoryAddView.as_view(), name="add-category"),
-    path("<int:category_id>/update-category/", ProjectCategoryUpdateView.as_view(), name="update-category"),
-    path("<int:category_id>/delete-category/", ProjectCategoryDeleteView.as_view(), name="delete-category"),
+    path(
+        "<int:user_id>/add-category/",
+        ProjectCategoryAddView.as_view(),
+        name="add-category",
+    ),
+    path(
+        "<int:category_id>/update-category/",
+        ProjectCategoryUpdateView.as_view(),
+        name="update-category",
+    ),
+    path(
+        "<int:category_id>/delete-category/",
+        ProjectCategoryDeleteView.as_view(),
+        name="delete-category",
+    ),
     # project tag
     path("tag/", TagAddView.as_view(), name="add-tag"),
     path("<int:tag_id>/update-tag/", TagUpdateView.as_view(), name="update-tag"),

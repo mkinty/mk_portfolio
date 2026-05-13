@@ -5,19 +5,23 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('education', '0001_initial'),
+        ("education", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='education',
-            options={'ordering': ['-start_date']},
+            name="education",
+            options={"ordering": ["-start_date"]},
         ),
         migrations.AlterField(
-            model_name='education',
-            name='description',
-            field=django_ckeditor_5.fields.CKEditor5Field(blank=True, help_text='Description optionnelle (résultats, projets, mentions, etc.).', verbose_name='Content'),
+            model_name="education",
+            name="description",
+            field=django_ckeditor_5.fields.CKEditor5Field(
+                blank=True,
+                help_text="Description optionnelle "
+                "(résultats, projets, mentions, etc.).",
+                verbose_name="Content",
+            ),
         ),
     ]

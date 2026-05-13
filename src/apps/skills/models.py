@@ -16,19 +16,19 @@ class Skills(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="skills",
-        help_text="The user who owns this skill."
+        help_text="The user who owns this skill.",
     )
 
     name = models.CharField(
         max_length=150,
-        help_text="The skills category name (e.g., Programming Languages, Tools)."
+        help_text="The skills category name (e.g., Programming Languages, Tools).",
     )
 
     description = CKEditor5Field(
         "Content",
         config_name="default",
         blank=True,
-        help_text="Optional detailed description of the skill."
+        help_text="Optional detailed description of the skill.",
     )
 
     def __str__(self) -> str:

@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -16,12 +15,42 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Skills',
+            name="Skills",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='The skills category name (e.g., Programming Languages, Tools).', max_length=150)),
-                ('description', django_ckeditor_5.fields.CKEditor5Field(blank=True, help_text='Optional detailed description of the skill.', verbose_name='Content')),
-                ('user', models.ForeignKey(help_text='The user who owns this skill.', on_delete=django.db.models.deletion.CASCADE, related_name='skills', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="The skills category name "
+                        "(e.g., Programming Languages, Tools).",
+                        max_length=150,
+                    ),
+                ),
+                (
+                    "description",
+                    django_ckeditor_5.fields.CKEditor5Field(
+                        blank=True,
+                        help_text="Optional detailed description of the skill.",
+                        verbose_name="Content",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        help_text="The user who owns this skill.",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="skills",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

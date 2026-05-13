@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.skills.web.views import SkillAddView, SkillUpdateView, SkillDeleteView
+from apps.skills.web.views import SkillAddView, SkillDeleteView, SkillUpdateView
 
 app_name = "skills"
 

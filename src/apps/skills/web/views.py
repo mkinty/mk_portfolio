@@ -1,6 +1,6 @@
 from django.contrib import messages
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.views import View
 
 from apps.skills.selectors.skills_selectors import SkillsSelectors
@@ -33,9 +33,7 @@ class SkillAddView(View):
         user_obj = get_user_by_id(user_id)
 
         success, form, skill = SkillsService.create(
-            user_obj,
-            request.POST,
-            request.FILES
+            user_obj, request.POST, request.FILES
         )
 
         if not success:
@@ -65,27 +63,33 @@ class SkillUpdateView(View):
         """Show update form."""
         form, skill = SkillsService.get_update_form(skill_id)
 
-        return render(request, self.template_name, {
-            "form": form,
-            "skill": skill,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "skill": skill,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, skill_id):
         """Handle update."""
         success, form, skill = SkillsService.update(
-            skill_id,
-            request.POST,
-            request.FILES
+            skill_id, request.POST, request.FILES
         )
 
         if not success:
             messages.error(request, "Corrigez les erreurs.")
-            return render(request, self.template_name, {
-                "form": form,
-                "skill": skill,
-                "title": self.title,
-            })
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "skill": skill,
+                    "title": self.title,
+                },
+            )
 
         messages.success(request, "Expérience mise à jour.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
@@ -105,10 +109,14 @@ class SkillDeleteView(View):
         """Show confirmation page."""
         skill = SkillsSelectors.get_skill_by_id(skill_id)
 
-        return render(request, self.template_name, {
-            "skill": skill,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "skill": skill,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, skill_id):
         """Delete experience."""

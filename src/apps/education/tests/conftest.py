@@ -1,7 +1,8 @@
-import pytest
 from datetime import date
 
-from apps.education.models import EducationSection, Education
+import pytest
+
+from apps.education.models import Education, EducationSection
 from apps.users.models import User
 
 
@@ -14,7 +15,7 @@ def user(db):
         email="testuser@example.com",
         password="testpassword123",
         first_name="Test",
-        last_name="User"
+        last_name="User",
     )
 
 
@@ -23,10 +24,7 @@ def education_section(user):
     """
     Create and return a test education section instance.
     """
-    return EducationSection.objects.create(
-        user=user,
-        name="Education"
-    )
+    return EducationSection.objects.create(user=user, name="Education")
 
 
 @pytest.fixture
@@ -41,5 +39,5 @@ def education_entry(education_section):
         field_of_study="Computer Science",
         start_date=date(2020, 9, 1),
         end_date=date(2024, 6, 30),
-        description="Completed my undergraduate degree with honors."
+        description="Completed my undergraduate degree with honors.",
     )

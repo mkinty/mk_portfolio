@@ -4,25 +4,43 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('tracking', '0003_alter_jobapplication_user'),
+        ("tracking", "0003_alter_jobapplication_user"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='applicationfollowup',
-            name='status',
-            field=models.CharField(choices=[('En attente', 'En attente'), ('Terminé', 'Terminé'), ('Annulé', 'Annulé')], default='En attente', max_length=20, verbose_name='Statut'),
+            model_name="applicationfollowup",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("En attente", "En attente"),
+                    ("Terminé", "Terminé"),
+                    ("Annulé", "Annulé"),
+                ],
+                default="En attente",
+                max_length=20,
+                verbose_name="Statut",
+            ),
         ),
         migrations.AlterField(
-            model_name='jobapplication',
-            name='application_status',
-            field=models.CharField(choices=[('Envoyée', 'Envoyée'), ('Entretiens en cours', 'Entretiens en cours'), ('Acceptée', 'Acceptée'), ('Rejetée', 'Rejetée')], default='Envoyée', help_text='État de la candidature', max_length=20),
+            model_name="jobapplication",
+            name="application_status",
+            field=models.CharField(
+                choices=[
+                    ("Envoyée", "Envoyée"),
+                    ("Entretiens en cours", "Entretiens en cours"),
+                    ("Acceptée", "Acceptée"),
+                    ("Rejetée", "Rejetée"),
+                ],
+                default="Envoyée",
+                help_text="État de la candidature",
+                max_length=20,
+            ),
         ),
         migrations.AlterField(
-            model_name='jobapplication',
-            name='position',
-            field=models.CharField(help_text='Intitulé du poste', max_length=255),
+            model_name="jobapplication",
+            name="position",
+            field=models.CharField(help_text="Intitulé du poste", max_length=255),
         ),
     ]

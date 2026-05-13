@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,30 +14,86 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='TechStackCategory',
+            name="TechStackCategory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Nom de la catégorie (ex: Backend, Frontend).', max_length=100)),
-                ('order', models.PositiveIntegerField(default=0, help_text="Ordre d'affichage.")),
-                ('user', models.ForeignKey(help_text='Utilisateur propriétaire des catégories.', on_delete=django.db.models.deletion.CASCADE, related_name='tech_stack_categories', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Nom de la catégorie (ex: Backend, Frontend).",
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "order",
+                    models.PositiveIntegerField(
+                        default=0, help_text="Ordre d'affichage."
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        help_text="Utilisateur propriétaire des catégories.",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tech_stack_categories",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['order', 'name'],
-                'unique_together': {('user', 'name')},
+                "ordering": ["order", "name"],
+                "unique_together": {("user", "name")},
             },
         ),
         migrations.CreateModel(
-            name='TechStack',
+            name="TechStack",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Nom de la technologie (ex: Django, React).', max_length=100)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tech_stacks', to=settings.AUTH_USER_MODEL)),
-                ('category', models.ForeignKey(help_text='Catégorie associée.', on_delete=django.db.models.deletion.CASCADE, related_name='techs', to='techstack.techstackcategory')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Nom de la technologie (ex: Django, React).",
+                        max_length=100,
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tech_stacks",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        help_text="Catégorie associée.",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="techs",
+                        to="techstack.techstackcategory",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['category', 'name'],
-                'unique_together': {('user', 'name')},
+                "ordering": ["category", "name"],
+                "unique_together": {("user", "name")},
             },
         ),
     ]

@@ -34,17 +34,34 @@ jobs:
 
     env:
       DJANGO_SETTINGS_MODULE: config.settings.test
+
       SECRET_KEY: test-secret-key
+
       CELERY_TASK_ALWAYS_EAGER: "True"
 
+      REDIS_URL: redis://localhost:6379/0
+
     steps:
+
+      ###################################
+      # CHECKOUT
+      ###################################
+
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      ###################################
+      # PYTHON
+      ###################################
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
+
+      ###################################
+      # CACHE
+      ###################################
 
       - name: Cache pip dependencies
         uses: actions/cache@v4
@@ -53,6 +70,10 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
+
+      ###################################
+      # INSTALL
+      ###################################
 
       - name: Install dependencies
         run: |
@@ -67,36 +88,62 @@ jobs:
             coverage \
             ruff
 
-      - name: Run Ruff Linter
+      ###################################
+      # RUFF
+      ###################################
+
+      - name: Run Ruff
         run: |
           ruff check .
+
+      ###################################
+      # FORMAT CHECK
+      ###################################
+
+      - name: Run Ruff Format Check
+        run: |
+          ruff format . --check
+
+      ###################################
+      # DJANGO CHECKS
+      ###################################
 
       - name: Run Django checks
         run: |
           cd src
           python manage.py check
 
+      ###################################
+      # MIGRATIONS
+      ###################################
+
       - name: Run migrations
         run: |
           cd src
           python manage.py migrate --noinput
+
+      ###################################
+      # PYTEST
+      ###################################
 
       - name: Run pytest with coverage
         run: |
           cd src
 
           pytest \
+            --maxfail=1 \
+            --disable-warnings \
             --cov=apps \
             --cov-report=term-missing \
             --cov-report=xml \
             -v
+
+      ###################################
+      # UPLOAD COVERAGE
+      ###################################
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: src/coverage.xml
-
-
-
-

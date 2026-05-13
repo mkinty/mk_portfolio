@@ -1,6 +1,6 @@
 import pytest
 
-from apps.techstack.models import TechStackCategory, TechStack
+from apps.techstack.models import TechStack, TechStackCategory
 from apps.users.models import User
 
 
@@ -13,7 +13,7 @@ def user(db):
         email="test@example.com",
         first_name="Test",
         last_name="User",
-        password="testpass123"
+        password="testpass123",
     )
 
 
@@ -22,11 +22,7 @@ def tech_category(user):
     """
     Create a test tech stack category.
     """
-    return TechStackCategory.objects.create(
-        user=user,
-        name="Backend",
-        order=1
-    )
+    return TechStackCategory.objects.create(user=user, name="Backend", order=1)
 
 
 @pytest.fixture
@@ -34,8 +30,4 @@ def tech_stack(user, tech_category):
     """
     Create a test tech stack.
     """
-    return TechStack.objects.create(
-        user=user,
-        category=tech_category,
-        name="Django"
-    )
+    return TechStack.objects.create(user=user, category=tech_category, name="Django")

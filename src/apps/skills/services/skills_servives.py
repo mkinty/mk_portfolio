@@ -1,6 +1,5 @@
 from apps.skills.forms import SkillsForm
 from apps.skills.selectors.skills_selectors import SkillsSelectors
-from apps.skills.tests.conftest import skill
 from apps.users.selectors.user_selectors import get_user_by_id
 
 

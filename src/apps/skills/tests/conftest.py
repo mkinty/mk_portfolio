@@ -10,14 +10,12 @@ def user(db):
         email="test@example.com",
         first_name="Test",
         last_name="User",
-        password="testpass123"
+        password="testpass123",
     )
 
 
 @pytest.fixture
 def skill(user):
     return Skills.objects.create(
-        user=user,
-        name="Test Skill",
-        description="Test Description"
+        user=user, name="Test Skill", description="Test Description"
     )

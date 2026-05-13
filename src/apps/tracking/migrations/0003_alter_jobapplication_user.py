@@ -6,16 +6,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('tracking', '0002_jobapplication_user'),
+        ("tracking", "0002_jobapplication_user"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='jobapplication',
-            name='user',
-            field=models.ForeignKey(help_text='Utilisateur envoyant des candidatures.', on_delete=django.db.models.deletion.CASCADE, related_name='job_applications', to=settings.AUTH_USER_MODEL),
+            model_name="jobapplication",
+            name="user",
+            field=models.ForeignKey(
+                help_text="Utilisateur envoyant des candidatures.",
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="job_applications",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

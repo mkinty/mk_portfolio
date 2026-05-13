@@ -66,10 +66,13 @@ def get_user_by_activation_token(token: str) -> Optional[User] | None:
 
 def get_user_from_token(uidb64: str, token: str) -> Optional[User]:
     """
-    Retrieve a User instance by decoding a base64-encoded user ID and verifying a password reset token.
+    Retrieve a User instance by decoding a
+    base64-encoded user ID and verifying a password reset token.
 
-    This function is typically used in password reset flows. It decodes the provided `uidb64`
-    parameter to obtain the user's primary key, fetches the corresponding `User` from the database,
+    This function is typically used in password reset flows.
+    It decodes the provided `uidb64`
+    parameter to obtain the user's primary key,
+    fetches the corresponding `User` from the database,
     and then validates the provided token using `verify_token`.
 
     Args:
@@ -77,11 +80,15 @@ def get_user_from_token(uidb64: str, token: str) -> Optional[User]:
         token (str): The password reset token to verify.
 
     Returns:
-        Optional[User]: The `User` instance if the token is valid and the user exists; otherwise, `None`.
+        Optional[User]: The `User` instance if the token
+        is valid and the user exists; otherwise, `None`.
 
     Notes:
-        - Returns `None` if the decoding fails, the user does not exist, or the token is invalid.
-        - Depends on `urlsafe_base64_decode` from `django.utils.http` and `verify_token` from your authentication services.
+        - Returns `None` if the decoding fails,
+        the user does not exist, or the token is invalid.
+        - Depends on `urlsafe_base64_decode`
+        from `django.utils.http` and `verify_token`
+        from your authentication services.
 
     Example:
         >>  user = get_user_from_token('Mg==', 'some-token')

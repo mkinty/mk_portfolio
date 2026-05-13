@@ -6,30 +6,33 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('education', '0003_education_location'),
+        ("education", "0003_education_location"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='educationsection',
-            options={'ordering': ['created_at']},
+            name="educationsection",
+            options={"ordering": ["created_at"]},
         ),
         migrations.AddField(
-            model_name='education',
-            name='is_current',
-            field=models.BooleanField(default=False, help_text='Cochez si la formation est en cours.'),
+            model_name="education",
+            name="is_current",
+            field=models.BooleanField(
+                default=False, help_text="Cochez si la formation est en cours."
+            ),
         ),
         migrations.AddField(
-            model_name='educationsection',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="educationsection",
+            name="created_at",
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
         migrations.AlterUniqueTogether(
-            name='educationsection',
-            unique_together={('user', 'name')},
+            name="educationsection",
+            unique_together={("user", "name")},
         ),
     ]

@@ -2,6 +2,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from config.settings import settings
+
 from .models import UserProfile
 
 

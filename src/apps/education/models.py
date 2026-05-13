@@ -1,9 +1,8 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
-from django.core.exceptions import ValidationError
 
 from config.settings import settings
-
 
 # Create your models here.
 
@@ -20,25 +19,27 @@ class EducationSection(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="education_sections",
-        help_text="Utilisateur associé à cette section académique."
+        help_text="Utilisateur associé à cette section académique.",
     )
 
     name = models.CharField(
-        max_length=150,
-        help_text="Titre de la section (ex: Parcours Académique)."
+        max_length=150, help_text="Titre de la section (ex: Parcours Académique)."
     )
 
     description = CKEditor5Field(
         "Content",
         config_name="default",
         blank=True,
-        help_text="Description introductive du parcours académique."
+        help_text="Description introductive du parcours académique.",
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["created_at"]
-        unique_together = ("user", "name")  # each user can have only one section with the same name
+        unique_together = (
+            "user",
+            "name",
+        )  # each user can have only one section with the same name
 
     def __str__(self):
         """
@@ -62,58 +63,51 @@ class Education(models.Model):
         EducationSection,
         on_delete=models.CASCADE,
         related_name="educations",
-        help_text="Section académique à laquelle cette formation appartient."
+        help_text="Section académique à laquelle cette formation appartient.",
     )
 
     school = models.CharField(
-        max_length=150,
-        help_text="Nom de l'établissement (ex: Université de Paris)."
+        max_length=150, help_text="Nom de l'établissement (ex: Université de Paris)."
     )
 
     degree = models.CharField(
-        max_length=150,
-        help_text="Diplôme obtenu (ex: Licence, Master, Doctorat)."
+        max_length=150, help_text="Diplôme obtenu (ex: Licence, Master, Doctorat)."
     )
 
     field_of_study = models.CharField(
         max_length=150,
         blank=True,
-        help_text="Domaine d'étude (ex: Informatique, Mathématiques)."
+        help_text="Domaine d'étude (ex: Informatique, Mathématiques).",
     )
 
     location = models.CharField(
         max_length=150,
         blank=True,
-        help_text="Localisation de l'établissement (ex: Paris, France)."
+        help_text="Localisation de l'établissement (ex: Paris, France).",
     )
 
-    start_date = models.DateField(
-        help_text="Date de début de la formation."
-    )
+    start_date = models.DateField(help_text="Date de début de la formation.")
 
     end_date = models.DateField(
         null=True,
         blank=True,
-        help_text="Date de fin de la formation (laisser vide si en cours)."
+        help_text="Date de fin de la formation (laisser vide si en cours).",
     )
 
     is_current = models.BooleanField(
-        default=False,
-        help_text="Cochez si la formation est en cours."
+        default=False, help_text="Cochez si la formation est en cours."
     )
 
     description = CKEditor5Field(
         "Content",
         config_name="default",
         blank=True,
-        help_text="Description optionnelle (résultats, projets, mentions, etc.)."
+        help_text="Description optionnelle (résultats, projets, mentions, etc.).",
     )
 
     def clean(self):
         if self.end_date and self.end_date < self.start_date:
-            raise ValidationError(
-                "Date de fin doit être après la date de début."
-            )
+            raise ValidationError("Date de fin doit être après la date de début.")
 
     def save(self, *args, **kwargs):
         self.clean()

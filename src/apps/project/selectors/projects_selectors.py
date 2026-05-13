@@ -1,4 +1,4 @@
-from apps.project.models import ProjectCategory, Tag, Project
+from apps.project.models import Project, ProjectCategory, Tag
 
 
 class ProjectCategorySelectors:

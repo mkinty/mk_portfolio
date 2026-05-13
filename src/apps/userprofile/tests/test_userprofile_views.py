@@ -75,10 +75,7 @@ class TestUserProfileViews:
         """
         Test GET update profile view returns form.
         """
-        url = reverse(
-            "userprofile:update",
-            kwargs={"userprofile_id": user_profile.id}
-        )
+        url = reverse("userprofile:update", kwargs={"userprofile_id": user_profile.id})
 
         response = client.get(url)
 
@@ -90,10 +87,7 @@ class TestUserProfileViews:
         """
         Test POST update profile updates data.
         """
-        url = reverse(
-            "userprofile:update",
-            kwargs={"userprofile_id": user_profile.id}
-        )
+        url = reverse("userprofile:update", kwargs={"userprofile_id": user_profile.id})
 
         data = {"bio": "Updated bio"}
 
@@ -106,10 +100,7 @@ class TestUserProfileViews:
         """
         Test GET delete confirmation view.
         """
-        url = reverse(
-            "userprofile:delete",
-            kwargs={"userprofile_id": user_profile.id}
-        )
+        url = reverse("userprofile:delete", kwargs={"userprofile_id": user_profile.id})
 
         response = client.get(url)
 
@@ -119,10 +110,7 @@ class TestUserProfileViews:
         """
         Test POST delete removes profile.
         """
-        url = reverse(
-            "userprofile:delete",
-            kwargs={"userprofile_id": user_profile.id}
-        )
+        url = reverse("userprofile:delete", kwargs={"userprofile_id": user_profile.id})
 
         response = client.post(url)
 

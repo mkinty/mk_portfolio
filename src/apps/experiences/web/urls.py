@@ -2,8 +2,8 @@ from django.urls import path
 
 from apps.experiences.web.views import (
     ExperienceAddView,
+    ExperienceDeleteView,
     ExperienceUpdateView,
-    ExperienceDeleteView
 )
 
 app_name = "experiences"

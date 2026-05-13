@@ -1,10 +1,10 @@
 import pytest
 
-from apps.education.selectors.education_selectors import (
-    EducationSelectors,
-    EducationSectionSelectors,
-)
 from apps.education.models import Education
+from apps.education.selectors.education_selectors import (
+    EducationSectionSelectors,
+    EducationSelectors,
+)
 
 
 @pytest.mark.django_db
@@ -17,7 +17,9 @@ class TestEducationSelectors:
         """
         Test retrieving a single education section by id.
         """
-        section = EducationSectionSelectors.get_education_section_by_id(education_section.id)
+        section = EducationSectionSelectors.get_education_section_by_id(
+            education_section.id
+        )
 
         assert section is not None
         assert section == education_section

@@ -1,6 +1,8 @@
 import pytest
 
-from apps.certifications.selectors.certifications_selectors import CertificationsSelectors
+from apps.certifications.selectors.certifications_selectors import (
+    CertificationsSelectors,
+)
 
 pytestmark = pytest.mark.django_db
 
@@ -8,7 +10,8 @@ pytestmark = pytest.mark.django_db
 @pytest.mark.django_db
 def test_get_certifications_for_user_returns_user_certifications(user, certification):
     """
-    Test that get_certifications_for_user returns only the certifications for the given user.
+    Test that get_certifications_for_user returns
+    only the certifications for the given user.
     """
     result = CertificationsSelectors.get_certifications_for_user(user)
 

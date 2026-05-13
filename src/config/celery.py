@@ -1,4 +1,5 @@
 import os
+
 from celery import Celery
 
 # Définit le module de settings Django à utiliser
@@ -17,7 +18,7 @@ app.autodiscover_tasks()
 # Optionnel : affichage de logs plus clairs pour dev
 app.conf.update(
     task_track_started=True,
-    task_serializer='json',
-    result_serializer='json',
-    accept_content=['json'],
+    task_serializer="json",
+    result_serializer="json",
+    accept_content=["json"],
 )

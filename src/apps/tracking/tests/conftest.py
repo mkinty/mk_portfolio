@@ -1,13 +1,14 @@
-import pytest
 from datetime import date
-from django.utils import timezone
+
+import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.utils import timezone
 
 from apps.tracking.models import (
-    JobApplication,
     ApplicationFollowUp,
     ApplicationStatus,
     FollowUpStatus,
+    JobApplication,
 )
 from apps.users.models import User
 
@@ -18,7 +19,7 @@ def user(db):
         email="test@example.com",
         first_name="Test",
         last_name="User",
-        password="testpass123"
+        password="testpass123",
     )
 
 

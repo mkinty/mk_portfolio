@@ -1,6 +1,6 @@
 from django.contrib import messages
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.views import View
 
 from apps.experiences.selectors.experiences_selectors import get_experience_by_id
@@ -22,29 +22,35 @@ class ExperienceAddView(View):
         """Display the creation form."""
         form, user_obj = ExperienceService.get_add_form(user_id)
 
-        return render(request, self.template_name, {
-            "form": form,
-            "user_obj": user_obj,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "user_obj": user_obj,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, user_id):
         """Handle form submission."""
         user_obj = get_user_by_id(user_id)
 
         success, form, experience = ExperienceService.create(
-            user_obj,
-            request.POST,
-            request.FILES
+            user_obj, request.POST, request.FILES
         )
 
         if not success:
             messages.error(request, "Corrigez les erreurs.")
-            return render(request, self.template_name, {
-                "form": form,
-                "user_obj": user_obj,
-                "title": self.title,
-            })
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "user_obj": user_obj,
+                    "title": self.title,
+                },
+            )
 
         messages.success(request, "Expérience ajoutée.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
@@ -64,27 +70,33 @@ class ExperienceUpdateView(View):
         """Show update form."""
         form, experience = ExperienceService.get_update_form(experience_id)
 
-        return render(request, self.template_name, {
-            "form": form,
-            "experience": experience,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "experience": experience,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, experience_id):
         """Handle update."""
         success, form, experience = ExperienceService.update(
-            experience_id,
-            request.POST,
-            request.FILES
+            experience_id, request.POST, request.FILES
         )
 
         if not success:
             messages.error(request, "Corrigez les erreurs.")
-            return render(request, self.template_name, {
-                "form": form,
-                "experience": experience,
-                "title": self.title,
-            })
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "experience": experience,
+                    "title": self.title,
+                },
+            )
 
         messages.success(request, "Expérience mise à jour.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
@@ -104,10 +116,14 @@ class ExperienceDeleteView(View):
         """Show confirmation page."""
         experience = get_experience_by_id(experience_id)
 
-        return render(request, self.template_name, {
-            "experience": experience,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "experience": experience,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, experience_id):
         """Delete experience."""

@@ -1,14 +1,19 @@
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
 from django.contrib import messages
+from django.contrib.auth import login, logout
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 
 from apps.authentication.services.authentication_services import authenticate_user
-from apps.authentication.services.password_reset_services import send_password_reset_email
-from apps.authentication.services.registration_services import validate_registration_data, register_user
-from apps.users.selectors.user_selectors import get_user_from_token, get_user_by_email
+from apps.authentication.services.password_reset_services import (
+    send_password_reset_email,
+)
+from apps.authentication.services.registration_services import (
+    register_user,
+    validate_registration_data,
+)
+from apps.users.selectors.user_selectors import get_user_by_email, get_user_from_token
 from apps.users.services.user_services import activate_user_account, set_user_password
 from apps.utils.services.http_responses import HTTPResponseHXRedirect
 
@@ -54,7 +59,9 @@ class RegistrationView(View):
         password = data.get("password", "")
         password2 = data.get("password2", "")
 
-        errors = validate_registration_data(first_name, last_name, email, password, password2)
+        errors = validate_registration_data(
+            first_name, last_name, email, password, password2
+        )
         if errors:
             for error in errors:
                 messages.error(request, error)
@@ -64,8 +71,11 @@ class RegistrationView(View):
         register_user(first_name, last_name, email, password, domain)
 
         messages.success(request, "Compte créé")
-        print("Compte créé avec succès, un message d'activation a été envoyé à l'adresse email fournie")
-        return HTTPResponseHXRedirect(reverse_lazy('home:home-page'))
+        print(
+            "Compte créé avec succès, un message d'activation "
+            "a été envoyé à l'adresse email fournie"
+        )
+        return HTTPResponseHXRedirect(reverse_lazy("home:home-page"))
 
 
 class ActivateAccountView(View):
@@ -90,6 +100,7 @@ class ActivateAccountView(View):
         uidb64 (str): Base64 encoded user ID.
         token (str): Unique activation token sent via email.
     """
+
     template_name = "authentication/activate_account.html"
 
     def get(self, request, uidb64: str, token: str):
@@ -126,14 +137,15 @@ class PasswordResetRequestView(View):
         Success: "Un email pour réinitialiser votre mot de passe a été envoyé"
         Error: "Aucun compte trouvé avec cet email"
     """
+
     template_name = "authentication/password_reset_request.html"
 
     def get(self, request):
-        """ Handle GET request - render password reset request form """
+        """Handle GET request - render password reset request form"""
         return render(request, self.template_name, {"user_obj": ""})
 
     def post(self, request):
-        """ Handle POST request - process password reset request """
+        """Handle POST request - process password reset request"""
         email = request.POST.get("email", "").strip()
         user = get_user_by_email(email)
 
@@ -143,8 +155,10 @@ class PasswordResetRequestView(View):
 
         domain = f"{'https' if request.is_secure() else 'http'}://{request.get_host()}"
         send_password_reset_email(user, domain)
-        messages.success(request, "Un email pour réinitialiser votre mot de passe a été envoyé")
-        return HTTPResponseHXRedirect(reverse_lazy('home:home-page'))
+        messages.success(
+            request, "Un email pour réinitialiser votre mot de passe a été envoyé"
+        )
+        return HTTPResponseHXRedirect(reverse_lazy("home:home-page"))
 
 
 class PasswordResetConfirmView(View):
@@ -175,18 +189,23 @@ class PasswordResetConfirmView(View):
         uidb64 (str): Base64-encoded user ID.
         token (str): Unique password reset token sent via email.
     """
+
     template_name = "authentication/password_reset_confirm.html"
 
     def get(self, request, uidb64: str, token: str):
-        """ Handle GET request - verify token and display reset password form """
+        """Handle GET request - verify token and display reset password form"""
         user = get_user_from_token(uidb64, token)
         if not user:
             messages.error(request, "Lien de réinitialisation invalide ou expiré")
-            return redirect(reverse_lazy('home:home-page'))
-        return render(request, self.template_name, {"uidb64": uidb64, "token": token, "user_obj": user})
+            return redirect(reverse_lazy("home:home-page"))
+        return render(
+            request,
+            self.template_name,
+            {"uidb64": uidb64, "token": token, "user_obj": user},
+        )
 
     def post(self, request, uidb64: str, token: str):
-        """ Handle POST request - process password reset confirmation """
+        """Handle POST request - process password reset confirmation"""
         password = request.POST.get("password", "")
         password2 = request.POST.get("password2", "")
 
@@ -197,11 +216,17 @@ class PasswordResetConfirmView(View):
 
         if password != password2:
             messages.error(request, "Les mots de passe ne correspondent pas")
-            return render(request, self.template_name, {"uidb64": uidb64, "token": token})
+            return render(
+                request, self.template_name, {"uidb64": uidb64, "token": token}
+            )
 
         if len(password) < 6:
-            messages.error(request, "Le mot de passe doit comporter au moins 6 caractères")
-            return render(request, self.template_name, {"uidb64": uidb64, "token": token})
+            messages.error(
+                request, "Le mot de passe doit comporter au moins 6 caractères"
+            )
+            return render(
+                request, self.template_name, {"uidb64": uidb64, "token": token}
+            )
 
         set_user_password(user, password)
         messages.success(request, "Votre mot de passe a été réinitialisé avec succès")
@@ -243,11 +268,11 @@ class LoginView(View):
     template_name = "authentication/login.html"
 
     def get(self, request):
-        """ Handle GET request - display login form """
+        """Handle GET request - display login form"""
         return render(request, self.template_name)
 
     def post(self, request):
-        """ Handle POST request - process login submission """
+        """Handle POST request - process login submission"""
         email = request.POST.get("email", "").strip()
         password = request.POST.get("password", "")
         user = authenticate_user(email, password)
@@ -261,7 +286,7 @@ class LoginView(View):
 
         login(request, user)
         messages.success(request, "Connexion réussie")
-        return HTTPResponseHXRedirect(reverse_lazy('home:home-page'))
+        return HTTPResponseHXRedirect(reverse_lazy("home:home-page"))
 
 
 class LogoutView(View):
@@ -282,7 +307,7 @@ class LogoutView(View):
     """
 
     def get(self, request):
-        """ Logout the current user."""
+        """Logout the current user."""
         logout(request)
         messages.success(request, "Vous êtes maintenant déconnecté")
-        return HTTPResponseHXRedirect(reverse_lazy('home:home-page'))
+        return HTTPResponseHXRedirect(reverse_lazy("home:home-page"))

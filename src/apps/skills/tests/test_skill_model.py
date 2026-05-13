@@ -36,9 +36,7 @@ class TestSkillModel:
         Test that a new skill can be created.
         """
         skill = Skills.objects.create(
-            user=user,
-            name="New Skill",
-            description="New Description"
+            user=user, name="New Skill", description="New Description"
         )
         assert skill.name == "New Skill"
         assert skill.description == "New Description"

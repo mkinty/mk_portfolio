@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -16,17 +15,76 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Experience',
+            name="Experience",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text='Job title or role held by the user.', max_length=150)),
-                ('company', models.CharField(help_text='Name of the company or organization.', max_length=150)),
-                ('location', models.CharField(blank=True, help_text='Location of the job (city, country, or remote).', max_length=150)),
-                ('start_date', models.DateField(help_text='Start date of the experience.')),
-                ('end_date', models.DateField(blank=True, help_text='End date of the experience. Leave empty if ongoing.', null=True)),
-                ('is_current', models.BooleanField(default=False, help_text="Indicates whether this position is the user's current job.")),
-                ('description', django_ckeditor_5.fields.CKEditor5Field(blank=True, help_text='Detailed description of responsibilities and achievements.', verbose_name='Content')),
-                ('user', models.ForeignKey(help_text='The user to whom this professional experience belongs.', on_delete=django.db.models.deletion.CASCADE, related_name='experiences', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        help_text="Job title or role held by the user.", max_length=150
+                    ),
+                ),
+                (
+                    "company",
+                    models.CharField(
+                        help_text="Name of the company or organization.", max_length=150
+                    ),
+                ),
+                (
+                    "location",
+                    models.CharField(
+                        blank=True,
+                        help_text="Location of the job (city, country, or remote).",
+                        max_length=150,
+                    ),
+                ),
+                (
+                    "start_date",
+                    models.DateField(help_text="Start date of the experience."),
+                ),
+                (
+                    "end_date",
+                    models.DateField(
+                        blank=True,
+                        help_text="End date of the experience. Leave empty if ongoing.",
+                        null=True,
+                    ),
+                ),
+                (
+                    "is_current",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Indicates whether this position "
+                        "is the user's current job.",
+                    ),
+                ),
+                (
+                    "description",
+                    django_ckeditor_5.fields.CKEditor5Field(
+                        blank=True,
+                        help_text="Detailed description of "
+                        "responsibilities and achievements.",
+                        verbose_name="Content",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        help_text="The user to whom this professional "
+                        "experience belongs.",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="experiences",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

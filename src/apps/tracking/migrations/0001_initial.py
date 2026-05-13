@@ -5,49 +5,148 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='JobApplication',
+            name="JobApplication",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('position', models.CharField(help_text='Description du poste', max_length=255)),
-                ('company', models.CharField(help_text='Entreprise', max_length=255)),
-                ('job_offer_link', models.URLField(blank=True, help_text="Lien vers l'offre", null=True)),
-                ('job_offer_file', models.FileField(blank=True, help_text='Offre sous format fichier', null=True, upload_to='job_offers/')),
-                ('resume', models.FileField(help_text="CV adapté à l'offre", upload_to='resumes/')),
-                ('cover_letter', models.FileField(blank=True, help_text="Lettre de motivation adaptée à l'offre", null=True, upload_to='cover_letters/')),
-                ('application_date', models.DateField(verbose_name='Date de candidature')),
-                ('application_status', models.CharField(choices=[('sent', 'Envoyée'), ('interviewing', 'Entretiens en cours'), ('accepted', 'Acceptée'), ('rejected', 'Rejetée')], default='sent', help_text='État de la candidature', max_length=20)),
-                ('created_at', models.DateTimeField(auto_now_add=True, help_text='Date de création')),
-                ('updated_at', models.DateTimeField(auto_now=True, help_text='Date de mise à jour')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "position",
+                    models.CharField(help_text="Description du poste", max_length=255),
+                ),
+                ("company", models.CharField(help_text="Entreprise", max_length=255)),
+                (
+                    "job_offer_link",
+                    models.URLField(
+                        blank=True, help_text="Lien vers l'offre", null=True
+                    ),
+                ),
+                (
+                    "job_offer_file",
+                    models.FileField(
+                        blank=True,
+                        help_text="Offre sous format fichier",
+                        null=True,
+                        upload_to="job_offers/",
+                    ),
+                ),
+                (
+                    "resume",
+                    models.FileField(
+                        help_text="CV adapté à l'offre", upload_to="resumes/"
+                    ),
+                ),
+                (
+                    "cover_letter",
+                    models.FileField(
+                        blank=True,
+                        help_text="Lettre de motivation adaptée à l'offre",
+                        null=True,
+                        upload_to="cover_letters/",
+                    ),
+                ),
+                (
+                    "application_date",
+                    models.DateField(verbose_name="Date de candidature"),
+                ),
+                (
+                    "application_status",
+                    models.CharField(
+                        choices=[
+                            ("sent", "Envoyée"),
+                            ("interviewing", "Entretiens en cours"),
+                            ("accepted", "Acceptée"),
+                            ("rejected", "Rejetée"),
+                        ],
+                        default="sent",
+                        help_text="État de la candidature",
+                        max_length=20,
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, help_text="Date de création"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, help_text="Date de mise à jour"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Candidature',
-                'verbose_name_plural': 'Candidatures',
-                'ordering': ['-application_date'],
+                "verbose_name": "Candidature",
+                "verbose_name_plural": "Candidatures",
+                "ordering": ["-application_date"],
             },
         ),
         migrations.CreateModel(
-            name='ApplicationFollowUp',
+            name="ApplicationFollowUp",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, verbose_name='Intitulé')),
-                ('date', models.DateTimeField(verbose_name='Date')),
-                ('status', models.CharField(choices=[('pending', 'En attente'), ('completed', 'Terminé'), ('cancelled', 'Annulé')], default='pending', max_length=20, verbose_name='Statut')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Date de création')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Date de modification')),
-                ('job_application', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='follow_ups', to='tracking.jobapplication', verbose_name='Candidature')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, verbose_name="Intitulé")),
+                ("date", models.DateTimeField(verbose_name="Date")),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("pending", "En attente"),
+                            ("completed", "Terminé"),
+                            ("cancelled", "Annulé"),
+                        ],
+                        default="pending",
+                        max_length=20,
+                        verbose_name="Statut",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Date de création"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True, verbose_name="Date de modification"
+                    ),
+                ),
+                (
+                    "job_application",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="follow_ups",
+                        to="tracking.jobapplication",
+                        verbose_name="Candidature",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Élément de suivi',
-                'verbose_name_plural': 'Éléments de suivi',
-                'ordering': ['date'],
+                "verbose_name": "Élément de suivi",
+                "verbose_name_plural": "Éléments de suivi",
+                "ordering": ["date"],
             },
         ),
     ]

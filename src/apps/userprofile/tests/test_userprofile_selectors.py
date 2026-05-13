@@ -2,7 +2,7 @@ import pytest
 
 from apps.userprofile.selectors.userprofile_selectors import (
     get_userprofile_by_id,
-    get_userprofile_by_user
+    get_userprofile_by_user,
 )
 
 

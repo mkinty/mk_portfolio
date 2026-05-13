@@ -17,11 +17,7 @@ class TestCertificationsServices:
         assert returned_user == user
 
     def test_create_certification_success(self, user):
-        data = {
-            "name": "AWS Cert",
-            "issuer": "Amazon",
-            "order": 1
-        }
+        data = {"name": "AWS Cert", "issuer": "Amazon", "order": 1}
 
         success, form, certification = CertificationsServices.create_certification(
             user, data, files={}
@@ -53,11 +49,7 @@ class TestCertificationsServices:
         assert returned_cert == certification
 
     def test_update_certification_success(self, certification):
-        data = {
-            "name": "Updated Cert",
-            "issuer": "Updated Org",
-            "order": 2
-        }
+        data = {"name": "Updated Cert", "issuer": "Updated Org", "order": 2}
 
         success, form, updated_cert = CertificationsServices.update_certification(
             certification.id, data, files={}

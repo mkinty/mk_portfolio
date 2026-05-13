@@ -6,20 +6,45 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('project', '0001_initial'),
+        ("project", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ProjectCategory',
+            name="ProjectCategory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Nom de la catégorie de projet.', max_length=100)),
-                ('created_at', models.DateTimeField(auto_now_add=True, help_text='Date de création de la catégorie.')),
-                ('user', models.ForeignKey(help_text='Utilisateur propriétaire des catégories de projets.', on_delete=django.db.models.deletion.CASCADE, related_name='project_categories', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Nom de la catégorie de projet.", max_length=100
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, help_text="Date de création de la catégorie."
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        help_text="Utilisateur propriétaire des catégories de projets.",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="project_categories",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

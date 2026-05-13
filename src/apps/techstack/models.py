@@ -2,7 +2,6 @@ from django.db import models
 
 from config.settings import settings
 
-
 # Create your models here.
 
 
@@ -15,18 +14,14 @@ class TechStackCategory(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="tech_stack_categories",
-        help_text="Utilisateur propriétaire des catégories."
+        help_text="Utilisateur propriétaire des catégories.",
     )
 
     name = models.CharField(
-        max_length=100,
-        help_text="Nom de la catégorie (ex: Backend, Frontend)."
+        max_length=100, help_text="Nom de la catégorie (ex: Backend, Frontend)."
     )
 
-    order = models.PositiveIntegerField(
-        default=0,
-        help_text="Ordre d'affichage."
-    )
+    order = models.PositiveIntegerField(default=0, help_text="Ordre d'affichage.")
 
     class Meta:
         ordering = ["order"]
@@ -51,12 +46,11 @@ class TechStack(models.Model):
         TechStackCategory,
         on_delete=models.CASCADE,
         related_name="techs",
-        help_text="Catégorie associée."
+        help_text="Catégorie associée.",
     )
 
     name = models.CharField(
-        max_length=100,
-        help_text="Nom de la technologie (ex: Django, React)."
+        max_length=100, help_text="Nom de la technologie (ex: Django, React)."
     )
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -1,20 +1,22 @@
 from django.contrib import messages
-from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 
-from apps.certifications.selectors.certifications_selectors import CertificationsSelectors
+from apps.certifications.selectors.certifications_selectors import (
+    CertificationsSelectors,
+)
 from apps.education.selectors.education_selectors import EducationSectionSelectors
 from apps.experiences.selectors.experiences_selectors import get_all_experiences
 from apps.skills.selectors.skills_selectors import SkillsSelectors
 from apps.techstack.selectors.techstack_selectors import TechStackCategorySelectors
-from apps.userprofile.services.userprofile_services import UserProfileService
-from apps.users.selectors.user_selectors import get_user_by_id
 from apps.userprofile.selectors.userprofile_selectors import (
     get_userprofile_by_id,
-    get_userprofile_by_user
+    get_userprofile_by_user,
 )
+from apps.userprofile.services.userprofile_services import UserProfileService
+from apps.users.selectors.user_selectors import get_user_by_id
 
 
 class UserProfileIndexView(View):
@@ -43,11 +45,10 @@ class UserProfileIndexView(View):
         """
         user_obj = get_user_by_id(user_id)
         userprofile = get_userprofile_by_user(user_obj)
-        userprofile.navbar_url = reverse_lazy('userprofile:index', kwargs={'user_id': user_id})
-        context = {
-            "user_obj": user_obj,
-            "userprofile": userprofile
-        }
+        userprofile.navbar_url = reverse_lazy(
+            "userprofile:index", kwargs={"user_id": user_id}
+        )
+        context = {"user_obj": user_obj, "userprofile": userprofile}
         return render(request, self.template_name, context)
 
 
@@ -66,13 +67,21 @@ class UserProfileView(View):
         userprofile = get_userprofile_by_user(user_obj)
         experiences = get_all_experiences(user_obj)
         skills = SkillsSelectors.get_all_skills(user_obj)
-        education_sections = EducationSectionSelectors.get_all_education_sections(user_obj)
-        tech_stack_categories = TechStackCategorySelectors.get_all_tech_stack_categories(user_obj)
+        education_sections = EducationSectionSelectors.get_all_education_sections(
+            user_obj
+        )
+        tech_stack_categories = (
+            TechStackCategorySelectors.get_all_tech_stack_categories(user_obj)
+        )
         certifications = CertificationsSelectors.get_certifications_for_user(user_obj)
 
         if not userprofile:
             messages.info(request, "Profil utilisateur non trouvé ou non configuré.")
-            return render(request, "userprofile/userprofile_not_found.html", {"user_obj": user_obj})
+            return render(
+                request,
+                "userprofile/userprofile_not_found.html",
+                {"user_obj": user_obj},
+            )
 
         context = {
             "user_obj": user_obj,
@@ -81,7 +90,7 @@ class UserProfileView(View):
             "tech_stack_categories": tech_stack_categories,
             "experiences": experiences,
             "education_sections": education_sections,
-            "certifications": certifications
+            "certifications": certifications,
         }
 
         return render(request, self.template_name, context)
@@ -125,7 +134,9 @@ class UserProfileAddView(View):
         """
         user_obj = get_user_by_id(user_id)
 
-        success, form, userprofile = UserProfileService.create(user_obj, request.POST, request.FILES)
+        success, form, userprofile = UserProfileService.create(
+            user_obj, request.POST, request.FILES
+        )
 
         if not success:
             messages.error(request, "Please correct the errors below.")
@@ -167,7 +178,9 @@ class UserProfileUpdateView(View):
 
     def post(self, request: HttpRequest, userprofile_id: int) -> HttpResponse:
         """Handle profile update submission."""
-        success, form, userprofile = UserProfileService.update(userprofile_id, request.POST, request.FILES)
+        success, form, userprofile = UserProfileService.update(
+            userprofile_id, request.POST, request.FILES
+        )
 
         if not success:
             messages.error(request, "Please correct the errors below.")
@@ -203,10 +216,7 @@ class UserProfileDeleteView(View):
         """
         userprofile = get_userprofile_by_id(userprofile_id)
 
-        context = {
-            "title": self.title,
-            "userprofile": userprofile
-        }
+        context = {"title": self.title, "userprofile": userprofile}
 
         return render(request, self.template_name, context)
 

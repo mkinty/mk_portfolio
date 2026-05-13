@@ -1,10 +1,16 @@
 from django.contrib import messages
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.views import View
 
-from apps.techstack.selectors.techstack_selectors import TechStackCategorySelectors, TechStackSelectors
-from apps.techstack.services.techstack_servives import TechStackCategoryServices, TechStackServices
+from apps.techstack.selectors.techstack_selectors import (
+    TechStackCategorySelectors,
+    TechStackSelectors,
+)
+from apps.techstack.services.techstack_servives import (
+    TechStackCategoryServices,
+    TechStackServices,
+)
 from apps.users.selectors.user_selectors import get_user_by_id
 
 
@@ -22,25 +28,31 @@ class TechStackCategoryAddView(View):
         """Display the creation form."""
         form, user_obj = TechStackCategoryServices.get_add_form(user_id)
 
-        return render(request, self.template_name, {"form": form, "user_obj": user_obj, "title": self.title})
+        return render(
+            request,
+            self.template_name,
+            {"form": form, "user_obj": user_obj, "title": self.title},
+        )
 
     def post(self, request, user_id):
         """Handle form submission."""
         user_obj = get_user_by_id(user_id)
 
         success, form, skill = TechStackCategoryServices.create(
-            user_obj,
-            request.POST,
-            request.FILES
+            user_obj, request.POST, request.FILES
         )
 
         if not success:
             messages.error(request, "Corrigez les erreurs.")
-            return render(request, self.template_name, {
-                "form": form,
-                "user_obj": user_obj,
-                "title": self.title,
-            })
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "user_obj": user_obj,
+                    "title": self.title,
+                },
+            )
 
         messages.success(request, "Catégorie de stack technique ajoutée.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
@@ -58,31 +70,39 @@ class TechStackCategoryUpdateView(View):
 
     def get(self, request, tech_category_id):
         """Show update form."""
-        form, tech_category = TechStackCategoryServices.get_update_form(tech_category_id)
-
-        return render(request, self.template_name, {
-            "form": form,
-            "tech_category": tech_category,
-            "user_obj": tech_category.user,
-            "title": self.title,
-        })
-
-    def post(self, request, tech_category_id):
-        """Handle update."""
-        success, form, tech_category = TechStackCategoryServices.update(
-            tech_category_id,
-            request.POST,
-            request.FILES
+        form, tech_category = TechStackCategoryServices.get_update_form(
+            tech_category_id
         )
 
-        if not success:
-            messages.error(request, "Corrigez les erreurs.")
-            return render(request, self.template_name, {
+        return render(
+            request,
+            self.template_name,
+            {
                 "form": form,
                 "tech_category": tech_category,
                 "user_obj": tech_category.user,
                 "title": self.title,
-            })
+            },
+        )
+
+    def post(self, request, tech_category_id):
+        """Handle update."""
+        success, form, tech_category = TechStackCategoryServices.update(
+            tech_category_id, request.POST, request.FILES
+        )
+
+        if not success:
+            messages.error(request, "Corrigez les erreurs.")
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "tech_category": tech_category,
+                    "user_obj": tech_category.user,
+                    "title": self.title,
+                },
+            )
 
         messages.success(request, "Catégorie de stack technique mise à jour.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
@@ -100,13 +120,19 @@ class TechStackCategoryDeleteView(View):
 
     def get(self, request, tech_category_id):
         """Show confirmation page."""
-        tech_category = TechStackCategorySelectors.get_techstack_category_by_id(tech_category_id)
+        tech_category = TechStackCategorySelectors.get_techstack_category_by_id(
+            tech_category_id
+        )
 
-        return render(request, self.template_name, {
-            "tech_category": tech_category,
-            "user_obj": tech_category.user,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "tech_category": tech_category,
+                "user_obj": tech_category.user,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, tech_category_id):
         """Delete experience."""
@@ -131,30 +157,36 @@ class TechStackAddView(View):
         """Display the creation form."""
         form, user_obj = TechStackServices.get_add_form(user_id)
 
-        return render(request, self.template_name, {
-            "form": form,
-            "user_obj": user_obj,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "user_obj": user_obj,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, user_id):
         """Handle form submission."""
         user_obj = get_user_by_id(user_id)
 
         success, form, skill = TechStackServices.create(
-            user_obj,
-            request.POST,
-            request.FILES
+            user_obj, request.POST, request.FILES
         )
 
         if not success:
             messages.error(request, "Corrigez les erreurs.")
 
-            return render(request, self.template_name, {
-                "form": form,
-                "user_obj": user_obj,
-                "title": self.title,
-            })
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "user_obj": user_obj,
+                    "title": self.title,
+                },
+            )
 
         messages.success(request, "Stack technique ajoutée.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
@@ -174,29 +206,35 @@ class TechStackUpdateView(View):
         """Show update form."""
         form, tech_stack = TechStackServices.get_update_form(tech_stack_id)
 
-        return render(request, self.template_name, {
-            "form": form,
-            "tech_stack": tech_stack,
-            "user_obj": tech_stack.user,
-            "title": self.title,
-        })
-
-    def post(self, request, tech_stack_id):
-        """Handle update."""
-        success, form, tech_stack = TechStackServices.update(
-            tech_stack_id,
-            request.POST,
-            request.FILES
-        )
-
-        if not success:
-            messages.error(request, "Corrigez les erreurs.")
-            return render(request, self.template_name, {
+        return render(
+            request,
+            self.template_name,
+            {
                 "form": form,
                 "tech_stack": tech_stack,
                 "user_obj": tech_stack.user,
                 "title": self.title,
-            })
+            },
+        )
+
+    def post(self, request, tech_stack_id):
+        """Handle update."""
+        success, form, tech_stack = TechStackServices.update(
+            tech_stack_id, request.POST, request.FILES
+        )
+
+        if not success:
+            messages.error(request, "Corrigez les erreurs.")
+            return render(
+                request,
+                self.template_name,
+                {
+                    "form": form,
+                    "tech_stack": tech_stack,
+                    "user_obj": tech_stack.user,
+                    "title": self.title,
+                },
+            )
 
         messages.success(request, "Stack technique mise à jour.")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
@@ -216,10 +254,14 @@ class TechStackDeleteView(View):
         """Show confirmation page."""
         tech_stack = TechStackSelectors.get_tech_stack_by_id(tech_stack_id)
 
-        return render(request, self.template_name, {
-            "tech_stack": tech_stack,
-            "title": self.title,
-        })
+        return render(
+            request,
+            self.template_name,
+            {
+                "tech_stack": tech_stack,
+                "title": self.title,
+            },
+        )
 
     def post(self, request, tech_stack_id):
         """Delete experience."""

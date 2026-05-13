@@ -1,13 +1,14 @@
-import pytest
-
 from datetime import date
+
+import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
-from apps.users.models import User
+
 from apps.project.models import (
     Project,
     ProjectCategory,
     Tag,
 )
+from apps.users.models import User
 
 
 @pytest.fixture
@@ -16,13 +17,11 @@ def user_fixture(db):
         email="test@test.com",
         password="password123",
         first_name="Moustapha",
-        last_name="KINTY"
+        last_name="KINTY",
     )
 
     avatar = SimpleUploadedFile(
-        "avatar.jpg",
-        b"fake-image-content",
-        content_type="image/jpeg"
+        "avatar.jpg", b"fake-image-content", content_type="image/jpeg"
     )
 
     # récupérer le profil créé automatiquement
@@ -31,11 +30,7 @@ def user_fixture(db):
     profile.title = "Data Analyst"
     profile.position = "Consultant BI"
 
-    profile.avatar.save(
-        "avatar.jpg",
-        avatar,
-        save=True
-    )
+    profile.avatar.save("avatar.jpg", avatar, save=True)
 
     profile.save()
 
@@ -44,33 +39,21 @@ def user_fixture(db):
 
 @pytest.fixture
 def category_fixture(db, user_fixture):
-    return ProjectCategory.objects.create(
-        user=user_fixture,
-        name="Data"
-    )
+    return ProjectCategory.objects.create(user=user_fixture, name="Data")
 
 
 @pytest.fixture
 def data_tag_fixture(db):
-    return Tag.objects.create(
-        name="Data"
-    )
+    return Tag.objects.create(name="Data")
 
 
 @pytest.fixture
 def dev_tag_fixture(db):
-    return Tag.objects.create(
-        name="Development"
-    )
+    return Tag.objects.create(name="Development")
 
 
 @pytest.fixture
-def data_project_fixture(
-        db,
-        user_fixture,
-        category_fixture,
-        data_tag_fixture
-):
+def data_project_fixture(db, user_fixture, category_fixture, data_tag_fixture):
     project = Project.objects.create(
         user=user_fixture,
         category=category_fixture,
@@ -84,12 +67,7 @@ def data_project_fixture(
 
 
 @pytest.fixture
-def dev_project_fixture(
-        db,
-        user_fixture,
-        category_fixture,
-        dev_tag_fixture
-):
+def dev_project_fixture(db, user_fixture, category_fixture, dev_tag_fixture):
     project = Project.objects.create(
         user=user_fixture,
         category=category_fixture,

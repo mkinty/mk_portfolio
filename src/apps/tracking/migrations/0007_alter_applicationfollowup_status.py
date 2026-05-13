@@ -4,15 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('tracking', '0006_alter_jobapplication_application_status'),
+        ("tracking", "0006_alter_jobapplication_application_status"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='applicationfollowup',
-            name='status',
-            field=models.CharField(choices=[('pending', 'En attente'), ('completed', 'Terminé'), ('cancelled', 'Annulé')], default='pending', max_length=20, verbose_name='Statut'),
+            model_name="applicationfollowup",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("pending", "En attente"),
+                    ("completed", "Terminé"),
+                    ("cancelled", "Annulé"),
+                ],
+                default="pending",
+                max_length=20,
+                verbose_name="Statut",
+            ),
         ),
     ]

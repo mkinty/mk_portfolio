@@ -10,7 +10,8 @@ class TestCertificationsAddView:
 
     def test_add_view_get(self, client, user):
         """
-        Test that the add view returns a 200 status code and includes a form in the context.
+        Test that the add view returns a 200 status code
+        and includes a form in the context.
         """
         url = reverse("certifications:add", args=[user.id])
         response = client.get(url)
@@ -20,7 +21,8 @@ class TestCertificationsAddView:
 
     def test_add_view_post_success(self, client, user):
         """
-        Test that the add view returns a 200 status code when a valid certification is created.
+        Test that the add view returns a 200 status code
+        when a valid certification is created.
         """
         url = reverse("certifications:add", args=[user.id])
         response = client.post(url, data={"name": "Cert"})
@@ -29,7 +31,8 @@ class TestCertificationsAddView:
 
     def test_add_view_post_error(self, client, user):
         """
-        Test that the add view returns a 200 status code when an invalid certification is created.
+        Test that the add view returns a 200 status code
+        when an invalid certification is created.
         """
         url = reverse("certifications:add", args=[user.id])
         response = client.post(url, data={})
@@ -55,7 +58,8 @@ class TestCertificationsUpdateView:
 
     def test_update_view_post_success(self, client, certification):
         """
-        Test that the update view returns a 200 status code when a valid certification is updated.
+        Test that the update view returns a 200 status code
+        when a valid certification is updated.
         """
         url = reverse("certifications:update", args=[certification.id])
         response = client.post(url, data={"name": "Updated"})
@@ -64,7 +68,8 @@ class TestCertificationsUpdateView:
 
     def test_update_view_post_error(self, client, certification):
         """
-        Test that the update view returns a 200 status code when an invalid certification is updated.
+        Test that the update view returns a 200 status code
+        when an invalid certification is updated.
         """
         url = reverse("certifications:update", args=[certification.id])
         response = client.post(url, data={})
@@ -90,7 +95,8 @@ class TestCertificationsDeleteView:
 
     def test_delete_view_post_success(self, client, certification):
         """
-        Test that the delete view returns a 200 status code when a valid certification is deleted.
+        Test that the delete view returns a 200 status code
+        when a valid certification is deleted.
         """
         url = reverse("certifications:delete", args=[certification.id])
         response = client.post(url)

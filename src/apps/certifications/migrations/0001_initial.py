@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,16 +14,45 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Certification',
+            name="Certification",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Le nom de la certification', max_length=255)),
-                ('issuer', models.CharField(blank=True, help_text="L'organisme qui a délivré la certification ou lien vers le certificat", max_length=255)),
-                ('order', models.IntegerField(default=0)),
-                ('user', models.ForeignKey(help_text='Utilisateur propriétaire de la certification', on_delete=django.db.models.deletion.CASCADE, related_name='certifications', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Le nom de la certification", max_length=255
+                    ),
+                ),
+                (
+                    "issuer",
+                    models.CharField(
+                        blank=True,
+                        help_text="L'organisme qui a délivré la certification "
+                        "ou lien vers le certificat",
+                        max_length=255,
+                    ),
+                ),
+                ("order", models.IntegerField(default=0)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        help_text="Utilisateur propriétaire de la certification",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="certifications",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['order'],
+                "ordering": ["order"],
             },
         ),
     ]

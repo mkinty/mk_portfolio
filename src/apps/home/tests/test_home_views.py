@@ -10,20 +10,19 @@ class TestHomePageView:
     """
 
     def test_home_page_returns_success_status(
-            self,
-            client,
-            user_fixture,
-            data_project_fixture,
-            dev_project_fixture,
-            monkeypatch
+        self,
+        client,
+        user_fixture,
+        data_project_fixture,
+        dev_project_fixture,
+        monkeypatch,
     ):
         """
         Vérifie que la page d'accueil retourne un status 200.
         """
 
         monkeypatch.setattr(
-            "apps.home.web.views.get_user_by_email",
-            lambda email: user_fixture
+            "apps.home.web.views.get_user_by_email", lambda email: user_fixture
         )
 
         response = client.get(reverse("home:home-page"))
@@ -31,20 +30,19 @@ class TestHomePageView:
         assert response.status_code == 200
 
     def test_home_page_uses_correct_template(
-            self,
-            client,
-            user_fixture,
-            data_project_fixture,
-            dev_project_fixture,
-            monkeypatch
+        self,
+        client,
+        user_fixture,
+        data_project_fixture,
+        dev_project_fixture,
+        monkeypatch,
     ):
         """
         Vérifie que le bon template est utilisé.
         """
 
         monkeypatch.setattr(
-            "apps.home.web.views.get_user_by_email",
-            lambda email: user_fixture
+            "apps.home.web.views.get_user_by_email", lambda email: user_fixture
         )
 
         response = client.get(reverse("home:home-page"))
@@ -54,20 +52,19 @@ class TestHomePageView:
         ]
 
     def test_home_page_contains_context_data(
-            self,
-            client,
-            user_fixture,
-            data_project_fixture,
-            dev_project_fixture,
-            monkeypatch
+        self,
+        client,
+        user_fixture,
+        data_project_fixture,
+        dev_project_fixture,
+        monkeypatch,
     ):
         """
         Vérifie les données envoyées au template.
         """
 
         monkeypatch.setattr(
-            "apps.home.web.views.get_user_by_email",
-            lambda email: user_fixture
+            "apps.home.web.views.get_user_by_email", lambda email: user_fixture
         )
 
         response = client.get(reverse("home:home-page"))
@@ -84,18 +81,14 @@ class TestContactPageView:
     """
 
     def test_contact_page_get_returns_success_status(
-            self,
-            client,
-            user_fixture,
-            monkeypatch
+        self, client, user_fixture, monkeypatch
     ):
         """
         Vérifie que la page contact retourne un status 200.
         """
 
         monkeypatch.setattr(
-            "apps.home.web.views.get_user_by_email",
-            lambda email: user_fixture
+            "apps.home.web.views.get_user_by_email", lambda email: user_fixture
         )
 
         response = client.get(reverse("home:contact-page"))
@@ -103,18 +96,14 @@ class TestContactPageView:
         assert response.status_code == 200
 
     def test_contact_page_uses_correct_template(
-            self,
-            client,
-            user_fixture,
-            monkeypatch
+        self, client, user_fixture, monkeypatch
     ):
         """
         Vérifie le template utilisé.
         """
 
         monkeypatch.setattr(
-            "apps.home.web.views.get_user_by_email",
-            lambda email: user_fixture
+            "apps.home.web.views.get_user_by_email", lambda email: user_fixture
         )
 
         response = client.get(reverse("home:contact-page"))
@@ -123,11 +112,7 @@ class TestContactPageView:
             template.name for template in response.templates
         ]
 
-    def test_contact_page_post_without_message_returns_error(
-            self,
-            client,
-            monkeypatch
-    ):
+    def test_contact_page_post_without_message_returns_error(self, client, monkeypatch):
         """
         Vérifie qu'une erreur est affichée si le message est vide.
         """
@@ -139,7 +124,7 @@ class TestContactPageView:
                 "last_name": "KINTY",
                 "email": "test@test.com",
                 "message": "",
-            }
+            },
         )
 
         assert response.status_code == 200
@@ -151,29 +136,23 @@ class TestContactPageView:
             for message in messages
         )
 
-    def test_contact_page_post_send_email_success(
-            self,
-            client,
-            monkeypatch
-    ):
+    def test_contact_page_post_send_email_success(self, client, monkeypatch):
         """
         Vérifie que l'email est envoyé correctement.
         """
 
-
         mocked_send_email = []
 
         def fake_send_email(subject, message, recipients):
-            mocked_send_email.append({
-                "subject": subject,
-                "message": message,
-                "recipients": recipients,
-            })
+            mocked_send_email.append(
+                {
+                    "subject": subject,
+                    "message": message,
+                    "recipients": recipients,
+                }
+            )
 
-        monkeypatch.setattr(
-            "apps.home.web.views.send_email",
-            fake_send_email
-        )
+        monkeypatch.setattr("apps.home.web.views.send_email", fake_send_email)
 
         response = client.post(
             reverse("home:contact-page"),
@@ -182,24 +161,19 @@ class TestContactPageView:
                 "last_name": "KINTY",
                 "email": "test@test.com",
                 "message": "Bonjour",
-            }
+            },
         )
 
         assert response.status_code == 200
 
         assert len(mocked_send_email) == 1
 
-        assert mocked_send_email[0]["subject"] == (
-            "Contacte depuis votre site web"
-        )
+        assert mocked_send_email[0]["subject"] == ("Contacte depuis votre site web")
 
-        assert mocked_send_email[0]["recipients"] == [
-            "kintymoustapha@gmail.com"
-        ]
+        assert mocked_send_email[0]["recipients"] == ["kintymoustapha@gmail.com"]
 
         messages = list(get_messages(response.wsgi_request))
 
         assert any(
-            message.message == "Message envoyé avec succès!"
-            for message in messages
+            message.message == "Message envoyé avec succès!" for message in messages
         )

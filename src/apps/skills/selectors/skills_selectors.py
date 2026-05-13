@@ -13,7 +13,7 @@ class SkillsSelectors:
 
     @staticmethod
     def get_skill_by_id(skill_id):
-        """ Retrieve an experience by its unique identifier. """
+        """Retrieve an experience by its unique identifier."""
         try:
             return Skills.objects.get(pk=skill_id)
         except Skills.DoesNotExist:

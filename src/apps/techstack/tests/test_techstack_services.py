@@ -1,7 +1,10 @@
 import pytest
 
-from apps.techstack.models import TechStackCategory, TechStack
-from apps.techstack.services.techstack_servives import TechStackCategoryServices, TechStackServices
+from apps.techstack.models import TechStack, TechStackCategory
+from apps.techstack.services.techstack_servives import (
+    TechStackCategoryServices,
+    TechStackServices,
+)
 
 
 @pytest.mark.django_db
@@ -42,9 +45,7 @@ class TestTechStackCategoryServices:
         assert form.errors
 
     def test_get_update_form(self, tech_category):
-        form, category = TechStackCategoryServices.get_update_form(
-            tech_category.id
-        )
+        form, category = TechStackCategoryServices.get_update_form(tech_category.id)
 
         assert form.instance == tech_category
         assert category == tech_category
@@ -56,9 +57,7 @@ class TestTechStackCategoryServices:
         }
 
         success, form, category = TechStackCategoryServices.update(
-            tech_category.id,
-            data,
-            {}
+            tech_category.id, data, {}
         )
 
         category.refresh_from_db()
@@ -97,11 +96,7 @@ class TestTechStackServices:
             "category": category,
         }
 
-        success, form, techstack = TechStackServices.create(
-            user,
-            data,
-            {}
-        )
+        success, form, techstack = TechStackServices.create(user, data, {})
 
         assert success is True
         assert techstack is not None
@@ -115,11 +110,7 @@ class TestTechStackServices:
             "name": "",  # invalide
         }
 
-        success, form, techstack = TechStackServices.create(
-            tech_category,
-            data,
-            {}
-        )
+        success, form, techstack = TechStackServices.create(tech_category, data, {})
 
         assert success is False
         assert techstack is None
@@ -137,11 +128,7 @@ class TestTechStackServices:
             "category": tech_stack.category.id,
         }
 
-        success, form, techstack = TechStackServices.update(
-            tech_stack.id,
-            data,
-            {}
-        )
+        success, form, techstack = TechStackServices.update(tech_stack.id, data, {})
 
         techstack.refresh_from_db()
 

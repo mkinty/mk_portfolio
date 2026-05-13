@@ -3,7 +3,6 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 from config.settings import settings
 
-
 # Create your models here.
 
 
@@ -11,19 +10,16 @@ class ProjectCategory(models.Model):
     """
     Catégorie de projet
     """
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="project_categories",
-        help_text="Utilisateur propriétaire des catégories de projets."
+        help_text="Utilisateur propriétaire des catégories de projets.",
     )
-    name = models.CharField(
-        max_length=100,
-        help_text="Nom de la catégorie de projet."
-    )
+    name = models.CharField(max_length=100, help_text="Nom de la catégorie de projet.")
     created_at = models.DateTimeField(
-        auto_now_add=True,
-        help_text="Date de création de la catégorie."
+        auto_now_add=True, help_text="Date de création de la catégorie."
     )
 
     def __str__(self):
@@ -34,11 +30,8 @@ class Tag(models.Model):
     """
     Tag du projet
     """
-    name = models.CharField(
-        max_length=50,
-        unique=True,
-        help_text="Nom du tag"
-    )
+
+    name = models.CharField(max_length=50, unique=True, help_text="Nom du tag")
 
     def __str__(self):
         return self.name
@@ -49,58 +42,37 @@ class Project(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="user_projects",
-        help_text="Utilisateur propriétaire des projets."
+        help_text="Utilisateur propriétaire des projets.",
     )
-    title = models.CharField(
-        max_length=200,
-        help_text="Nom du projet."
-    )
+    title = models.CharField(max_length=200, help_text="Nom du projet.")
     category = models.ForeignKey(
-        ProjectCategory,
-        on_delete=models.CASCADE,
-        related_name="projects"
+        ProjectCategory, on_delete=models.CASCADE, related_name="projects"
     )
-    start_date = models.DateField(
-        help_text="Date de debut du projet"
-    )
+    start_date = models.DateField(help_text="Date de debut du projet")
     end_date = models.DateField(
-        null=True,
-        blank=True,
-        help_text="Date de fin du projet"
+        null=True, blank=True, help_text="Date de fin du projet"
     )
     is_active = models.BooleanField(
-        default=True,
-        help_text="Statut du projet (actif/inactif)"
+        default=True, help_text="Statut du projet (actif/inactif)"
     )
     created_at = models.DateTimeField(
-        auto_now_add=True,
-        help_text="Date de création du projet"
+        auto_now_add=True, help_text="Date de création du projet"
     )
     updated_at = models.DateTimeField(
-        auto_now=True,
-        help_text="Date de dernière mise à jour du projet"
+        auto_now=True, help_text="Date de dernière mise à jour du projet"
     )
     source_code_url = models.URLField(
-        blank=True,
-        null=True,
-        help_text="URL du code source du projet"
+        blank=True, null=True, help_text="URL du code source du projet"
     )
     image = models.ImageField(
-        upload_to='projects/images/',
-        blank=True,
-        null=True,
-        help_text="Image du projet"
+        upload_to="projects/images/", blank=True, null=True, help_text="Image du projet"
     )
-    tags = models.ManyToManyField(
-        Tag,
-        blank=True,
-        help_text="Tags du projet"
-    )
+    tags = models.ManyToManyField(Tag, blank=True, help_text="Tags du projet")
     description = CKEditor5Field(
         "Content",
         config_name="default",
         blank=True,
-        help_text="Détails complets du projet."
+        help_text="Détails complets du projet.",
     )
 
     class Meta:
@@ -111,4 +83,4 @@ class Project(models.Model):
 
     @property
     def is_development(self):
-        return self.tags.filter(name__iexact='development').exists()
+        return self.tags.filter(name__iexact="development").exists()

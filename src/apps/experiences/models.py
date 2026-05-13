@@ -17,45 +17,39 @@ class Experience(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="experiences",
-        help_text="The user to whom this professional experience belongs."
+        help_text="The user to whom this professional experience belongs.",
     )
     title = models.CharField(
-        max_length=150,
-        help_text="Job title or role held by the user."
+        max_length=150, help_text="Job title or role held by the user."
     )
     company = models.CharField(
-        max_length=150,
-        help_text="Name of the company or organization."
+        max_length=150, help_text="Name of the company or organization."
     )
     location = models.CharField(
         max_length=150,
         blank=True,
-        help_text="Location of the job (city, country, or remote)."
+        help_text="Location of the job (city, country, or remote).",
     )
-    start_date = models.DateField(
-        help_text="Start date of the experience."
-    )
+    start_date = models.DateField(help_text="Start date of the experience.")
     end_date = models.DateField(
         null=True,
         blank=True,
-        help_text="End date of the experience. Leave empty if ongoing."
+        help_text="End date of the experience. Leave empty if ongoing.",
     )
     is_current = models.BooleanField(
         default=False,
-        help_text="Indicates whether this position is the user's current job."
+        help_text="Indicates whether this position is the user's current job.",
     )
     description = CKEditor5Field(
         "Content",
         config_name="default",
         blank=True,
-        help_text="Detailed description of responsibilities and achievements."
+        help_text="Detailed description of responsibilities and achievements.",
     )
 
     def clean(self):
         if self.end_date and self.end_date < self.start_date:
-            raise ValidationError(
-                "Date de fin doit être après la date de début."
-            )
+            raise ValidationError("Date de fin doit être après la date de début.")
 
     def save(self, *args, **kwargs):
         self.clean()

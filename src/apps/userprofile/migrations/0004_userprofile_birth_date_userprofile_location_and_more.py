@@ -4,25 +4,30 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('userprofile', '0003_alter_userprofile_avatar_alter_userprofile_bio_and_more'),
+        ("userprofile", "0003_alter_userprofile_avatar_alter_userprofile_bio_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='birth_date',
-            field=models.DateField(blank=True, help_text='Birth date of the user.', null=True),
+            model_name="userprofile",
+            name="birth_date",
+            field=models.DateField(
+                blank=True, help_text="Birth date of the user.", null=True
+            ),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='location',
-            field=models.CharField(blank=True, help_text='Location of the user.', max_length=150),
+            model_name="userprofile",
+            name="location",
+            field=models.CharField(
+                blank=True, help_text="Location of the user.", max_length=150
+            ),
         ),
         migrations.AddField(
-            model_name='userprofile',
-            name='phone',
-            field=models.CharField(blank=True, help_text='Phone number of the user.', max_length=20),
+            model_name="userprofile",
+            name="phone",
+            field=models.CharField(
+                blank=True, help_text="Phone number of the user.", max_length=20
+            ),
         ),
     ]

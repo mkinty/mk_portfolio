@@ -7,7 +7,6 @@ from apps.project.models import Project
 
 @pytest.mark.django_db
 class TestProjectCategoryModel:
-
     def test_create_project_category(self, category, user):
         assert category.id is not None
         assert category.name == "Web"
@@ -23,7 +22,6 @@ class TestProjectCategoryModel:
 
 @pytest.mark.django_db
 class TestProjectModel:
-
     def test_create_project(self, project, user, category):
         assert project.id is not None
         assert project.title == "Portfolio"

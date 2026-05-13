@@ -1,9 +1,5 @@
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group, Permission
-from django.contrib.auth.models import BaseUserManager
-
-
-
 
 
 class UserManager(BaseUserManager):
@@ -97,5 +93,3 @@ class User(AbstractUser):
             str: Full name if available, otherwise email.
         """
         return self.get_full_name().strip() or self.email
-
-

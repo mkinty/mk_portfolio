@@ -7,7 +7,6 @@ from apps.users.models import User
 token_generator = PasswordResetTokenGenerator()
 
 
-
 def generate_reset_token(user: Optional[User]) -> str:
     """
     Generate a secure password reset token for the given user.
@@ -27,7 +26,6 @@ def generate_reset_token(user: Optional[User]) -> str:
         reset_link = f"https://example.com/reset-password/{user.pk}/{token}/"
     """
     return token_generator.make_token(user)
-
 
 
 def verify_token(user: Optional[User], token: str) -> bool:

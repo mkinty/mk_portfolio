@@ -1,5 +1,8 @@
 from apps.education.forms import EducationForm, EducationSectionForm
-from apps.education.selectors.education_selectors import EducationSectionSelectors, EducationSelectors
+from apps.education.selectors.education_selectors import (
+    EducationSectionSelectors,
+    EducationSelectors,
+)
 from apps.users.selectors.user_selectors import get_user_by_id
 
 
@@ -7,6 +10,7 @@ class EducationSectionServices:
     """
     Services for managing education sections.
     """
+
     @staticmethod
     def get_add_form(user_id):
         """
@@ -36,7 +40,9 @@ class EducationSectionServices:
         """
         Get the form for updating an existing education section.
         """
-        education_section = EducationSectionSelectors.get_education_section_by_id(education_section_id)
+        education_section = EducationSectionSelectors.get_education_section_by_id(
+            education_section_id
+        )
         form = EducationSectionForm(instance=education_section)
         return form, education_section
 
@@ -45,7 +51,9 @@ class EducationSectionServices:
         """
         Update an existing education section.
         """
-        education_section = EducationSectionSelectors.get_education_section_by_id(education_section_id)
+        education_section = EducationSectionSelectors.get_education_section_by_id(
+            education_section_id
+        )
         form = EducationSectionForm(data, files, instance=education_section)
         if not form.is_valid():
             return False, form, education_section
@@ -57,7 +65,9 @@ class EducationSectionServices:
         """
         Delete an existing education section.
         """
-        education_section = EducationSectionSelectors.get_education_section_by_id(education_section_id)
+        education_section = EducationSectionSelectors.get_education_section_by_id(
+            education_section_id
+        )
         if not education_section:
             return False
         education_section.delete()
@@ -74,7 +84,9 @@ class EducationServices:
         """
         Get the form for adding a new education item.
         """
-        education_section = EducationSectionSelectors.get_education_section_by_id(education_section_id)
+        education_section = EducationSectionSelectors.get_education_section_by_id(
+            education_section_id
+        )
 
         form = EducationForm()
         return form, education_section

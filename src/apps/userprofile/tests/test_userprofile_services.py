@@ -32,9 +32,7 @@ class TestUserProfileService:
         }
 
         success, form, profile = UserProfileService.create(
-            user=user,
-            data=data,
-            files=None
+            user=user, data=data, files=None
         )
 
         assert success is True
@@ -63,9 +61,7 @@ class TestUserProfileService:
         }
 
         success, form, updated_profile = UserProfileService.update(
-            userprofile_id=user_profile.id,
-            data=data,
-            files=None
+            userprofile_id=user_profile.id, data=data, files=None
         )
 
         updated_profile.refresh_from_db()

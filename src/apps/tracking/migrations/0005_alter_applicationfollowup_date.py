@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('tracking', '0004_alter_applicationfollowup_status_and_more'),
+        ("tracking", "0004_alter_applicationfollowup_status_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='applicationfollowup',
-            name='date',
-            field=models.DateField(verbose_name='Date'),
+            model_name="applicationfollowup",
+            name="date",
+            field=models.DateField(verbose_name="Date"),
         ),
     ]

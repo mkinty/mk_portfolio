@@ -1,4 +1,4 @@
-from apps.techstack.models import TechStackCategory, TechStack
+from apps.techstack.models import TechStack, TechStackCategory
 
 
 class TechStackCategorySelectors:
@@ -17,11 +17,7 @@ class TechStackCategorySelectors:
     @staticmethod
     def get_all_tech_stack_categories(user):
         """Retrieve all tech stack categories for a user"""
-        return (
-            user.tech_stack_categories
-            .all()
-            .prefetch_related("techs")
-        )
+        return user.tech_stack_categories.all().prefetch_related("techs")
 
 
 class TechStackSelectors:

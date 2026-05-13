@@ -9,12 +9,8 @@ https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
 
 import os
 
-import logging
-logging.basicConfig(level=logging.DEBUG)
-
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.dev")
 
 from django.core.wsgi import get_wsgi_application
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.dev')
 
 application = get_wsgi_application()

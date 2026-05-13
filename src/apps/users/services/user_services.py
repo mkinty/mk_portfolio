@@ -3,7 +3,9 @@ from typing import Optional
 from apps.users.models import User
 
 
-def create_user_account(first_name: str, last_name: str, email: str, password: str) -> Optional[User]:
+def create_user_account(
+    first_name: str, last_name: str, email: str, password: str
+) -> Optional[User]:
     """
     Create a new inactive user account.
 
