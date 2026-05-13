@@ -153,11 +153,7 @@ jobs:
             touch tmp/restart.txt
             
             echo "=== STOP OLD CELERY ==="
-            CELERY_PIDS=$(pgrep -f "celery -A config worker" || true)
-            
-            if [ ! -z "$CELERY_PIDS" ]; then
-              echo "$CELERY_PIDS" | xargs kill -9 || true
-            fi
+            pkill -f "celery -A config worker" || true
             
             echo "=== CHECK REDIS ==="
             redis-cli ping || redis-server --daemonize yes
