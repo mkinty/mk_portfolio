@@ -133,9 +133,11 @@ jobs:
             cd ~/mkinty/mk_portfolio
 
             echo "=== GIT FORCE SYNC ==="
-            git fetch origin develop:develop
+            git fetch origin
+
             git checkout develop
-            git reset --hard develop
+            
+            git reset --hard origin/develop
 
             echo "=== ACTIVATE VENV ==="
             source ~/virtualenv/mkinty/mk_portfolio/src/3.11/bin/activate
