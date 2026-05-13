@@ -124,6 +124,9 @@ jobs:
           key: ${{ secrets.PLANETHOSTER_SSH_KEY }}
           port: ${{ secrets.PLANETHOSTER_PORT }}
 
+          timeout: 60s
+          command_timeout: 30m
+
           script: |
 
             set -e

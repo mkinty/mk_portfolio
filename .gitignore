@@ -34,3 +34,8 @@ src/config/settings/prod.py
 .coverage
 htmlcov/
 .coverage.*
+
+celery.log
+dump.rdb
+tmp/
+*.pyc
