@@ -156,10 +156,19 @@ jobs:
             echo "=== RESTART PASSENGER ==="
             touch tmp/restart.txt
             
-            echo "=== REDIS AND CELERY ==="
+            echo "=== STOP OLD CELERY ==="
+            pkill -f "celery -A config worker" || true
             
-            chmod +x start_services.sh
+            echo "=== STOP OLD REDIS ==="
+            pkill -f "redis-server" || true
             
-            ./start_services.sh
+            echo "=== START NEW REDIS SERVICES ==="
+            redis-server --daemonize yes
+            
+            echo "=== START NEW CELERY SERVICES ==="
+            nohup python -m celery -A config worker \
+            -l info \
+            --concurrency=2 \
+            > celery.log 2>&1 &
 
             echo "=== STAGING DEPLOY SUCCESS ==="
