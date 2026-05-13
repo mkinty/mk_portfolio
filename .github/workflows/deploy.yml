@@ -148,3 +148,56 @@ jobs:
         with:
           name: coverage-report
           path: src/coverage.xml
+
+  ########################
+  # DEPLOY STAGING
+  ########################
+  deploy_staging:
+    needs: tests
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Deploy to PlanetHoster Staging
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PLANETHOSTER_HOST }}
+          username: ${{ secrets.PLANETHOSTER_USER }}
+          key: ${{ secrets.PLANETHOSTER_SSH_KEY }}
+
+          script: |
+
+            set -e
+
+            echo "=== STAGING DEPLOY START ==="
+
+            cd ~/mkinty/mk_portfolio
+
+            git pull origin develop
+
+            source ~/virtualenv/mkinty/mk_portfolio/src/3.11/bin/activate
+
+            cd src
+
+            pip install -r requirements.txt
+
+            python manage.py migrate --noinput
+
+            python manage.py collectstatic --noinput
+
+            touch tmp/restart.txt
+
+            pkill -f redis-server
+
+            pkill -f celery || true
+
+            redis-server --daemonize yes
+
+            nohup python -m celery \
+              -A config worker \
+              -l info \
+              --concurrency=2 \
+              > celery.log 2>&1 &
+
+            echo "=== STAGING DEPLOY SUCCESS ==="
