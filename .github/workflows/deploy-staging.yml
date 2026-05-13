@@ -132,9 +132,7 @@ jobs:
 
             cd ~/mkinty/mk_portfolio
 
-            echo "=== GIT PULL ==="
             echo "=== GIT FORCE SYNC ==="
-
             git fetch origin develop:develop
             git checkout develop
             git reset --hard develop
