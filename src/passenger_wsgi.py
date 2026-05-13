@@ -1,1 +1,1 @@
-from config.wsgi import application  # noqa: E402
+from config.wsgi import application  # noqa: F401
