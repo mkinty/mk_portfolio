@@ -156,8 +156,6 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
 
-    if: github.ref == 'refs/heads/develop'
-
     steps:
       - name: Deploy to PlanetHoster Staging
         uses: appleboy/ssh-action@v1.0.3
@@ -165,6 +163,7 @@ jobs:
           host: ${{ secrets.PLANETHOSTER_HOST }}
           username: ${{ secrets.PLANETHOSTER_USER }}
           key: ${{ secrets.PLANETHOSTER_SSH_KEY }}
+          port: ${{ secrets.PLANETHOSTER_PORT }}
 
           script: |
 
