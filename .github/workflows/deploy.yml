@@ -1,4 +1,4 @@
-name: Django SaaS CI/CD
+name: Portfolio SaaS CI/CD
 
 on:
   push:
