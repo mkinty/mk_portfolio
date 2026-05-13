@@ -152,11 +152,10 @@ jobs:
             echo "=== RESTART PASSENGER ==="
             touch tmp/restart.txt
             
-            echo "=== STOP OLD CELERY ==="
-            ps aux | grep '[c]elery'
-
-            for pid in $(ps aux | grep '[c]elery' | awk '{print $2}'); do
-              kill -9 "$pid" || true
-            done
+            echo "=== REDIS AND CELERY ==="
+            
+            chmod +x start_services.
+            
+            ./start_services.sh
 
             echo "=== STAGING DEPLOY SUCCESS ==="

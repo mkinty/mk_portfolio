@@ -6,6 +6,12 @@
 # shellcheck disable=SC1090
 source ~/virtualenv/mkinty/mk_portfolio/src/3.11/bin/activate
 
+# Supprimer les anciens processus celery
+pkill -f "celery -A config worker" || true
+
+# Supprimer les anciens processus redis
+pkill -f "redis-server" || true
+
 # Lancer le serveur redis en arriere plan
 redis-server --daemonize yes
 
