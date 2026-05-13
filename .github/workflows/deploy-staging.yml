@@ -133,8 +133,11 @@ jobs:
             cd ~/mkinty/mk_portfolio
 
             echo "=== GIT PULL ==="
-            git fetch origin develop
-            git reset --hard origin/develop
+            echo "=== GIT FORCE SYNC ==="
+
+            git fetch origin develop:develop
+            git checkout develop
+            git reset --hard develop
 
             echo "=== ACTIVATE VENV ==="
             source ~/virtualenv/mkinty/mk_portfolio/src/3.11/bin/activate
@@ -155,7 +158,7 @@ jobs:
             
             echo "=== REDIS AND CELERY ==="
             
-            chmod +x start_services.
+            chmod +x start_services.sh
             
             ./start_services.sh
 
