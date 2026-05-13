@@ -176,10 +176,11 @@ jobs:
             git pull origin develop
 
             source ~/virtualenv/mkinty/mk_portfolio/src/3.11/bin/activate
-
-            cd src
-
+            
+            # INSTALL DEPENDENCIES
             pip install -r requirements.txt
+            
+            cd src
 
             python manage.py migrate --noinput
 
