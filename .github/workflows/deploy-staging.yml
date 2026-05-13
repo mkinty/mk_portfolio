@@ -153,6 +153,10 @@ jobs:
             touch tmp/restart.txt
             
             echo "=== STOP OLD CELERY ==="
-            pkill -f "celery -A config worker" || true
+            ps aux | grep '[c]elery'
+
+            for pid in $(ps aux | grep '[c]elery' | awk '{print $2}'); do
+              kill -9 "$pid" || true
+            done
 
             echo "=== STAGING DEPLOY SUCCESS ==="
