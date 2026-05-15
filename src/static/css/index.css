@@ -1315,7 +1315,7 @@ textarea::placeholder {
 .contact .author {
   width: 50rem;
   padding: 2.5rem;
-  background: var(--White);
+  background: var(--Silver);
   border-radius: 0.5rem;
 }
 .contact-content {
@@ -1328,7 +1328,7 @@ textarea::placeholder {
   gap: 1rem;
   padding: 0 2.5rem;
   background: var(--White);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1.5px solid var(--Dark);
   border-radius: 0.5rem;
 }
 

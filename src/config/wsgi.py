@@ -9,7 +9,10 @@ https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
 
 import os
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.dev")
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    os.getenv("DJANGO_SETTINGS_MODULE", "config.settings.dev"),
+)
 
 from django.core.wsgi import get_wsgi_application
 

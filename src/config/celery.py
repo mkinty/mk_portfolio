@@ -3,7 +3,10 @@ import os
 from celery import Celery
 
 # Définit le module de settings Django à utiliser
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.dev")
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE",
+    os.getenv("DJANGO_SETTINGS_MODULE", "config.settings.dev"),
+)
 
 # Crée l'application Celery
 app = Celery("portfolio")

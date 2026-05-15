@@ -1,0 +1,250 @@
+name: Portfolio SaaS CI/CD - Deploy Staging
+
+on:
+  push:
+    branches:
+      - develop
+
+env:
+  PYTHON_VERSION: "3.11"
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+
+  ########################
+  # TESTS & QUALITY
+  ########################
+
+  tests:
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DJANGO_SETTINGS_MODULE: config.settings.test
+      SECRET_KEY: test-secret-key
+      CELERY_TASK_ALWAYS_EAGER: "True"
+      REDIS_URL: redis://localhost:6379/0
+
+    steps:
+
+      ###################################
+      # CHECKOUT
+      ###################################
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      ###################################
+      # PYTHON
+      ###################################
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      ###################################
+      # CACHE
+      ###################################
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      ###################################
+      # INSTALL
+      ###################################
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+          pip install -r requirements.txt
+
+          pip install \
+            pytest \
+            pytest-django \
+            pytest-cov \
+            coverage \
+            ruff
+
+      ###################################
+      # RUFF
+      ###################################
+
+      - name: Run Ruff
+        run: |
+          ruff check .
+
+      ###################################
+      # FORMAT CHECK
+      ###################################
+
+      - name: Run Ruff Format Check
+        run: |
+          ruff format . --check
+
+      ###################################
+      # DJANGO CHECKS
+      ###################################
+
+      - name: Run Django checks
+        run: |
+          cd src
+          python manage.py check
+
+      ###################################
+      # MIGRATIONS
+      ###################################
+
+      - name: Run migrations
+        run: |
+          cd src
+          python manage.py migrate --noinput
+
+      ###################################
+      # PYTEST
+      ###################################
+
+      - name: Run pytest with coverage
+        run: |
+          cd src
+
+          pytest \
+            --maxfail=1 \
+            --disable-warnings \
+            --cov=apps \
+            --cov-report=term-missing \
+            --cov-report=xml \
+            -v
+
+      ###################################
+      # UPLOAD COVERAGE
+      ###################################
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: src/coverage.xml
+
+  ########################
+  # DEPLOY STAGING
+  ########################
+
+  deploy_staging:
+    needs: tests
+    runs-on: ubuntu-latest
+
+    # IMPORTANT
+    if: github.ref == 'refs/heads/develop'
+
+    steps:
+
+      - name: Deploy to PlanetHoster Staging
+        uses: appleboy/ssh-action@v1.0.3
+
+        with:
+          host: ${{ secrets.PLANETHOSTER_HOST }}
+          username: ${{ secrets.PLANETHOSTER_USER }}
+          key: ${{ secrets.PLANETHOSTER_SSH_KEY }}
+          port: ${{ secrets.PLANETHOSTER_PORT }}
+
+          timeout: 60s
+          command_timeout: 30m
+
+          script: |
+
+            set -e
+            
+            echo "=== STAGING DEPLOY START ==="
+            
+            echo "=== ENVIRONMENT ==="
+            export ENVIRONMENT=staging
+            
+            echo "=== DJANGO SETTINGS MODULE ==="
+            export DJANGO_SETTINGS_MODULE=config.settings.prod
+
+            cd ~/mkinty/staging_portfolio
+
+            ###################################
+            # GIT SYNC
+            ###################################
+
+            echo "=== GIT FORCE SYNC ==="
+
+            git fetch origin
+
+            git checkout develop
+
+            git reset --hard origin/develop
+
+            ###################################
+            # PYTHON VENV
+            ###################################
+
+            echo "=== ACTIVATE VENV ==="
+
+            source ~/virtualenv/mkinty/staging_portfolio/src/3.11/bin/activate
+
+            ###################################
+            # INSTALL REQUIREMENTS
+            ###################################
+
+            echo "=== INSTALL REQUIREMENTS ==="
+
+            pip install -r requirements.txt
+
+            ###################################
+            # DJANGO
+            ###################################
+
+            cd src
+
+            echo "=== DJANGO MIGRATIONS ==="
+
+            python manage.py migrate --noinput
+
+            echo "=== COLLECTSTATIC ==="
+
+            python manage.py collectstatic --noinput
+
+            ###################################
+            # PASSENGER RESTART
+            ###################################
+
+            echo "=== RESTART PASSENGER ==="
+
+            mkdir -p tmp
+
+            touch tmp/restart.txt
+
+            ###################################
+            # REDIS + CELERY
+            ###################################
+
+            echo "=== REDIS AND CELERY ==="
+
+            chmod +x start_services.sh
+
+            ./start_services.sh
+
+            ###################################
+            # DONE
+            ###################################
+
+            echo "=== PRODUCTION DEPLOY SUCCESS ==="

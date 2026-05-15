@@ -1,10 +1,9 @@
-name: Portfolio SaaS CI/CD - Deploy PRODUCTION
+name: Portfolio SaaS CI/CD - Deploy Production
 
 on:
   push:
     branches:
       - main
-      - develop
 
 env:
   PYTHON_VERSION: "3.11"
@@ -173,8 +172,14 @@ jobs:
             set -e
 
             echo "=== PRODUCTION DEPLOY START ==="
+            
+            echo "=== ENVIRONMENT ==="
+            export ENVIRONMENT=prod
+            
+            echo "=== DJANGO SETTINGS MODULE ==="
+            export DJANGO_SETTINGS_MODULE=config.settings.prod
 
-            cd ~/mkinty/mk_portfolio
+            cd ~/mkinty/prod_portfolio
 
             ###################################
             # GIT SYNC
@@ -194,7 +199,7 @@ jobs:
 
             echo "=== ACTIVATE VENV ==="
 
-            source ~/virtualenv/mkinty/mk_portfolio/src/3.11/bin/activate
+            source ~/virtualenv/mkinty/prod_portfolio/src/3.11/bin/activate
 
             ###################################
             # INSTALL REQUIREMENTS
