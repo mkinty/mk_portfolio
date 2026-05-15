@@ -66,7 +66,7 @@ jobs:
             ${{ runner.os }}-pip-
 
       ###################################
-      # INSTALL
+      # INSTALL DEPENDENCIES
       ###################################
 
       - name: Install dependencies
@@ -150,7 +150,6 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
 
-    # IMPORTANT
     if: github.ref == 'refs/heads/main'
 
     steps:
@@ -172,14 +171,11 @@ jobs:
             set -e
 
             echo "=== PRODUCTION DEPLOY START ==="
-            
-            echo "=== ENVIRONMENT ==="
-            export ENVIRONMENT=prod
-            
-            echo "=== DJANGO SETTINGS MODULE ==="
-            export DJANGO_SETTINGS_MODULE=config.settings.prod
 
-            cd ~/mkinty/prod_portfolio
+            cd ~/mkinty/mk_portfolio
+
+            echo "=== SET DJANGO SETTINGS MODULE ==="
+            export DJANGO_SETTINGS_MODULE=config.settings.prod
 
             ###################################
             # GIT SYNC
@@ -199,7 +195,7 @@ jobs:
 
             echo "=== ACTIVATE VENV ==="
 
-            source ~/virtualenv/mkinty/prod_portfolio/src/3.11/bin/activate
+            source ~/virtualenv/mkinty/mk_portfolio/src/3.11/bin/activate
 
             ###################################
             # INSTALL REQUIREMENTS
