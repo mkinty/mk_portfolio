@@ -76,7 +76,6 @@ jobs:
           pip install -r requirements.txt
 
           pip install \
-            mysqlclient \
             pytest \
             pytest-django \
             pytest-cov \
