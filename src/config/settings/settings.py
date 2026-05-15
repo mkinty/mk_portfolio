@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # src/
+
 PROJECT_DIR = BASE_DIR.parent  # portfolio/
 
 # Charge le fichier .env
