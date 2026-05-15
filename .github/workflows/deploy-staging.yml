@@ -244,4 +244,4 @@ jobs:
             # DONE 
             ###################################
 
-            echo "=== PRODUCTION DEPLOY SUCCESS ==="
+            echo "=== STAGING DEPLOY SUCCESS ==="
