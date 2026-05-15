@@ -19,10 +19,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # src/
 PROJECT_DIR = BASE_DIR.parent  # portfolio/
 
-ENV_FILE = f".env.{os.getenv('ENVIRONMENT', 'dev')}"
-load_dotenv(dotenv_path=PROJECT_DIR / ENV_FILE)
-
 # Charge le fichier .env
+load_dotenv(dotenv_path=PROJECT_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
