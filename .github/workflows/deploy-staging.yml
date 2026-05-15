@@ -173,13 +173,10 @@ jobs:
             
             echo "=== STAGING DEPLOY START ==="
             
-            echo "=== ENVIRONMENT ==="
-            export ENVIRONMENT=staging
-            
-            echo "=== DJANGO SETTINGS MODULE ==="
-            export DJANGO_SETTINGS_MODULE=config.settings.prod
-
             cd ~/mkinty/staging_portfolio
+            
+            echo "=== SET DJANGO SETTINGS MODULE ==="
+            export DJANGO_SETTINGS_MODULE=config.settings.prod
 
             ###################################
             # GIT SYNC
