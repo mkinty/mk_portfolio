@@ -1,0 +1,161 @@
+/* ============================================================
+   animations.css
+   Transitions, transformations & états interactifs animés
+   ============================================================ */
+
+
+/* ── Boutons — transitions générales ────────────────────── */
+.btn {
+  transition: all 0.5s ease;
+}
+.btn:hover {
+  transition: all 0.5s ease;
+}
+
+
+/* ── Boutons Primary ─────────────────────────────────────── */
+.btn.valid.primary:hover {
+  background-color: var(--S1);
+  border: 1px solid var(--S1);
+}
+.btn.cancel.primary:hover {
+  color: var(--S1);
+  border: 1px solid var(--S1);
+}
+
+
+/* ── Boutons Delete ──────────────────────────────────────── */
+.btn.valid.delete:hover {
+  background-color: var(--Error);
+  border: 1px solid var(--Error);
+}
+.btn.cancel.delete:hover {
+  color: var(--Error);
+  border: 1px solid var(--Error);
+}
+
+
+/* ── Liens ───────────────────────────────────────────────── */
+.link:hover {
+  text-decoration: underline;
+  color: var(--S1);
+}
+
+
+/* ── Icônes cliquables ───────────────────────────────────── */
+.btn-icon:hover {
+  opacity: 0.8;
+}
+
+
+/* ── Navigation — rotation de l'icône chevron ───────────── */
+.nav-title .icon {
+  transition: rotate 0.1s ease;
+}
+.nav-title.active .icon {
+  rotate: 90deg;
+  transition: rotate 0.1s ease;
+}
+
+
+/* ── Navigation — items hover ────────────────────────────── */
+.nav-title:hover,
+.nav-item:hover {
+  opacity: 0.8;
+}
+
+
+/* ── Menu header — items hover ───────────────────────────── */
+.menu .item {
+  transition: all 0.5s ease;
+}
+.menu .item.active,
+.menu .item:hover {
+  color: var(--Dark);
+  transition: all 0.5s ease;
+}
+
+
+/* ── Logo ────────────────────────────────────────────────── */
+.logo {
+  transition: all 0.3s ease;
+}
+
+
+/* ── Select — icône déroulante ───────────────────────────── */
+select::picker-icon {
+  transition: 0.4s rotate;
+}
+select:open::picker-icon {
+  rotate: 180deg;
+}
+.field select {
+  transition: 0.4s;
+}
+.field select:hover,
+.field select:focus {
+  border: 1.5px solid var(--Primary);
+}
+.field select option {
+  transition: 0.4s;
+}
+.field select option:hover {
+  background: var(--White);
+  border-bottom: 0.1rem solid var(--Primary);
+}
+
+
+/* ── Sidebar projet — collapse ───────────────────────────── */
+.project-detail-aside {
+  transition: 0.1s ease;
+}
+.project-detail-main {
+  transition: 0.1s ease;
+}
+.project-detail-aside.active {
+  transition: 0.1s ease;
+}
+.project-detail-main.active {
+  transition: 0.1s ease;
+}
+.project-detail-aside.active .aside-menu-icon {
+  rotate: 180deg;
+}
+
+
+/* ── Bouton menu aside — hover ───────────────────────────── */
+.aside-menu-btn:hover {
+  background: var(--Divider);
+  border-radius: 0.3rem;
+  transition: background 0.2s ease;
+}
+
+
+/* ── Section détail — rotation bouton ───────────────────── */
+.detail-section .detail-btn {
+  rotate: -90deg;
+}
+.detail-section.active .detail-btn {
+  rotate: 90deg;
+}
+
+
+/* ── Footer — liens et icônes hover ─────────────────────── */
+.footer .linked:hover {
+  transform: scale(1.1);
+  color: var(--White);
+  transition: all 0.5s ease;
+}
+.footer .btn {
+  transition: all 0.3s ease;
+}
+.footer .btn:hover {
+  opacity: 0.8;
+}
+.footer .btn-icon {
+  transition: opacity 0.2s ease;
+}
+.footer .btn-icon:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}

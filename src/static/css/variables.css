@@ -1,0 +1,74 @@
+/* ============================================================
+   variables.css
+   Design Tokens — couleurs, typographie, espacements, ombres
+   ============================================================ */
+
+
+/* ── Typographie ─────────────────────────────────────────── */
+:root {
+  font-size: 62.5%; /* 1rem = 10px */
+  --fm: 'Inter', sans-serif;
+}
+
+
+/* ── Couleurs Neutres ────────────────────────────────────── */
+:root {
+  --Black:       #1e1e1e;
+  --Dark:        #263238;
+  --D_grey:      #4D4D4D;
+  --Grey:        #717171;
+  --L_Grey:      #89939E;
+  --Grey_Blue:   #ABBED1;
+  --White_stroke: #ABBED1;
+  --L_Grey_Blue: #304258;
+  --Divider:     #E0E0E0;
+  --Silver:      #F5F7FA;
+  --Light:       #f8f8f2;
+  --White:       #FFFFFF;
+}
+
+
+/* ── Couleurs de Marque ──────────────────────────────────── */
+:root {
+  --Primary:   #4CAF4F;
+  --Secondary: #263238;
+  --Info:      #2194F3;
+}
+
+
+/* ── Nuances (Shades) — Primary foncé ───────────────────── */
+:root {
+  --S1: #43A046;
+  --S2: #388E3B;
+  --S3: #237D31;
+  --S4: #1B5E1F;
+  --S5: #103E13;
+}
+
+
+/* ── Teintes (Tints) — Primary clair ────────────────────── */
+:root {
+  --T1: #66BB69;
+  --T2: #81C784;
+  --T3: #A5D6A7;
+  --T4: #C8E6C9;
+  --T5: #E8F5E9;
+}
+
+
+/* ── Couleurs d'Action ───────────────────────────────────── */
+:root {
+  --Success: #2E7D31;
+  --Error:   #E53835;
+  --Trash:   #FA5252;
+  --Warning: #FBC02D;
+}
+
+
+/* ── Couleurs d'Alerte (fonds) ───────────────────────────── */
+:root {
+  --Alert_Info:    #E3F2FD;
+  --Alert_Success: #E8F5E9;
+  --Alert_Warning: #FFF3E0;
+  --Alert_Error:   #FFEBEE;
+}

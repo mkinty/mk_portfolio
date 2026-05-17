@@ -30,6 +30,8 @@ class ProjectIndexView(View):
             "project:index", kwargs={"user_id": user_id}
         )
         projects = ProjectSelectors.get_projects()
+        projects.navbar_url = reverse_lazy("project:index", kwargs={"user_id": user_id})
+
         context = {
             "categories": categories,
             "projects": projects,
@@ -45,7 +47,6 @@ class ProjectsView(View):
     def get(self, request, user_id):
         user_obj = get_user_by_id(user_id)
         projects = ProjectSelectors.get_projects()
-        projects.navbar_url = reverse_lazy("projects:list", kwargs={"user_id": user_id})
 
         category_id = request.GET.get("category")
         tag_ids = request.GET.getlist("tags")
