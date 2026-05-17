@@ -1,0 +1,309 @@
+/* ============================================================
+   responsive.css
+   Media Queries — adaptations par point de rupture (breakpoints)
+   ============================================================
+
+   Breakpoints utilisés :
+     xs  : < 480px   (très petits mobiles)
+     sm  : < 768px   (mobiles)
+     md  : < 1024px  (tablettes)
+     lg  : < 1280px  (petits écrans desktop)
+     xl  : ≥ 1280px  (grands écrans — styles par défaut dans style.css)
+   ============================================================ */
+
+
+/* ── XS — Très petits mobiles (< 480px) ─────────────────── */
+@media (max-width: 480px) {
+
+  /* Header */
+  .header {
+    padding: 1rem 2rem;
+  }
+
+  /* LAYOUT — Contenu principal */
+  .add-application-btn {
+    top: 6rem;
+    flex-direction: column;
+    gap: 0rem;
+  }
+
+
+  .counter-btn {
+    margin: 0;
+  }
+
+  /* Navigation menu */
+  .menu .item {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+  }
+
+  /* Profil utilisateur */
+  .user-profile {
+    padding: 4rem 2rem;
+  }
+  .user-name {
+    font-size: 3rem;
+  }
+  .user-title {
+    font-size: 2rem;
+  }
+  .user-profile-container {
+    flex-direction: column;
+  }
+  .avatar {
+    display: none;
+  }
+
+  /* Section DC */
+  .dc-container {
+    flex-direction: column;
+    padding: 0 2rem;
+  }
+  .dc-category {
+    min-width: unset;
+    font-size: 2.4rem;
+  }
+
+  /* Cards */
+  .card {
+    width: 100%;
+    min-width: unset;
+  }
+
+  /* Tableau */
+  .table-content {
+    padding: 2rem;
+  }
+
+  /* Projets */
+  .projects {
+    padding: 4rem 2rem;
+  }
+
+  /* Footer */
+  .footer {
+    flex-direction: column;
+    padding: 3rem 2rem;
+    height: auto;
+    gap: 3rem;
+  }
+
+  /* Formulaires */
+  .fields {
+    flex-direction: column;
+  }
+
+  /* Contact */
+  .contact {
+    flex-direction: column;
+    padding: 2rem;
+  }
+  .contact .author {
+    width: 100%;
+  }
+}
+
+
+/* ── SM — Mobiles (< 768px) ──────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Header */
+  .header {
+    padding: 1rem 3rem;
+  }
+
+  /* LAYOUT — Contenu principal */
+  .add-application-btn {
+    top: 6rem;
+  }
+
+  /* COMPOSANT — Barre de recherche & Filtres */
+  .search-container {
+    flex-direction: column;
+  }
+
+  /* Profil utilisateur */
+  .user-profile {
+    padding: 6rem 3rem;
+  }
+  .user-name {
+    font-size: 3.6rem;
+  }
+  .user-profile-container {
+    flex-direction: column;
+  }
+
+  /* Section DC */
+  .dc-container {
+    flex-direction: column;
+    padding: 0 3rem;
+  }
+  .dc-category {
+    min-width: unset;
+  }
+
+  /* Cards */
+  .cards {
+    justify-content: center;
+  }
+  .card {
+    width: 100%;
+    min-width: unset;
+  }
+
+  /* Projets */
+  .projects {
+    padding: 6rem 3rem;
+  }
+
+  .project-detail {
+    flex-direction: column;
+    height: auto;
+  }
+
+  /* Sidebar projet */
+  .project-detail-aside {
+    width: 100% ! important;
+    height: auto ! important;
+    position: relative ! important;
+    top: 0 ! important;
+  }
+  .project-detail-main {
+    width: 100% ! important;
+    margin-left: 0 ! important;
+  }
+  .aside-menu-icon {
+    display: none;
+  }
+
+  /* Footer */
+  .footer {
+    flex-direction: column;
+    padding: 3rem;
+    height: auto;
+    gap: 3rem;
+  }
+
+  /* Formulaires */
+  .fields {
+    flex-direction: column;
+  }
+
+  /* Contact */
+  .contact {
+    flex-direction: column;
+  }
+  .contact .author {
+    width: 100%;
+  }
+
+  /* Modals */
+  .modal-dialog {
+    width: 95%;
+    margin: 1rem 0;
+  }
+
+  /* Boutons */
+  .btns {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* ── MD — Tablettes (< 1024px) ───────────────────────────── */
+@media (max-width: 1024px) {
+
+  /* Header */
+  .header {
+    padding: 1rem 5rem;
+  }
+
+  /* Profil utilisateur */
+  .user-profile {
+    padding: 8rem 5rem;
+  }
+  .user-name {
+    font-size: 4rem;
+  }
+
+  /* Section DC */
+  .dc-container {
+    padding: 0 5rem;
+  }
+  .dc-category {
+    min-width: 18rem;
+    font-size: 2.8rem;
+  }
+
+  /* Cards */
+  .card {
+    width: 30rem;
+    min-width: 30rem;
+  }
+
+  /* Projets */
+  .projects {
+    padding: 8rem 5rem;
+  }
+
+  /* Sidebar projet */
+  .project-detail-aside {
+    width: 22rem;
+  }
+  .project-detail-main {
+    width: calc(100% - 22rem);
+    margin-left: 22rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 4rem 5rem;
+  }
+
+  /* En-tête du contenu */
+  .content-header {
+    padding: 8rem 5rem;
+  }
+  .add-application-btn {
+    left: 5rem;
+  }
+}
+
+
+/* ── LG — Petits écrans desktop (< 1280px) ───────────────── */
+@media (max-width: 1280px) {
+
+  /* Header */
+  .header {
+    padding: 1rem 6rem;
+  }
+
+  /* Profil utilisateur */
+  .user-profile {
+    padding: 8rem 6rem;
+  }
+
+  /* Section DC */
+  .dc-container {
+    padding: 0 6rem;
+  }
+
+  /* Projets */
+  .projects {
+    padding: 8rem 6rem;
+  }
+
+  /* En-tête du contenu */
+  .content-header {
+    padding: 8rem 6rem;
+  }
+  .add-application-btn {
+    left: 6rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 4rem 6rem;
+  }
+}

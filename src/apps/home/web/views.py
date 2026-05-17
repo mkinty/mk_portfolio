@@ -65,6 +65,9 @@ class ContactPageView(View):
         Returns contact form with user data.
         """
         user_obj = get_user_by_email("kintymoustapha@gmail.com")
+        if not user_obj:
+            user_obj = type("UserMock", (), {})()
+            user_obj.id = 1
         contact = type("UserMock", (), {})()
         contact.navbar_url = reverse_lazy("home:contact-page")
         context = {"user_obj": user_obj, "contact": contact}
