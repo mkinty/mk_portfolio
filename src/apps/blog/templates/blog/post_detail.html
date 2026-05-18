@@ -11,21 +11,19 @@
     {% for category in categories %}
     <div class="nav {% if category.id == current_category.id %}active{% endif %}">
       <div class="nav-title {% if category.id == current_category.id %}active{% endif %}">
-        <img class="icon arrow"
-             src="{% static 'icons/large-' %}{% if category.id == current_category.id %}dark{% else %}grey{% endif %}-arrow.png"
-             alt="">
+        <img class="icon arrow" src="{% static 'icons/large-' %}{% if category.id == current_category.id %}dark{% else %}grey{% endif %}-arrow.png" alt="">
         <div class="nav-title-name">
           {{ category.name }}
         </div>
       </div>
       <div class="nav-menu {% if category.id == current_category.id %}active{% endif %}">
-        {% for project in category.projects.all %}
-        <div class="nav-item {% if project.id == current_project.id %}active{% endif %}"
-             hx-get="{% url 'project:detail' project.id %}"
-             hx-target="#project-detail"
+        {% for article in category.articles.all %}
+        <div class="nav-item {% if article.id == current_article.id %}active{% endif %}"
+             hx-get="{% url 'blog:detail' article.id %}"
+             hx-target="#post-detail"
              hx-swap="innerHTML"
         >
-          {{ project.title }}
+          {{ article.title }}
         </div>
         {% endfor %}
       </div>
@@ -34,16 +32,16 @@
   </div>
   <div class="project-detail-main">
     <div class="project-detail-header">
-      {{ project.title }}
+      {{ article.title }}
       {% if user.is_authenticated %}
       <div class="btns flex-end">
         <button class="btn cancel delete"
-                hx-get="{% url 'project:delete' project_id=project.id %}"
+                hx-get="{% url 'blog:delete' post_id=article.id %}"
                 hx-target="#dialog"
         >Supprimer
         </button>
         <button class="btn valid primary"
-                hx-get="{% url 'project:update' project_id=project.id %}"
+                hx-get="{% url 'blog:update' post_id=article.id %}"
                 hx-target="#dialog"
         >Modifier
         </button>
@@ -68,23 +66,23 @@
         </div>
         <div class="author-date created">
           {% language 'fr' %}
-          Créé le {{ project.created_at|date:"d F Y" }}
+          Créé le {{ article.created_at|date:"d F Y" }}
           {% endlanguage %}
         </div>
         <div class="author-date published">
           {% language 'fr' %}
-          Publié le {{ project.published_at|date:"d F Y" }}
+          Publié le {{ article.published_at|date:"d F Y" }}
           {% endlanguage %}
         </div>
         <div class="author-date updated">
           {% language 'fr' %}
-          Mis à jour le {{ project.updated_at|date:"d F Y" }}
+          Mis à jour le {{ article.updated_at|date:"d F Y" }}
           {% endlanguage %}
         </div>
       </div>
     </div>
     <div class="project-detail-content">
-      {{ project.description|safe }}
+      {{ article.description|safe }}
     </div>
   </div>
 </div>

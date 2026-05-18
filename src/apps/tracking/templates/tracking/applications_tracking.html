@@ -35,7 +35,7 @@
           <div class="col">{{ application.position }}</div>
           <div class="col">{{ application.company }}</div>
           <div class="col medium">
-            {% if application.job_offer_file %}
+            {% if application.job_offer_link %}
             <a href="{{ application.job_offer_link }}" target="_blank">
               <img class="btn-icon" src="{% static 'icons/link.png' %}" alt="edit-btn">
             </a>
@@ -47,14 +47,14 @@
             {% endif %}
           </div>
           <div class="col medium">
-            {% if application.job_offer_file %}
+            {% if application.resume %}
             <a href="{{ application.resume.url }}" target="_blank">
               <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
             </a>
             {% endif %}
           </div>
           <div class="col medium">
-            {% if application.job_offer_file %}
+            {% if application.cover_letter %}
             <a href="{{ application.cover_letter.url }}" target="_blank">
               <img class="btn-icon" src="{% static 'icons/doc.png' %}" alt="edit-btn">
             </a>

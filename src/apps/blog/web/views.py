@@ -5,127 +5,125 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 
-from apps.project.selectors.projects_selectors import (
-    ProjectCategorySelectors,
-    ProjectSelectors,
-    TagSelectors,
+from apps.blog.selectors.posts_selectors import (
+    PostCategorySelectors,
+    PostSelectors,
+    PostTagSelectors,
 )
-from apps.project.services.projects_services import (
-    ProjectCategoryServices,
-    ProjectServices,
-    TagServices,
+from apps.blog.services.posts_services import (
+    PostCategoryServices,
+    PostServices,
+    PostTagServices,
 )
 from apps.users.selectors.user_selectors import get_user_by_id
 from apps.utils.services.http_responses import HTTPResponseHXRedirect
 
 
-class ProjectIndexView(View):
-    template_name = "project/project_index.html"
+class PostsIndexView(View):
+    template_name = "blog/posts_index.html"
 
     def get(self, request, user_id):
         user_obj = get_user_by_id(user_id)
-        categories = ProjectCategorySelectors.get_project_categories()
-        tags = TagSelectors.get_tags()
-        categories.navbar_url = reverse_lazy(
-            "project:index", kwargs={"user_id": user_id}
-        )
-        projects = ProjectSelectors.get_projects()
-        projects.navbar_url = reverse_lazy("project:index", kwargs={"user_id": user_id})
+        categories = PostCategorySelectors.get_post_categories()
+        tags = PostTagSelectors.get_post_tags()
+        categories.navbar_url = reverse_lazy("blog:index", kwargs={"user_id": user_id})
+        articles = PostSelectors.get_posts()
+        articles.navbar_url = reverse_lazy("blog:index", kwargs={"user_id": user_id})
 
         context = {
             "categories": categories,
-            "projects": projects,
+            "articles": articles,
             "tags": tags,
             "user_obj": user_obj,
         }
         return render(request, self.template_name, context)
 
 
-class ProjectsView(View):
-    template_name = "project/projects_list.html"
+class PostsView(View):
+    template_name = "blog/posts_list.html"
 
     def get(self, request, user_id):
         user_obj = get_user_by_id(user_id)
-        projects = ProjectSelectors.get_projects()
+        articles = PostSelectors.get_posts()
 
         category_id = request.GET.get("category")
         tag_ids = request.GET.getlist("tags")
         query = request.GET.get("qs", "")
 
         if category_id:
-            projects = projects.filter(category__id=category_id)
+            articles = articles.filter(category__id=category_id)
 
         if tag_ids:
-            projects = projects.filter(tags__id__in=tag_ids).distinct()
+            articles = articles.filter(tags__id__in=tag_ids).distinct()
 
         if query:
-            projects = projects.filter(
+            articles = articles.filter(
                 Q(title__icontains=query) | Q(description__icontains=query)
             ).distinct()
 
-        # projets réalisés
-        nb_projects = (
-            f"{len(projects)} Projets réalisés"
-            if len(projects) > 1
-            else f"{len(projects)} Projet réalisé"
+        # Nombre d'articles
+        nb_articles = (
+            f"{len(articles)} Articles"
+            if len(articles) > 1
+            else f"{len(articles)} Article"
         )
 
         context = {
-            "projects": projects,
-            "nb_projects": nb_projects,
+            "articles": articles,
+            "nb_articles": nb_articles,
             "user_obj": user_obj,
         }
         return render(request, self.template_name, context)
 
 
-class ProjectDetailIndexView(View):
-    template_name = "project/project_detail_index.html"
+class PostDetailIndexView(View):
+    template_name = "blog/post_detail_index.html"
 
-    def get(self, request, project_id):
-        project = ProjectSelectors.get_project_by_id(project_id)
-        projects = ProjectSelectors.get_projects()
-        projects.navbar_url = reverse_lazy(
-            "project:detail-index", kwargs={"project_id": project_id}
+    def get(self, request, post_id):
+        article = PostSelectors.get_post_by_id(post_id)
+        articles = PostSelectors.get_posts()
+        articles.navbar_url = reverse_lazy(
+            "blog:detail-index", kwargs={"post_id": post_id}
         )
         context = {
-            "projects": projects,
-            "project": project,
-            "user_obj": project.user,
+            "article": article,
+            "articles": articles,
+            "user_obj": article.user,
         }
         return render(request, self.template_name, context)
 
 
-class ProjectDetailView(View):
-    template_name = "project/project_detail.html"
+class PostDetailView(View):
+    template_name = "blog/post_detail.html"
 
-    def get(self, request, project_id):
-        project = ProjectSelectors.get_project_by_id(project_id)
-        categories = ProjectCategorySelectors.get_project_categories().prefetch_related(
-            "projects"
+    def get(self, request, post_id):
+        article = PostSelectors.get_post_by_id(post_id)
+        categories = PostCategorySelectors.get_post_categories().prefetch_related(
+            "articles"
         )
-        projects = ProjectSelectors.get_projects()
+        articles = PostSelectors.get_posts()
 
         context = {
+            "article": article,
             "categories": categories,
-            "projects": projects,
-            "project": project,
-            "current_project": project,
-            "current_category": project.category,
-            "user_obj": project.user,
+            "articles": articles,
+            "current_article": article,
+            "current_category": article.category,
+            "user_obj": article.user,
         }
         return render(request, self.template_name, context)
 
 
-class ProjectCategoryAddView(View):
-    """View for adding a new project category."""
+class PostCategoryAddView(View):
+    """View for adding a new post category."""
 
-    template_name = "project/category_form.html"
-    title = "Ajouter une catégorie de projet"
+    template_name = "blog/category_form.html"
+    title = "Ajouter une catégorie d'articles"
 
     def get(self, request, user_id):
         """Display the creation form"""
 
-        form, user_obj = ProjectCategoryServices.get_add_form(user_id)
+        form, user_obj = PostCategoryServices.get_add_form(user_id)
 
         return render(
             request,
@@ -136,7 +134,7 @@ class ProjectCategoryAddView(View):
     def post(self, request, user_id):
         """Handle form submission"""
         user_obj = get_user_by_id(user_id)
-        success, form, user_obj = ProjectCategoryServices.create(
+        success, form, user_obj = PostCategoryServices.create(
             user_obj,
             request.POST,
             request.FILES,
@@ -150,20 +148,20 @@ class ProjectCategoryAddView(View):
                 {"form": form, "user_obj": user_obj, "title": self.title},
             )
 
-        messages.success(request, "Catégorie de projet créée avec succès")
+        messages.success(request, "Catégorie d'articles' créée avec succès")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
 
 
-class ProjectCategoryUpdateView(View):
-    """View for updating a project category."""
+class PostCategoryUpdateView(View):
+    """View for updating a post category."""
 
-    template_name = "project/category_form.html"
-    title = "Modifier une catégorie de projet"
+    template_name = "blog/category_form.html"
+    title = "Modifier une catégorie d'articles"
 
     def get(self, request, category_id):
         """Display the update form"""
 
-        form, category = ProjectCategoryServices.get_update_form(category_id)
+        form, category = PostCategoryServices.get_update_form(category_id)
 
         return render(
             request,
@@ -178,7 +176,7 @@ class ProjectCategoryUpdateView(View):
 
     def post(self, request, category_id):
         """Handle form submission"""
-        success, form, category = ProjectCategoryServices.update(
+        success, form, category = PostCategoryServices.update(
             category_id,
             request.POST,
             request.FILES,
@@ -197,49 +195,49 @@ class ProjectCategoryUpdateView(View):
                 },
             )
 
-        messages.success(request, "Catégorie de projet modifiée avec succès")
+        messages.success(request, "Catégorie d'articles' modifiée avec succès")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
 
 
-class ProjectCategoryDeleteView(View):
-    """View for deleting a project category."""
+class PostCategoryDeleteView(View):
+    """View for deleting a post category."""
 
-    template_name = "project/category_delete_confirm.html"
-    title = "Supprimer une catégorie de projet"
+    template_name = "blog/category_delete_confirm.html"
+    title = "Supprimer une catégorie d'articles"
 
     def get(self, request, category_id):
         """Display the confirmation page"""
-        category = ProjectCategorySelectors.get_project_category_by_id(category_id)
+        category = PostCategorySelectors.get_post_category_by_id(category_id)
         return render(
             request, self.template_name, {"category": category, "title": self.title}
         )
 
     def post(self, request, category_id):
         """Handle deletion"""
-        success = ProjectCategoryServices.delete(category_id)
+        success = PostCategoryServices.delete(category_id)
 
         if not success:
             messages.error(request, "Erreur lors de la suppression")
             return HttpResponse(status=400)
 
-        messages.success(request, "Catégorie de projet supprimée avec succès")
+        messages.success(request, "Catégorie d'articles supprimée avec succès")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
 
 
-class TagAddView(View):
-    """View for adding a new tag."""
+class PostTagAddView(View):
+    """View for adding a new post tag."""
 
-    template_name = "project/tag_form.html"
+    template_name = "blog/tag_form.html"
     title = "Ajouter un tag"
 
     def get(self, request):
-        """Display the add tag form"""
-        form = TagServices.get_add_form()
+        """Display the add post tag form"""
+        form = PostTagServices.get_add_form()
         return render(request, self.template_name, {"form": form, "title": self.title})
 
     def post(self, request):
         """Handle form submission"""
-        success, form, tag = TagServices.create(
+        success, form, tag = PostTagServices.create(
             request.POST,
             request.FILES,
         )
@@ -254,22 +252,22 @@ class TagAddView(View):
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
 
 
-class TagUpdateView(View):
-    """View for updating a tag."""
+class PostTagUpdateView(View):
+    """View for updating a post tag."""
 
-    template_name = "project/tag_form.html"
+    template_name = "blog/tag_form.html"
     title = "Modifier un tag"
 
     def get(self, request, tag_id):
-        """Display the update tag form"""
-        form, tag = TagServices.get_update_form(tag_id)
+        """Display the update post tag form"""
+        form, tag = PostTagServices.get_update_form(tag_id)
         return render(
             request, self.template_name, {"form": form, "tag": tag, "title": self.title}
         )
 
     def post(self, request, tag_id):
         """Handle form submission"""
-        success, form, tag = TagServices.update(
+        success, form, tag = PostTagServices.update(
             tag_id,
             request.POST,
             request.FILES,
@@ -287,20 +285,20 @@ class TagUpdateView(View):
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
 
 
-class TagDeleteView(View):
-    """View for deleting a tag."""
+class PostTagDeleteView(View):
+    """View for deleting a post tag."""
 
-    template_name = "project/tag_delete_confirm.html"
+    template_name = "blog/tag_delete_confirm.html"
     title = "Supprimer un tag"
 
     def get(self, request, tag_id):
-        """Display the delete tag confirmation"""
-        tag = TagSelectors.get_tag_by_id(tag_id)
+        """Display the delete post tag confirmation"""
+        tag = PostTagSelectors.get_post_tag_by_id(tag_id)
         return render(request, self.template_name, {"tag": tag, "title": self.title})
 
     def post(self, request, tag_id):
         """Handle form submission"""
-        success = TagServices.delete(tag_id)
+        success = PostTagServices.delete(tag_id)
 
         if not success:
             messages.error(request, "Erreur lors de la suppression")
@@ -310,15 +308,15 @@ class TagDeleteView(View):
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
 
 
-class ProjectAddView(View):
-    """View for adding a new project."""
+class PostAddView(View):
+    """View for adding a new post."""
 
-    template_name = "project/form.html"
-    title = "Ajouter un projet"
+    template_name = "blog/form.html"
+    title = "Ajouter un article"
 
     def get(self, request, user_id):
         """Display the add project form"""
-        form, user_obj = ProjectServices.get_add_form(user_id)
+        form, user_obj = PostServices.get_add_form(user_id)
         return render(
             request,
             self.template_name,
@@ -328,7 +326,7 @@ class ProjectAddView(View):
     def post(self, request, user_id):
         """Handle form submission"""
         user_obj = get_user_by_id(user_id)
-        success, form, project = ProjectServices.create(
+        success, form, project = PostServices.create(
             user_obj,
             request.POST,
             request.FILES,
@@ -342,34 +340,34 @@ class ProjectAddView(View):
                 {"form": form, "user_obj": user_obj, "title": self.title},
             )
 
-        messages.success(request, "Projet créé avec succès")
+        messages.success(request, "Article créé avec succès")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
 
 
-class ProjectUpdateView(View):
+class PostUpdateView(View):
     """View for updating a project."""
 
-    template_name = "project/form.html"
-    title = "Modifier un projet"
+    template_name = "blog/form.html"
+    title = "Modifier un article"
 
-    def get(self, request, project_id):
+    def get(self, request, post_id):
         """Display the update project form"""
-        form, project = ProjectServices.get_update_form(project_id)
+        form, article = PostServices.get_update_form(post_id)
         return render(
             request,
             self.template_name,
             {
                 "form": form,
-                "project": project,
-                "user_obj": project.user,
+                "article": article,
+                "user_obj": article.user,
                 "title": self.title,
             },
         )
 
-    def post(self, request, project_id):
+    def post(self, request, post_id):
         """Handle form submission"""
-        success, form, project = ProjectServices.update(
-            project_id,
+        success, form, article = PostServices.update(
+            post_id,
             request.POST,
             request.FILES,
         )
@@ -381,40 +379,40 @@ class ProjectUpdateView(View):
                 self.template_name,
                 {
                     "form": form,
-                    "project": project,
-                    "user_obj": project.user,
+                    "article": article,
+                    "user_obj": article.user,
                     "title": self.title,
                 },
             )
 
-        messages.success(request, "Projet modifié avec succès")
+        messages.success(request, "Article modifié avec succès")
         return HttpResponse(status=200, headers={"HX-Trigger": "formSubmittedEvent"})
 
 
-class ProjectDeleteView(View):
+class PostDeleteView(View):
     """View for deleting a project."""
 
-    template_name = "project/delete_confirm.html"
-    title = "Supprimer un projet"
+    template_name = "blog/delete_confirm.html"
+    title = "Supprimer un article"
 
-    def get(self, request, project_id):
+    def get(self, request, post_id):
         """Display the delete confirmation form"""
-        project = ProjectSelectors.get_project_by_id(project_id)
+        article = PostSelectors.get_post_by_id(post_id)
         return render(
-            request, self.template_name, {"project": project, "title": self.title}
+            request, self.template_name, {"article": article, "title": self.title}
         )
 
-    def post(self, request, project_id):
+    def post(self, request, post_id):
         """Handle delete request"""
-        project = ProjectSelectors.get_project_by_id(project_id)
-        user_id = project.user.id
-        success = ProjectServices.delete(project_id)
+        article = PostSelectors.get_post_by_id(post_id)
+        user_id = article.user.id
+        success = PostServices.delete(post_id)
 
         if not success:
-            messages.error(request, "Erreur lors de la suppression du projet")
+            messages.error(request, "Erreur lors de la suppression de l'article")
             return HttpResponse(status=400)
 
-        messages.success(request, "Projet supprimé avec succès")
+        messages.success(request, "Article supprimé avec succès")
         return HTTPResponseHXRedirect(
-            reverse_lazy("project:index", kwargs={"user_id": user_id})
+            reverse_lazy("blog:index", kwargs={"user_id": user_id})
         )

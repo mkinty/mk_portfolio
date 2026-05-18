@@ -29,6 +29,7 @@
 <div class="footer-card ">
   <div class="label">Infos</div>
   <div class="description">
+    <a class="item linked" href="{% url 'blog:index' user_obj.id %}">Blog</a>
     <a class="item linked" href="{% url 'home:contact-page' %}">Me contacter</a>
     {% if user.is_authenticated %}
     <a class="item linked" href="{% url 'tracking:applications-index' user_id=user_obj.id %}">Mes candidatures</a>

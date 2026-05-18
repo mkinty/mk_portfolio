@@ -70,8 +70,8 @@ class TestHomePageView:
         response = client.get(reverse("home:home-page"))
 
         assert response.context["user_obj"].id == user_fixture.id
-        assert "data_projects" in response.context
-        assert "dev_projects" in response.context
+        assert "projects" in response.context
+        assert "projects" in response.context
 
 
 @pytest.mark.django_db

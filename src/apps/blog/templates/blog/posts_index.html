@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-Liste des projets
+Liste des articles
 {% endblock title %}
 {% block content %}
-<div class="content-header">
+<div class="content-header blog">
   <div class="search-container" id="filters">
     <!-- Search input -->
     <div class="filter">
@@ -13,9 +13,9 @@ Liste des projets
       </div>
       <input type="search"
              name="qs"
-             hx-get="{% url 'project:list' user_obj.id %}"
+             hx-get="{% url 'blog:list' user_obj.id %}"
              hx-trigger="change"
-             hx-target="#projects-container"
+             hx-target="#posts-container"
              hx-include="#filters"
              placeholder="Chercher ici"/>
     </div>
@@ -23,9 +23,9 @@ Liste des projets
       <div class="field">
         <!-- Catégorie -->
         <select name="category"
-                hx-get="{% url 'project:list' user_obj.id %}"
+                hx-get="{% url 'blog:list' user_obj.id %}"
                 hx-trigger="change"
-                hx-target="#projects-container"
+                hx-target="#posts-container"
                 hx-include="#filters"
         >
           <option value="">Toutes les catégories</option>
@@ -46,9 +46,9 @@ Liste des projets
                       type="checkbox"
                       name="tags"
                       value="{{ tag.id }}"
-                      hx-get="{% url 'project:list' user_obj.id %}"
+                      hx-get="{% url 'blog:list' user_obj.id %}"
                       hx-trigger="change"
-                      hx-target="#projects-container"
+                      hx-target="#posts-container"
                       hx-include="#filters"
               >
               {{ tag.name }}
@@ -60,8 +60,8 @@ Liste des projets
     </div>
   </div>
 </div>
-<div id="projects-container"
-     hx-get="{% url 'project:list' user_obj.id %}"
+<div id="posts-container"
+     hx-get="{% url 'blog:list' user_obj.id %}"
      hx-trigger="load, formSubmittedEvent from:body"
      hx-target="this"
      hx-swap="innerHTML">

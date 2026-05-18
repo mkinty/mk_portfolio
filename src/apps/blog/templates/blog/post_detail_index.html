@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Détails du projet
+{% endblock title %}
+
+{% block content %}
+<div class="project-detail"
+     id="post-detail"
+     hx-get="{% url 'blog:detail' article.id %}"
+     hx-trigger="load, formSubmittedEvent from:body"
+     hx-target="this"
+     hx-swap="innerHTML">
+</div>
+{% endblock content%}

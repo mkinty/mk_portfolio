@@ -483,8 +483,20 @@ small {
   justify-content: flex-start;
   align-items: center;
   border-radius: 3rem;
-  padding-left: 1.5rem;
+  padding:0;
   border: 1.5px solid var(--Grey);
+}
+.filter .icon-container {
+  height: 100%;
+  width: 5rem;
+  margin: 0;
+  padding: 1rem 1.5rem 0.5rem 1.5rem;
+  border-radius-left: 3rem;
+  border-right: 1.5px solid var(--Grey);
+}
+.filter .icon-container .btn-icon {
+  width: 2.5rem;
+  height: 2.5rem;
 }
 .filter input {
   width: 100%;
@@ -549,22 +561,26 @@ small {
    ============================================================ */
 
 .cards {
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 2rem;
+  gap: 4rem;
 }
 
 .card {
   display: flex;
   flex-direction: column;
-  width: 34rem;
-  height: 34rem;
-  min-width: 34rem;
-  min-height: 34rem;
+  width: 36rem;
+  height: 40rem;
+  min-width: 36rem;
+  min-height: 40rem;
   margin: 2rem 0;
   border-radius: 0.2rem;
+}
+.card.blog-card {
+  background: var(--Silver);
 }
 .card.small {
   width: 25rem;
@@ -575,10 +591,9 @@ small {
 
 .card-image {
   width: 100%;
-  height: 16.5rem;
-  min-height: 16.5rem;
+  height: 18rem;
+  min-height: 18rem;
   overflow: hidden;
-  background: var(--Dark);
   border-radius: 0.2rem;
 }
 .card.small .card-image {
@@ -593,8 +608,8 @@ small {
 }
 
 .card-content {
-  height: 12rem;
-  min-height: 12rem;
+  height: 16rem;
+  min-height: 16rem;
   display: flex;
   flex-direction: column;
 }
@@ -804,22 +819,13 @@ small {
   padding: 10rem;
 }
 
-.projects-container {
+.projects-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-.projects-container.all {
-  background: var(--Silver);
-  padding: 4rem;
-  margin-bottom: 10rem;
 }
 
-.projects-title    { font-size: 2.8rem; font-weight: 700; color: var(--Dark); }
-.projects-subtitle { font-weight: 600; color: var(--D_Grey); padding-bottom: 4rem; }
-
+.projects-title    { font-size: 2.8rem; font-weight: 700; color: var(--Dark); max-width: 50%; }
 .projects-btn {
   display: flex;
   align-items: center;

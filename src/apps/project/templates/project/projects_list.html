@@ -26,9 +26,11 @@
       <div class="card-content">
         <div class="card-title">
           {{ project.title }}
+        </div>
+        <div class="btns flex-end">
           <small class="card-date">
             {% language 'fr' %}
-            @ {{project.created_at|date:"F Y"}}
+            Publié le {{project.created_at|date:"F Y"}}
             {% endlanguage %}
           </small>
         </div>

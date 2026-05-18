@@ -46,7 +46,10 @@ class Project(models.Model):
     )
     title = models.CharField(max_length=200, help_text="Nom du projet.")
     category = models.ForeignKey(
-        ProjectCategory, on_delete=models.CASCADE, related_name="projects"
+        ProjectCategory,
+        on_delete=models.CASCADE,
+        related_name="projects",
+        help_text="Catégorie du projet",
     )
     start_date = models.DateField(help_text="Date de debut du projet")
     end_date = models.DateField(
@@ -57,6 +60,9 @@ class Project(models.Model):
     )
     created_at = models.DateTimeField(
         auto_now_add=True, help_text="Date de création du projet"
+    )
+    published_at = models.DateField(
+        null=True, blank=True, help_text="Date de publication de l'article"
     )
     updated_at = models.DateTimeField(
         auto_now=True, help_text="Date de dernière mise à jour du projet"

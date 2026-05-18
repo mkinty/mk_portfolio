@@ -1,0 +1,47 @@
+{% load static %}
+{% load i18n %}
+{% include 'includes/messages.html' %}
+<div class="add-application-btn">
+  <div class="counter-btn">{{ nb_articles }}</div>
+  <div class="btns">
+    {% if user.is_authenticated %}
+    <button class="btn valid primary"
+            hx-get="{% url 'blog:add' user_id=user_obj.id %}"
+            hx-target="#dialog"
+
+    >Ajouter un article
+    </button>
+    {% endif %}
+  </div>
+</div>
+<div class="projects all">
+  <div class="cards">
+    {% for article in articles %}
+    <div class="card blog-card">
+      <div class="card-image">
+        {% if article.image %}
+        <img src="{{ article.image.url }}" alt="image"/>
+        {% endif %}
+      </div>
+      <div class="card-content">
+        <div class="card-title">
+          {{ article.title }}
+        </div>
+        <div class="btns flex-end">
+          <small class="card-date">
+          {% language 'fr' %}
+          Publié le {{article.created_at|date:"d F Y"}}
+          {% endlanguage %}
+        </small>
+        </div>
+        <div class="card-subtitle">
+          {{ article.description|safe|truncatewords:12 }}
+        </div>
+      </div>
+      <div class="btns flex-end">
+        <a href="{% url 'blog:detail-index' article.id %}" class="btn valid primary">Lire l'article</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
