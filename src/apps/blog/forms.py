@@ -67,7 +67,7 @@ class PostForm(forms.ModelForm):
                 config_name="extends",
                 attrs={
                     "placeholder": "Ex: CI/CD avec github actions, "
-                                   "les bonne pratiques..."
+                    "les bonne pratiques..."
                 },
             ),
         }
