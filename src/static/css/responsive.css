@@ -143,6 +143,11 @@
     min-width: unset;
   }
 
+  /* Projects */
+  .projects-header {
+    flex-direction: column;
+  }
+
   /* Cards */
   .cards {
     justify-content: center;

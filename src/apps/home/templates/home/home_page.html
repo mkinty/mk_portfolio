@@ -33,80 +33,86 @@ Page d'accueil
   </div>
 </div>
 <div class="projects">
-  <div class="projects-container">
-    <div class="projects-title">Projets Data & Engineering</div>
-    <div class="projects-subtitle">Dernièrs projets réalisés</div>
-    <div class="cards">
-      {% for project in data_projects %}
-      <div class="card">
-        <div class="card-image">
-          {% if project.image %}
-          <img src="{{ project.image.url }}" alt="image"/>
-          {% endif %}
-        </div>
-        <div class="card-content">
-          <div class="card-title">
-            {{ project.title }}
-            <small class="card-date">
-              {% language 'fr' %}
-              @ {{project.created_at|date:"F Y"}}
-              {% endlanguage %}
-            </small>
-          </div>
-          <div class="card-subtitle">
-            {{ project.description|safe|truncatewords:12 }}
-          </div>
-        </div>
-        <div class="btns space-between">
-          <a href="{{ project.source_code_url }}" class="btn cancel primary" target="_blank">Voir le code</a>
-          <a href="{% url 'project:detail-index' project.id %}" class="btn valid primary">Voir le projet</a>
+  <div class="projects-header">
+    <div class="projects-title">Projets réalisés</div>
+    <a href="{% url 'project:index' user_obj.id %}">
+      <div class="projects-btn">
+        <div class="btn valid primary">Voir tous les projets</div>
+        <div class="icon">
+          <img src="{% static 'icons/right-arrow.png' %}" alt="right-arrow">
         </div>
       </div>
-      {% endfor %}
-    </div>
+    </a>
   </div>
-  <div class="projects-container">
-    <div class="projects-title">Projets Développements</div>
-    <div class="projects-subtitle">Dernièrs projets réalisés</div>
-    <div class="cards">
-      {% for project in dev_projects %}
-      <div class="card">
-        <div class="card-image">
-          {% if project.image %}
-          <img src="{{ project.image.url }}" alt="image"/>
-          {% endif %}
+  <div class="cards">
+    {% for project in projects %}
+    <div class="card">
+      <div class="card-image">
+        {% if project.image %}
+        <img src="{{ project.image.url }}" alt="image"/>
+        {% endif %}
+      </div>
+      <div class="card-content">
+        <div class="card-title">
+          {{ project.title }}
         </div>
-        <div class="card-content">
-          <div class="card-title">
-            {{ project.title }}
-            <small class="card-date">
-              {% language 'fr' %}
-              @ {{project.created_at|date:"F Y"}}
-              {% endlanguage %}
-            </small>
-          </div>
-          <div class="card-subtitle">
-            {{ project.description|safe|truncatewords:12 }}
-          </div>
+        <div class="btns flex-end">
+          <small class="card-date">
+            {% language 'fr' %}
+            Publié le {{project.created_at|date:"F Y"}}
+            {% endlanguage %}
+          </small>
         </div>
-        <div class="btns space-between">
-          <a href="{{ project.source_code_url }}" class="btn cancel primary" target="_blank">Voir le code</a>
-          <a href="{% url 'project:detail-index' project.id %}" class="btn valid primary">Voir le projet</a>
+        <div class="card-subtitle">
+          {{ project.description|safe|truncatewords:12 }}
         </div>
       </div>
-      {% endfor %}
+      <div class="btns space-between">
+        <a href="{{ project.source_code_url }}" class="btn cancel primary" target="_blank">Voir le code</a>
+        <a href="{% url 'project:detail-index' project.id %}" class="btn valid primary">Voir le projet</a>
+      </div>
     </div>
+    {% endfor %}
   </div>
-</div>
-<div class="projects-container all">
-  <div class="projects-title">Tous les projets réalisés</div>
-  <a href="{% url 'project:index' user_obj.id %}">
-    <div class="projects-btn">
-      <div class="btn valid primary">Voir tous les projets</div>
-      <div class="icon">
-        <img src="{% static 'icons/right-arrow.png' %}" alt="right-arrow">
+  <div class="projects-header">
+    <div class="projects-title">Ressources, conseils et partages d’expérience</div>
+    <a href="{% url 'blog:index' user_obj.id %}">
+      <div class="projects-btn">
+        <div class="btn valid primary">Voir tous les articles</div>
+        <div class="icon">
+          <img src="{% static 'icons/right-arrow.png' %}" alt="right-arrow">
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="cards">
+    {% for article in articles %}
+    <div class="card blog-card">
+      <div class="card-image">
+        {% if article.image %}
+        <img src="{{ article.image.url }}" alt="image"/>
+        {% endif %}
+      </div>
+      <div class="card-content">
+        <div class="card-title">
+          {{ article.title }}
+        </div>
+        <div class="btns flex-end">
+          <small class="card-date">
+            {% language 'fr' %}
+            Publié le {{article.created_at|date:"F Y"}}
+            {% endlanguage %}
+          </small>
+        </div>
+        <div class="card-subtitle">
+          {{ article.description|safe|truncatewords:12 }}
+        </div>
+      </div>
+      <div class="btns flex-end">
+        <a href="{% url 'blog:detail-index' article.id %}" class="btn valid primary">Lire l'article</a>
       </div>
     </div>
-  </a>
+    {% endfor %}
+  </div>
 </div>
 {% endblock content%}

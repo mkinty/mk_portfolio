@@ -51,13 +51,14 @@ INSTALLED_APPS = [
     "apps.notifications",
     "apps.home",
     "apps.userprofile.apps.UserprofileConfig",  # User profile app avec signals
-    "apps.project",
-    "apps.tracking",
     "apps.experiences",
     "apps.skills",
     "apps.education",
     "apps.techstack",
     "apps.certifications",
+    "apps.blog",
+    "apps.project",
+    "apps.tracking",
 ]
 
 MIDDLEWARE = [

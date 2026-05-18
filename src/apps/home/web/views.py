@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 
+from apps.blog.selectors.posts_selectors import PostSelectors
 from apps.notifications.services.email_service import send_email
 from apps.project.selectors.projects_selectors import ProjectSelectors
 from apps.users.selectors.user_selectors import get_user_by_email
@@ -30,24 +31,12 @@ class HomePageView(View):
         user_obj.navbar_url = reverse_lazy("home:home-page")
 
         user_obj.navbar_url = reverse_lazy("home:home-page")
-        data_projects = (
-            ProjectSelectors.get_projects_by_tag("Data")
-            .select_related("category", "user")
-            .prefetch_related("tags")
-            .distinct()[:3]
-            or []
-        )
-        dev_projects = (
-            ProjectSelectors.get_projects_by_tag("Development")
-            .select_related("category", "user")
-            .prefetch_related("tags")
-            .distinct()[:3]
-            or []
-        )
+        projects = (ProjectSelectors.get_projects())[:3]
+        articles = (PostSelectors.get_posts())[:3]
         context = {
             "user_obj": user_obj,
-            "data_projects": data_projects,
-            "dev_projects": dev_projects,
+            "projects": projects,
+            "articles": articles,
         }
         return render(request, self.template_name, context)
 
@@ -92,9 +81,9 @@ class ContactPageView(View):
         send_email(
             subject="Contacte depuis votre site web",
             message=f"Prénom: {first_name}\n"
-            f"Nom: {last_name}\n"
-            f"Email: {email}\n"
-            f"\n{message}",
+                    f"Nom: {last_name}\n"
+                    f"Email: {email}\n"
+                    f"\n{message}",
             recipients=["kintymoustapha@gmail.com"],
         )
         messages.success(request, "Message envoyé avec succès!")

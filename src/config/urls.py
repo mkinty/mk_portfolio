@@ -45,8 +45,6 @@ urlpatterns = [
     path("users/", include("apps.users.web.urls", namespace="users")),
     path("auth/", include("apps.authentication.web.urls", namespace="auth")),
     path("userprofile/", include("apps.userprofile.web.urls", namespace="userprofile")),
-    path("projects/", include("apps.project.web.urls", namespace="project")),
-    path("tracking/", include("apps.tracking.web.urls", namespace="tracking")),
     path("experiences/", include("apps.experiences.web.urls", namespace="experiences")),
     path("skills/", include("apps.skills.web.urls", namespace="skills")),
     path("education/", include("apps.education.web.urls", namespace="education")),
@@ -55,6 +53,9 @@ urlpatterns = [
         "certifications/",
         include("apps.certifications.web.urls", namespace="certifications"),
     ),
+    path("blog/", include("apps.blog.web.urls", namespace="blog")),
+    path("projects/", include("apps.project.web.urls", namespace="project")),
+    path("tracking/", include("apps.tracking.web.urls", namespace="tracking")),
 ]
 
 # Servir les fichiers media et statiques seulement en développement
