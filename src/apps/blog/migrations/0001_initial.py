@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -16,38 +15,144 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='PostTag',
+            name="PostTag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Nom du tag', max_length=50, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Nom du tag", max_length=50, unique=True
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='PostCategory',
+            name="PostCategory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text="Nom de la catégorie de l'article.", max_length=100)),
-                ('created_at', models.DateTimeField(auto_now_add=True, help_text='Date de création de la catégorie.')),
-                ('user', models.ForeignKey(help_text="Utilisateur propriétaire des catégories d'articles.", on_delete=django.db.models.deletion.CASCADE, related_name='post_categories', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Nom de la catégorie de l'article.", max_length=100
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, help_text="Date de création de la catégorie."
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        help_text="Utilisateur propriétaire des catégories d'articles.",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="post_categories",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Post',
+            name="Post",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text="Nom de l'article.", max_length=200)),
-                ('published_at', models.DateField(blank=True, help_text="Date de publication de l'article")),
-                ('is_active', models.BooleanField(default=True, help_text="Statut du l'article (actif/inactif)")),
-                ('created_at', models.DateTimeField(auto_now_add=True, help_text="Date de création de l'article")),
-                ('updated_at', models.DateTimeField(auto_now=True, help_text="Date de dernière mise à jour de l'article")),
-                ('image', models.ImageField(blank=True, help_text="Image de l'article", null=True, upload_to='posts/images/')),
-                ('description', django_ckeditor_5.fields.CKEditor5Field(blank=True, help_text="Détails complets sur l'article.", verbose_name='Content')),
-                ('user', models.ForeignKey(help_text='Utilisateur propriétaire des articles.', on_delete=django.db.models.deletion.CASCADE, related_name='user_articles', to=settings.AUTH_USER_MODEL)),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='articles', to='blog.postcategory')),
-                ('tags', models.ManyToManyField(blank=True, help_text="Tags de l'article", to='blog.posttag')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(help_text="Nom de l'article.", max_length=200),
+                ),
+                (
+                    "published_at",
+                    models.DateField(
+                        blank=True, help_text="Date de publication de l'article"
+                    ),
+                ),
+                (
+                    "is_active",
+                    models.BooleanField(
+                        default=True, help_text="Statut du l'article (actif/inactif)"
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, help_text="Date de création de l'article"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True,
+                        help_text="Date de dernière mise à jour de l'article",
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True,
+                        help_text="Image de l'article",
+                        null=True,
+                        upload_to="posts/images/",
+                    ),
+                ),
+                (
+                    "description",
+                    django_ckeditor_5.fields.CKEditor5Field(
+                        blank=True,
+                        help_text="Détails complets sur l'article.",
+                        verbose_name="Content",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        help_text="Utilisateur propriétaire des articles.",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="user_articles",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="articles",
+                        to="blog.postcategory",
+                    ),
+                ),
+                (
+                    "tags",
+                    models.ManyToManyField(
+                        blank=True, help_text="Tags de l'article", to="blog.posttag"
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-created_at'],
+                "ordering": ["-created_at"],
             },
         ),
     ]

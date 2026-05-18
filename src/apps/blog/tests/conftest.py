@@ -2,7 +2,7 @@ from datetime import date
 
 import pytest
 
-from apps.blog.models import PostCategory, PostTag, Post
+from apps.blog.models import Post, PostCategory, PostTag
 from apps.users.models import User
 
 

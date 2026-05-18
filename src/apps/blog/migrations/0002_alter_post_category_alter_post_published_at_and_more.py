@@ -5,25 +5,33 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0001_initial'),
+        ("blog", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='category',
-            field=models.ForeignKey(help_text="Catégorie de l'article", on_delete=django.db.models.deletion.CASCADE, related_name='articles', to='blog.postcategory'),
+            model_name="post",
+            name="category",
+            field=models.ForeignKey(
+                help_text="Catégorie de l'article",
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="articles",
+                to="blog.postcategory",
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='published_at',
-            field=models.DateField(blank=True, help_text="Date de publication de l'article", null=True),
+            model_name="post",
+            name="published_at",
+            field=models.DateField(
+                blank=True, help_text="Date de publication de l'article", null=True
+            ),
         ),
         migrations.AlterField(
-            model_name='postcategory',
-            name='name',
-            field=models.CharField(help_text='Nom de la catégorie articles.', max_length=100),
+            model_name="postcategory",
+            name="name",
+            field=models.CharField(
+                help_text="Nom de la catégorie articles.", max_length=100
+            ),
         ),
     ]

@@ -81,9 +81,9 @@ class ContactPageView(View):
         send_email(
             subject="Contacte depuis votre site web",
             message=f"Prénom: {first_name}\n"
-                    f"Nom: {last_name}\n"
-                    f"Email: {email}\n"
-                    f"\n{message}",
+            f"Nom: {last_name}\n"
+            f"Email: {email}\n"
+            f"\n{message}",
             recipients=["kintymoustapha@gmail.com"],
         )
         messages.success(request, "Message envoyé avec succès!")

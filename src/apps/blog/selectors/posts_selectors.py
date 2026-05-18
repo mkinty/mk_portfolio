@@ -1,4 +1,4 @@
-from apps.blog.models import PostCategory, PostTag, Post
+from apps.blog.models import Post, PostCategory, PostTag
 
 
 class PostCategorySelectors:

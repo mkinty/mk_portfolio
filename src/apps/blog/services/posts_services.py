@@ -1,8 +1,8 @@
-from apps.blog.forms import PostCategoryForm, PostTagForm, PostForm
+from apps.blog.forms import PostCategoryForm, PostForm, PostTagForm
 from apps.blog.selectors.posts_selectors import (
     PostCategorySelectors,
-    PostTagSelectors,
     PostSelectors,
+    PostTagSelectors,
 )
 from apps.users.selectors.user_selectors import get_user_by_id
 

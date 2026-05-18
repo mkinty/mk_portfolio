@@ -3,7 +3,6 @@ from django_ckeditor_5.fields import CKEditor5Field
 
 from config.settings import settings
 
-
 # Create your models here.
 
 
@@ -42,6 +41,7 @@ class Post(models.Model):
     """
     Article
     """
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -50,16 +50,16 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=200, help_text="Nom de l'article.")
     category = models.ForeignKey(
-        PostCategory, on_delete=models.CASCADE, related_name="articles",
-        help_text="Catégorie de l'article"
+        PostCategory,
+        on_delete=models.CASCADE,
+        related_name="articles",
+        help_text="Catégorie de l'article",
     )
     created_at = models.DateTimeField(
         auto_now_add=True, help_text="Date de création de l'article"
     )
     published_at = models.DateField(
-        null=True,
-        blank=True,
-        help_text="Date de publication de l'article"
+        null=True, blank=True, help_text="Date de publication de l'article"
     )
     updated_at = models.DateTimeField(
         auto_now=True, help_text="Date de dernière mise à jour de l'article"

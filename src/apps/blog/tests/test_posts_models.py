@@ -29,7 +29,6 @@ class TestPostModel:
         assert post.category == post_category
         assert post.is_active is True
 
-
     def test_str_method(self, post):
         assert str(post) == "Portfolio"
 

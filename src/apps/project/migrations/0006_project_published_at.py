@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('project', '0005_alter_project_category'),
+        ("project", "0005_alter_project_category"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='project',
-            name='published_at',
-            field=models.DateField(blank=True, help_text="Date de publication de l'article", null=True),
+            model_name="project",
+            name="published_at",
+            field=models.DateField(
+                blank=True, help_text="Date de publication de l'article", null=True
+            ),
         ),
     ]

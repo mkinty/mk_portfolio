@@ -1,7 +1,7 @@
 from django import forms
 from django_ckeditor_5.widgets import CKEditor5Widget
 
-from apps.blog.models import PostCategory, PostTag, Post
+from apps.blog.models import Post, PostCategory, PostTag
 
 
 class PostCategoryForm(forms.ModelForm):
@@ -30,9 +30,7 @@ class PostTagForm(forms.ModelForm):
         model = PostTag
         fields = ["name"]
         widgets = {
-            "name": forms.TextInput(
-                attrs={"placeholder": "Ex: DevOps, Data, etc."}
-            ),
+            "name": forms.TextInput(attrs={"placeholder": "Ex: DevOps, Data, etc."}),
         }
 
         labels = {"name": "Nom du tag"}
@@ -67,7 +65,10 @@ class PostForm(forms.ModelForm):
             "is_active": forms.CheckboxInput(),
             "description": CKEditor5Widget(
                 config_name="extends",
-                attrs={"placeholder": "Ex: CI/CD avec github actions, les bonne pratiques..."},
+                attrs={
+                    "placeholder": "Ex: CI/CD avec github actions, "
+                                   "les bonne pratiques..."
+                },
             ),
         }
 

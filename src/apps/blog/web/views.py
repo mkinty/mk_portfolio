@@ -7,13 +7,13 @@ from django.views import View
 
 from apps.blog.selectors.posts_selectors import (
     PostCategorySelectors,
-    PostTagSelectors,
     PostSelectors,
+    PostTagSelectors,
 )
 from apps.blog.services.posts_services import (
     PostCategoryServices,
-    PostTagServices,
     PostServices,
+    PostTagServices,
 )
 from apps.users.selectors.user_selectors import get_user_by_id
 from apps.utils.services.http_responses import HTTPResponseHXRedirect
@@ -26,9 +26,7 @@ class PostsIndexView(View):
         user_obj = get_user_by_id(user_id)
         categories = PostCategorySelectors.get_post_categories()
         tags = PostTagSelectors.get_post_tags()
-        categories.navbar_url = reverse_lazy(
-            "blog:index", kwargs={"user_id": user_id}
-        )
+        categories.navbar_url = reverse_lazy("blog:index", kwargs={"user_id": user_id})
         articles = PostSelectors.get_posts()
         articles.navbar_url = reverse_lazy("blog:index", kwargs={"user_id": user_id})
 

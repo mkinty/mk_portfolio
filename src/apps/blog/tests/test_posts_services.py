@@ -2,11 +2,11 @@ from datetime import date
 
 import pytest
 
-from apps.blog.models import PostCategory, PostTag, Post
+from apps.blog.models import Post, PostCategory, PostTag
 from apps.blog.services.posts_services import (
     PostCategoryServices,
-    PostTagServices,
     PostServices,
+    PostTagServices,
 )
 
 

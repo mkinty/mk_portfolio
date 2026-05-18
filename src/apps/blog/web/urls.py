@@ -1,24 +1,24 @@
 from django.urls import path
 
 from apps.blog.web.views import (
-    # Posts lists
-    PostsIndexView,
-    PostsView,
+    # CRUD for Post
+    PostAddView,
+    # CRUD for Post Category
+    PostCategoryAddView,
+    PostCategoryDeleteView,
+    PostCategoryUpdateView,
+    PostDeleteView,
     # Post Detail
     PostDetailIndexView,
     PostDetailView,
-    # CRUD for Post Category
-    PostCategoryAddView,
-    PostCategoryUpdateView,
-    PostCategoryDeleteView,
+    # Posts lists
+    PostsIndexView,
+    PostsView,
     # CRUD for Post Tag
     PostTagAddView,
-    PostTagUpdateView,
     PostTagDeleteView,
-    # CRUD for Post
-    PostAddView,
+    PostTagUpdateView,
     PostUpdateView,
-    PostDeleteView,
 )
 
 app_name = "blog"

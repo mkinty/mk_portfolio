@@ -5,8 +5,8 @@ import pytest
 from apps.blog.models import Post
 from apps.blog.selectors.posts_selectors import (
     PostCategorySelectors,
-    PostTagSelectors,
     PostSelectors,
+    PostTagSelectors,
 )
 from apps.users.models import User
 
