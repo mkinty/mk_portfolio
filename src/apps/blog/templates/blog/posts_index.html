@@ -4,58 +4,33 @@
 Liste des articles
 {% endblock title %}
 {% block content %}
-<div class="content-header blog">
+<div class="content-header">
+  <div class="content-header-title">
+    Retours d'expérience, bonnes pratiques et veille tech, des contenus concrets pour progresser dans l'écosystème data
+    et le développement Python.
+  </div>
   <div class="search-container" id="filters">
-    <!-- Search input -->
-    <div class="filter">
-      <div class="icon-container">
-        <img class="btn-icon" src="{% static 'icons/search.png' %}" alt="edit-btn">
+    <!-- Tags -->
+    <div class="tags-filters">
+      <div class="tags-btn">
+        Mots-clés
+        <img class="btn-icon" src="{% static 'icons/filter.png' %}" alt="filter">
       </div>
-      <input type="search"
-             name="qs"
-             hx-get="{% url 'blog:list' user_obj.id %}"
-             hx-trigger="change"
-             hx-target="#posts-container"
-             hx-include="#filters"
-             placeholder="Chercher ici"/>
-    </div>
-    <div class="category">
-      <div class="field">
-        <!-- Catégorie -->
-        <select name="category"
-                hx-get="{% url 'blog:list' user_obj.id %}"
-                hx-trigger="change"
-                hx-target="#posts-container"
-                hx-include="#filters"
-        >
-          <option value="">Toutes les catégories</option>
-          {% for category in categories %}
-          <option value="{{ category.id }}">{{ category.name }}</option>
-          {% endfor %}
-        </select>
-        <!-- Tags -->
-        <div class="tags-filters">
-          <div class="tags-btn">
-            Filtres et tri
-            <img class="btn-icon" src="{% static 'icons/filter.png' %}" alt="filter">
-          </div>
-          <div class="field field-filters">
-            {% for tag in tags %}
-            <label>
-              <input
-                      type="checkbox"
-                      name="tags"
-                      value="{{ tag.id }}"
-                      hx-get="{% url 'blog:list' user_obj.id %}"
-                      hx-trigger="change"
-                      hx-target="#posts-container"
-                      hx-include="#filters"
-              >
-              {{ tag.name }}
-            </label>
-            {% endfor %}
-          </div>
-        </div>
+      <div class="field field-filters">
+        {% for tag in tags %}
+        <label>
+          <input
+                  type="checkbox"
+                  name="tags"
+                  value="{{ tag.id }}"
+                  hx-get="{% url 'blog:list' user_obj.id %}"
+                  hx-trigger="change"
+                  hx-target="#posts-container"
+                  hx-include="#filters"
+          >
+          {{ tag.name }}
+        </label>
+        {% endfor %}
       </div>
     </div>
   </div>

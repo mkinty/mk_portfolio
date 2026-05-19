@@ -54,6 +54,7 @@ class ProjectForm(forms.ModelForm):
             "image",
             "tags",
             "is_active",
+            "published_at",
             "description",
         ]
         widgets = {
@@ -71,6 +72,7 @@ class ProjectForm(forms.ModelForm):
             "image": forms.FileInput(),
             "tags": forms.SelectMultiple(attrs={"class": "chosen-select"}),
             "is_active": forms.CheckboxInput(),
+            "published_at": forms.DateInput(attrs={"type": "date"}),
             "description": CKEditor5Widget(
                 config_name="extends",
                 attrs={"placeholder": "Ex: Development de l'application..."},

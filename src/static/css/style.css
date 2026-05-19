@@ -436,16 +436,24 @@ small {
 
 .content-header {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
+  gap: 4rem;
+  justify-content: space-between;
   padding: 10rem;
   background: var(--Silver);
 }
 
+.content-header-title {
+  width: 70%;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--Dark);
+}
+
+
 .add-application-btn {
   position: absolute;
-  top: 22rem;
+  top: 45rem;
   left: 10rem;
   display: flex;
   flex-direction: row;
@@ -454,9 +462,9 @@ small {
 }
 
 .counter-btn {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--Dark);
+  font-weight: 100;
+  color: var(--Grey);
+  text-transform: uppercase;
   margin: 2rem 0;
 }
 
@@ -466,17 +474,16 @@ small {
    ============================================================ */
 
 .search-container {
+  width: 30%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: 4rem;
-  width: 100%;
   border-radius: 0.2rem;
 }
 
 .filter {
-  flex: 1;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -484,15 +491,16 @@ small {
   align-items: center;
   border-radius: 3rem;
   padding:0;
-  border: 1.5px solid var(--Grey);
+  border: 1px solid var(--Divider);
 }
 .filter .icon-container {
   height: 100%;
   width: 5rem;
   margin: 0;
   padding: 1rem 1.5rem 0.5rem 1.5rem;
-  border-radius-left: 3rem;
-  border-right: 1.5px solid var(--Grey);
+  border-top-left-radius: 3rem;
+  border-bottom-left-radius: 3rem;
+  border-right: 1px solid var(--Divider);
 }
 .filter .icon-container .btn-icon {
   width: 2.5rem;
@@ -514,14 +522,9 @@ small {
 /* Catégorie / dropdown filtre */
 .category {
   position: relative;
-  width: 25rem;
+  width: 100%;
 }
-.category .nav {
-  position: absolute;
-  top: -2rem;
-  width: 30rem;
-  border: 1.5px solid var(--Grey);
-}
+
 .category .field { padding: 0; }
 .category .field select { background: var(--Silver); }
 
@@ -532,16 +535,14 @@ small {
 
 /* Filtres par tags */
 .tags-filters {
-  position: relative;
-  margin-top: 2rem;
+  width: 100%;
 }
 .field-filters {
   width: 100%;
-  position: absolute;
   display: flex;
   flex-direction: column;
   top: 5rem;
-  height: 8rem;
+  height: 11rem;
   overflow-y: auto;
 }
 .tags-btn {
@@ -825,21 +826,63 @@ small {
   align-items: center;
 }
 
-.projects-title    { font-size: 2.8rem; font-weight: 700; color: var(--Dark); max-width: 50%; }
+.projects-title    {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--Dark);
+  max-width: 50%;
+}
 .projects-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  margin: 1rem 0;
-  padding: 0.8rem;
-  background: var(--White);
-  border-radius: 5rem;
+  border: 1.5px solid var(--Primary);
+  padding: 0rem;
+  border-radius: 3rem;
 }
-.projects-btn .btn  { width: 100%; border-radius: 5rem; }
-.projects-btn .icon { width: 4rem; }
+.projects-btn .btn  {
+  width: 100%;
+  border-radius: 2rem;
+  padding: 0.8rem 1rem;
+  background: var(--Primary);
+  color: var(--White);
+  transition: all 0s ease;
+}
+.projects-btn:hover .btn {
+  background: var(--White);
+  color: var(--Primary);
+  transition: all 0s ease;
+}
 
+.projects-btn .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 4rem;
+  border-radius: 3rem;
+}
 
+.projects-btn .icon img{
+  width: 3rem;
+  height: 3rem;
+}
+.projects-btn .icon img.hover-block{
+  display: none;
+}
+
+.projects-btn:hover .icon img.hover-none{
+  display: none;
+}
+
+.projects-btn:hover .icon img.hover-block{
+  display: block;
+}
+
+.projects-btn:hover .icon {
+  background: var(--Primary);
+  color: var(--White);
+}
 /* ============================================================
    16. PAGE — Détail d'un projet (layout + sidebar)
    ============================================================ */
@@ -929,11 +972,12 @@ small {
   overflow: hidden;
 }
 .author-picture img { width: 100%; height: 100%; object-fit: cover; }
-.author-name     { font-size: 1.6rem; font-weight: 700; color: var(--Dark); margin-bottom: 0.5rem; }
-.author-title    { font-size: 1.4rem; color: var(--D_Grey); font-weight: 500; }
-.author-position { font-size: 1.2rem; color: var(--D_Grey); }
-.author-date     { font-size: 1.2rem; color: var(--D_Grey); padding: 0.8rem 0; }
+.author-name     { font-size: 1.6rem; font-weight: 700; color: var(--Dark); margin-bottom: 0.1rem; }
+.author-title    { font-size: 1.2rem; color: var(--D_Grey); font-weight: 500; }
+.author-position { font-size: 1.1rem; color: var(--D_Grey); }
+.author-date     { font-size: 1rem; color: var(--D_Grey); margin: 0.2rem;}
 .author-date.updated { color: var(--Primary); }
+.author-date.published { color: var(--Dark); }
 
 
 /* ============================================================
@@ -1015,6 +1059,14 @@ small {
   margin-bottom: 0.5rem;
   font-weight: 600;
 }
+.field.filter-btn select {
+  border: 1px solid var(--Primary);
+  cursor: pointer;
+  background: var(--Primary);
+  border-radius: 0.3rem;
+  color: var(--White);
+  }
+
 .field.field-filters label { font-weight: normal; font-size: 1.6rem; }
 .field label.title         { margin-bottom: 1rem; }
 

@@ -63,9 +63,9 @@ class PostsView(View):
 
         # Nombre d'articles
         nb_articles = (
-            f"{len(articles)} Articles"
+            f"{len(articles)} Articles trouvés"
             if len(articles) > 1
-            else f"{len(articles)} Article"
+            else f"{len(articles)} Article trouvé"
         )
 
         context = {

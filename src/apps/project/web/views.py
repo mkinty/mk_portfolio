@@ -65,9 +65,9 @@ class ProjectsView(View):
 
         # projets réalisés
         nb_projects = (
-            f"{len(projects)} Projets réalisés"
+            f"{len(projects)} projets trouvés"
             if len(projects) > 1
-            else f"{len(projects)} Projet réalisé"
+            else f"{len(projects)} projet trouvé"
         )
 
         context = {

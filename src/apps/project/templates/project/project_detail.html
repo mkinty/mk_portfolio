@@ -63,14 +63,6 @@
         <div class="author-title">
           {{ user_obj.profile.title }}
         </div>
-        <div class="author-position">
-          {{ user_obj.profile.position }}
-        </div>
-        <div class="author-date created">
-          {% language 'fr' %}
-          Créé le {{ project.created_at|date:"d F Y" }}
-          {% endlanguage %}
-        </div>
         <div class="author-date published">
           {% language 'fr' %}
           Publié le {{ project.published_at|date:"d F Y" }}

@@ -5,22 +5,13 @@ Liste des projets
 {% endblock title %}
 {% block content %}
 <div class="content-header">
+  <div class="content-header-title">
+    De la donnée brute aux insights qui font la différence, explorez mes projets en Data Analytics, Engineering,
+    Science, ML & Python, tous orientés résultats concrets.
+  </div>
   <div class="search-container" id="filters">
-    <!-- Search input -->
-    <div class="filter">
-      <div class="icon-container">
-        <img class="btn-icon" src="{% static 'icons/search.png' %}" alt="edit-btn">
-      </div>
-      <input type="search"
-             name="qs"
-             hx-get="{% url 'project:list' user_obj.id %}"
-             hx-trigger="change"
-             hx-target="#projects-container"
-             hx-include="#filters"
-             placeholder="Chercher ici"/>
-    </div>
     <div class="category">
-      <div class="field">
+      <div class="field filter-btn">
         <!-- Catégorie -->
         <select name="category"
                 hx-get="{% url 'project:list' user_obj.id %}"
@@ -36,7 +27,7 @@ Liste des projets
         <!-- Tags -->
         <div class="tags-filters">
           <div class="tags-btn">
-            Filtres et tri
+            Mots-clés
             <img class="btn-icon" src="{% static 'icons/filter.png' %}" alt="filter">
           </div>
           <div class="field field-filters">
@@ -57,6 +48,19 @@ Liste des projets
           </div>
         </div>
       </div>
+    </div>
+    <!-- Search input -->
+    <div class="filter">
+      <div class="icon-container">
+        <img class="btn-icon" src="{% static 'icons/search.png' %}" alt="edit-btn">
+      </div>
+      <input type="search"
+             name="qs"
+             hx-get="{% url 'project:list' user_obj.id %}"
+             hx-trigger="change"
+             hx-target="#projects-container"
+             hx-include="#filters"
+             placeholder="Chercher ici"/>
     </div>
   </div>
 </div>

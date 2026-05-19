@@ -34,12 +34,13 @@ Page d'accueil
 </div>
 <div class="projects">
   <div class="projects-header">
-    <div class="projects-title">Projets réalisés</div>
+    <div class="projects-title">Retrouvez tous mes projets réalisés</div>
     <a href="{% url 'project:index' user_obj.id %}">
       <div class="projects-btn">
-        <div class="btn valid primary">Voir tous les projets</div>
+        <div class="btn">Voir tous les projets</div>
         <div class="icon">
-          <img src="{% static 'icons/right-arrow.png' %}" alt="right-arrow">
+          <img class="hover-none" src="{% static 'icons/right-arrow.png' %}" alt="right-arrow">
+          <img class="hover-block" src="{% static 'icons/white-right-arrow.png' %}" alt="right-arrow">
         </div>
       </div>
     </a>
@@ -75,12 +76,13 @@ Page d'accueil
     {% endfor %}
   </div>
   <div class="projects-header">
-    <div class="projects-title">Ressources, conseils et partages d’expérience</div>
+    <div class="projects-title">Retrouves toutes mes ressources, conseils et partages d’expérience</div>
     <a href="{% url 'blog:index' user_obj.id %}">
       <div class="projects-btn">
-        <div class="btn valid primary">Voir tous les articles</div>
+        <div class="btn">Voir tous les articles</div>
         <div class="icon">
-          <img src="{% static 'icons/right-arrow.png' %}" alt="right-arrow">
+          <img class="hover-none" src="{% static 'icons/right-arrow.png' %}" alt="right-arrow">
+          <img class="hover-block" src="{% static 'icons/white-right-arrow.png' %}" alt="right-arrow">
         </div>
       </div>
     </a>
