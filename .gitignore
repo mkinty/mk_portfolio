@@ -22,6 +22,7 @@ staticfiles/
 # Logs
 logs/
 
+dump.rdb
 # config
 src/config/settings/dev.py
 src/config/settings/prod.py
