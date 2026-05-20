@@ -5,22 +5,24 @@ Liste des candidatures
 {% endblock title %}
 {% block content %}
 <div class="content-header">
-  <div class="search-container" id="filters">
-    <!-- Search input -->
-    <div class="filter">
+  <!-- Search input -->
+  <div class="filter">
+    <div class="icon-container">
       <img class="btn-icon" src="{% static 'icons/search.png' %}" alt="edit-btn">
-      <input type="search"
-             name="qs"
-             hx-get="{% url 'tracking:applications-tracking' user_obj.id %}"
-             hx-trigger="change"
-             hx-target="#applications-container"
-             hx-include="#filters"
-             placeholder="Chercher ici"/>
     </div>
+    <input type="search"
+           name="qs"
+           hx-get="{% url 'tracking:applications-tracking' user_obj.id %}"
+           hx-trigger="change"
+           hx-target="#applications-container"
+           hx-include="#filters"
+           placeholder="Chercher ici"/>
+  </div>
+  <div class="search-container" id="filters">
     <!-- Tags -->
     <div class="category">
       <div class="tags-btn">
-        Filtres et tri par statut
+        Filtres par statut
         <img class="btn-icon" src="{% static 'icons/filter.png' %}" alt="filter">
       </div>
       <div class="field field-filters">

@@ -448,6 +448,7 @@ small {
   font-size: 4rem;
   font-weight: 700;
   color: var(--Dark);
+  margin-bottom: 2rem;
 }
 
 
@@ -459,6 +460,10 @@ small {
   flex-direction: row;
   align-items: center;
   gap: 4rem;
+}
+
+.add-application-btn.medium {
+  top: 25rem;
 }
 
 .counter-btn {
@@ -521,7 +526,6 @@ small {
 
 /* Catégorie / dropdown filtre */
 .category {
-  position: relative;
   width: 100%;
 }
 
@@ -551,7 +555,7 @@ small {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   cursor: pointer;
   border-bottom: 1.5px solid var(--Divider);
 }
